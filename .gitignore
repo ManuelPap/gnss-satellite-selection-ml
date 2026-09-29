@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Generated results
+outputs/
+results/
+checkpoints/
+
+# Local/private provenance
+PROVENANCE_LOCAL.md
