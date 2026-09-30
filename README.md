@@ -1,21 +1,33 @@
 # GNSS Satellite Selection ML
 
-Experimental framework for machine-learning methods applied to GNSS
-satellite selection and positioning.
+Independent experiments for machine-learning methods applied to GNSS
+positioning and, in later milestones, exact-cardinality satellite selection.
 
-The project focuses on reproducible implementation and validation of
-learning-based GNSS positioning methods, beginning with differentiable
-weighted least-squares positioning and progressing toward
-fixed-cardinality satellite selection.
+## Current milestone
 
-## Current scope
+The repository currently contains the smallest synthetic differentiable WLS
+baseline:
 
-The first development stage investigates:
+- deterministic one-constellation GNSS-scale geometry;
+- independent NumPy and differentiable PyTorch float64 solvers;
+- iteration-level forward-oracle tests;
+- autograd versus central finite-difference gradient tests;
+- scaling, permutation, bad-measurement, conditioning, and leakage checks;
+- a tiny network that learns bounded positive relative precisions from
+  synthetic quality, elevation, and equal-precision OLS residual features.
 
-- differentiable weighted least-squares GNSS positioning;
-- numerical comparison with conventional GNSS solvers;
-- gradient validation;
-- established learning-based GNSS positioning methods.
+This milestone deliberately excludes real GNSS observations, RTKLIB
+comparison, Top-k, and satellite selection. The synthetic quality indicator is
+not real C/N0, and the reported result is not a real-world positioning claim.
 
-Satellite-selection learning will be developed after the positioning
-baseline has been independently validated.
+## Run
+
+```bash
+.venv/bin/python -m pytest -q
+PYTHONPATH=src .venv/bin/python experiments/synthetic_precision_learning.py --seed 20260929
+```
+
+The experiment prints the forward discrepancies, gradient errors, invariant
+and conditioning diagnostics, and held-out precision-learning metrics. See
+[validation/README.md](validation/README.md) for equations, assumptions,
+fixed-seed results, provenance distinctions, and limitations.
