@@ -17,3 +17,10 @@ checkpoints/
 
 # Local/private provenance
 PROVENANCE_LOCAL.md
+
+# Local real-KLT reproduction inputs and generated binary traces
+validation/real_klt/data/
+validation/real_klt/downloads/
+validation/real_klt/tmp/
+validation/real_klt/*.zip
+validation/real_klt/*.npz

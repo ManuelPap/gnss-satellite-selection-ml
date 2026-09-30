@@ -1,0 +1,97 @@
+{
+  "formula": "N=H.T@W@H; g=H.T@W@v; delta=numpy.linalg.solve(N,g)",
+  "independent_implementation": "NumPy float64 only; consumes exported H, effective residual v, and W",
+  "iterations": [
+    {
+      "condition_number_2": 225.28355944067576,
+      "delta_solve_vs_reference_inverse": {
+        "max_abs": 3.3573144264664734e-13,
+        "relative_max_scale": 1.718723636390165e-14
+      },
+      "full_rank": true,
+      "h_residual_row_alignment_equal": true,
+      "iteration": 0,
+      "normal_matrix": {
+        "max_abs": 1.7763568394002505e-15,
+        "relative_max_scale": 1.850371707708594e-16
+      },
+      "passed": true,
+      "rank": 4,
+      "raw_effective_residual_equal": true,
+      "rhs": {
+        "max_abs": 0.0,
+        "relative_max_scale": 0.0
+      },
+      "rows": 8,
+      "solve_error": null,
+      "state_dimension": 4,
+      "updated_state": {
+        "max_abs": 0.0,
+        "relative_max_scale": 0.0
+      },
+      "weight_diagonal": [
+        0.5,
+        0.7,
+        0.9,
+        1.1,
+        1.3,
+        1.5,
+        1.7000000000000002,
+        1.9000000000000001
+      ]
+    },
+    {
+      "condition_number_2": 225.28300555227477,
+      "delta_solve_vs_reference_inverse": {
+        "max_abs": 1.4510148724916627e-15,
+        "relative_max_scale": 1.4510148724916627e-15
+      },
+      "full_rank": true,
+      "h_residual_row_alignment_equal": true,
+      "iteration": 1,
+      "normal_matrix": {
+        "max_abs": 1.7763568394002505e-15,
+        "relative_max_scale": 1.850371707708594e-16
+      },
+      "passed": true,
+      "rank": 4,
+      "raw_effective_residual_equal": true,
+      "rhs": {
+        "max_abs": 0.0,
+        "relative_max_scale": 0.0
+      },
+      "rows": 8,
+      "solve_error": null,
+      "state_dimension": 4,
+      "updated_state": {
+        "max_abs": 0.0,
+        "relative_max_scale": 0.0
+      },
+      "weight_diagonal": [
+        0.5,
+        0.7,
+        0.9,
+        1.1,
+        1.3,
+        1.5,
+        1.7000000000000002,
+        1.9000000000000001
+      ]
+    }
+  ],
+  "max_discrepancies": {
+    "delta_max_abs": 3.3573144264664734e-13,
+    "normal_matrix_max_abs": 1.7763568394002505e-15,
+    "rhs_max_abs": 0.0,
+    "updated_state_max_abs": 0.0
+  },
+  "passed": true,
+  "tolerances": {
+    "condition_number_2_max": 1000000000000.0,
+    "delta_max_abs": 1e-12,
+    "normal_matrix_max_abs": 5e-15,
+    "rhs_max_abs": 1e-12,
+    "updated_state_max_abs": 1e-12
+  },
+  "trace": "validation/real_klt/paper_epoch_trace.npz"
+}

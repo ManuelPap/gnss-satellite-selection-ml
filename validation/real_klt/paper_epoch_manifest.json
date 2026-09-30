@@ -1,0 +1,151 @@
+{
+  "active_state_indices_per_iteration": [
+    [
+      0,
+      1,
+      2,
+      3
+    ],
+    [
+      0,
+      1,
+      2,
+      3
+    ]
+  ],
+  "dataset_archive_sha256": "2afd7b1e395f8494e6992d1e109f9e8d9d83d992bf6d446d83d91aaf46cfc721",
+  "dataset_archive_size_bytes": 58785110,
+  "dataset_archive_url": "https://www.dropbox.com/scl/fi/d3urwaquf5ema5j0unmt4/data.zip?rlkey=tuwpx9pdzqtdvoeoqwhcc5gi8&st=wh5qhg6e&dl=1",
+  "epoch_index_after_split": 2382,
+  "epoch_time_gpst_unix_like": 1623296154.005,
+  "epoch_time_iso_gpst_like": "2021-06-10T03:35:54.005000+00:00",
+  "final_state": [
+    -2417858.878882711,
+    5384804.946954405,
+    2408324.985628578,
+    1581600.17818899,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "h_compact_rows": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "iterations": 2,
+  "last_raw_residual_norm_m": 10.734485749879749,
+  "legacy_torch_behavior_preserved": {
+    "ionosphere_delay_all_zero": true,
+    "predicted_observation_component_reconstruction_max_abs_m": 0.0,
+    "returned_vion_vtrp_are_variances_not_delays": true,
+    "torch_azel_all_zero": true,
+    "troposphere_delay_all_zero": true,
+    "uninitialized_los_used_for_satazel": true
+  },
+  "ols_initial_state": [
+    -2417850.6248949184,
+    5384790.762720588,
+    2408319.1245824904,
+    1581580.6444318756,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "pyrtklib_hypothesis_commit": "916d3cc8eb202718a16097cea4a5729bd6b27ac5",
+  "pyrtklib_publication_version_uncertain": true,
+  "pyrtklib_version": "0.2.6",
+  "reference_commit": "dd5eac669676ba0a922102047e58c2dfc9be9267",
+  "residual_compact_rows_from_list_set": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "rover_observation": {
+    "archive_path": "data/0610_KLT/COM38_210610_025603.obs",
+    "sha256": "f722557326d1d32c42e023d4e78515e885d21c8ae824e79460bef61c67b9b5c4",
+    "size_bytes": 43298475
+  },
+  "row_alignment_equal": true,
+  "runtime": {
+    "device": "cpu",
+    "numpy": "2.5.1",
+    "pyrtklib": "0.2.6",
+    "python": "3.12.3",
+    "torch": "2.14.0+cpu"
+  },
+  "satellite_ids": [
+    "G01",
+    "G03",
+    "G07",
+    "G14",
+    "G21",
+    "G22",
+    "G28",
+    "G30"
+  ],
+  "selection_note": "First valid GPS-only epoch satisfying paper config t > 1623296154; fractional .005 makes 03:35:54.005 eligible.",
+  "source_row_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "status": true,
+  "weight_by_satellite": {
+    "G01": 0.5,
+    "G03": 0.7,
+    "G07": 0.9,
+    "G14": 1.1,
+    "G21": 1.3,
+    "G22": 1.5,
+    "G28": 1.7000000000000002,
+    "G30": 1.9000000000000001
+  },
+  "wildcard_inputs": [
+    {
+      "name": "hksc161d.21f",
+      "sha256": "64e8e3ec2f4a9eeb17379a499e5779d378978b834a1a1441240e487e7ce23768",
+      "size_bytes": 30066
+    },
+    {
+      "name": "hksc161d.21g",
+      "sha256": "0bddf6292d39f00845e9038f7f87dcecc403ec9944ca144b7345bcb233d8e660",
+      "size_bytes": 12854
+    },
+    {
+      "name": "hksc161d.21l",
+      "sha256": "795de82407d394097628a7a2595e284d666df3dc62c4ad5a34896d6de05b84e3",
+      "size_bytes": 66436
+    },
+    {
+      "name": "hksc161d.21m",
+      "sha256": "9583d5e061d46f3de29b6f783332dda9e7ff61d62041f2c8a031f6b45628e376",
+      "size_bytes": 3593
+    },
+    {
+      "name": "hksc161d.21n",
+      "sha256": "a5bc8ab35fe0c80f91d0e57517b495be6563385d235835fd6aa063d73bb7072c",
+      "size_bytes": 21558
+    },
+    {
+      "name": "hksc161d.21o",
+      "sha256": "7335032796f9b46176c359e8a39cc3f8496dd1f3fd6003fcfb9a794aafe88dd6",
+      "size_bytes": 25337376
+    }
+  ]
+}
