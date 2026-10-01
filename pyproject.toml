@@ -9,6 +9,7 @@ description = "Independent experiments for differentiable GNSS positioning and s
 requires-python = ">=3.10"
 dependencies = [
     "numpy>=1.24",
+    "pymap3d>=3.2",
     "torch>=2.0",
 ]
 
@@ -18,4 +19,3 @@ where = ["src"]
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
-

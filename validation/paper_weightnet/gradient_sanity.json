@@ -1,0 +1,43 @@
+{
+  "all_weight_gradients_finite": true,
+  "at_least_one_weight_gradient_nonzero": true,
+  "checkpoint_sha256": "2ccb3f7efc17755499f38a2ccff6205a8a54816f4dbe984a941bf6cc4d26644c",
+  "epoch_index": 0,
+  "epoch_time_gpst_like": 1623297151.006,
+  "finite_difference": [
+    {
+      "absolute_error": 6.390256559601903e-07,
+      "autograd": 0.0801901396917182,
+      "central_difference": 0.08018950066606224,
+      "epsilon": 0.00997301808013556,
+      "symmetric_relative_error": 3.984456222339879e-06,
+      "weight": 9.97301808013556,
+      "weight_index": 13
+    },
+    {
+      "absolute_error": 2.76549247058e-07,
+      "autograd": 0.14798247770051082,
+      "central_difference": 0.14798275424975788,
+      "epsilon": 0.009837251354843318,
+      "symmetric_relative_error": 9.343977508292893e-07,
+      "weight": 9.837251354843318,
+      "weight_index": 12
+    },
+    {
+      "absolute_error": 2.727705263856975e-07,
+      "autograd": -0.00501542146095594,
+      "central_difference": -0.005015694231482326,
+      "epsilon": 0.009833488356857318,
+      "symmetric_relative_error": 2.719244147401465e-05,
+      "weight": 9.833488356857318,
+      "weight_index": 16
+    }
+  ],
+  "ground_truth_usage": "3D position loss only; absent from features",
+  "loss_3d_m": 2.7329920815207385,
+  "maximum_symmetric_relative_error": 2.719244147401465e-05,
+  "satellite_count": 21,
+  "status": "passed",
+  "weight_gradient_l2_norm": 26.670070726212735,
+  "wls_state_all_finite": true
+}

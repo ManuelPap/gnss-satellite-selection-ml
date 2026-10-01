@@ -4,8 +4,11 @@ This repository is an independent implementation informed by GNSS and
 machine-learning literature. External repositories are read-only scientific
 references and no upstream source file is vendored or copied here.
 
-The implementation milestone began from repository commit
-`6299e69` on branch `research/pyrtklib-differentiable-wls`.
+The initial differentiable-WLS milestone began from repository commit
+`6299e69` on branch `research/pyrtklib-differentiable-wls`. The subsequent
+real-data WeightNet reproduction is developed on branch
+`research/paper-weightnet-reproduction` after frozen real-KLT
+observation-model validation commit `65ac942`.
 
 ## External reference worktrees
 
@@ -46,6 +49,14 @@ precision to its square. This project implements `H^T Lambda H` with
 ## Independence boundary
 
 RTKLIB/pyrtklib preprocessing is outside autograd in the referenced design.
-This milestone goes further in isolation: it has no RTKLIB input or operation
-at all. Synthetic constants feed an independently written PyTorch WLS solve,
-and only that solve and the tiny precision network participate in autograd.
+The first synthetic milestone went further in isolation: it had no RTKLIB
+input or operation at all. Synthetic constants fed an independently written
+PyTorch WLS solve.
+
+The `validation/paper_weightnet` milestone deliberately adds real public KLT
+preprocessing at the historical-source hypotheses above. Raw GNSS data,
+feature caches, traces, and trained checkpoints remain local and ignored.
+Only independently written reproduction code and small machine-readable audit
+records belong in this repository. Full hashes, the paper-versus-code audit,
+the 405/404 KLT3 discrepancy, and rerun instructions are recorded in
+`validation/paper_weightnet/README.md`.

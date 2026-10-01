@@ -1,5 +1,11 @@
 # Synthetic differentiable WLS validation
 
+The later real-data validations are documented separately:
+
+- `real_klt/README.md`: frozen paper-era observation model and WLS on KLT1;
+- `paper_weightnet/README.md`: released WeightNet preprocessing, training,
+  real-data gradients, NN-generated KLT1 weights, and WLS comparison.
+
 This milestone validates a small, independent mathematical implementation of
 GNSS weighted least squares (WLS). It uses no real observations, RTKLIB solve,
 satellite selection, or Top-k operation. The implementation was informed by

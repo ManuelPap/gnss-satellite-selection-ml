@@ -24,3 +24,7 @@ validation/real_klt/downloads/
 validation/real_klt/tmp/
 validation/real_klt/*.zip
 validation/real_klt/*.npz
+
+# Local paper-era WeightNet caches and training products
+validation/paper_weightnet/*.npz
+validation/paper_weightnet/*.pth

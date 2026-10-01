@@ -1,0 +1,118 @@
+{
+  "checkpoint": {
+    "path": "/home/manuelpap/PhD/gnss-satellite-selection-ml/checkpoints/paper_weightnet/weightnet_3d.pth",
+    "sha256": "2ccb3f7efc17755499f38a2ccff6205a8a54816f4dbe984a941bf6cc4d26644c"
+  },
+  "controlled_final_state": [
+    -2417835.595197621,
+    5384784.28348083,
+    2408318.8872812865,
+    1581578.719310227,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "epoch": {
+    "source_rows": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "split_index": 2382,
+    "time_gpst_like": 1623296154.005
+  },
+  "features": {
+    "G01": [
+      33.0,
+      0.8334407248829582,
+      0.6894938498735428
+    ],
+    "G03": [
+      20.0,
+      0.6540611208538379,
+      3.5461730770766735
+    ],
+    "G07": [
+      36.0,
+      0.5883199266679029,
+      -2.6699527129530907
+    ],
+    "G14": [
+      26.0,
+      0.8972701594630864,
+      -4.944956127554178
+    ],
+    "G21": [
+      27.0,
+      0.4411988802676275,
+      -5.127912018448114
+    ],
+    "G22": [
+      13.0,
+      0.5772422623342547,
+      1.6365005932748318
+    ],
+    "G28": [
+      27.0,
+      0.6148941944222172,
+      6.807786948978901
+    ],
+    "G30": [
+      22.0,
+      0.8780522158617833,
+      0.06273917481303215
+    ]
+  },
+  "final_state_maximum_absolute_discrepancy": 0.0,
+  "iterations": 2,
+  "maximum_absolute_discrepancies": {
+    "H": 0.0,
+    "W": 0.0,
+    "delta_state": 8.698819442543027e-12,
+    "normal_HTWH": 4.440892098500626e-16,
+    "predicted_observation": 0.0,
+    "residual_v": 0.0,
+    "rhs_HTWv": 3.469446951953614e-18,
+    "updated_state": 0.0,
+    "weight_vector": 0.0
+  },
+  "paper_final_state": [
+    -2417835.595197621,
+    5384784.28348083,
+    2408318.8872812865,
+    1581578.719310227,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "satellite_row_alignment_exact": true,
+  "status": "passed",
+  "trace": {
+    "path": "/home/manuelpap/PhD/gnss-satellite-selection-ml/validation/paper_weightnet/klt1_nn_weight_trace.npz",
+    "sha256": "8937ac92c28d39f158282c73716030e67baa397d7d60ae1e0667495368f0c92f"
+  },
+  "weight_range_check": {
+    "all_finite": true,
+    "expected_closed_range": [
+      0.0,
+      10.0
+    ],
+    "maximum": 2.1208441379198444,
+    "minimum": 8.616523730726238e-07
+  },
+  "weights": {
+    "G01": 0.07314680266624517,
+    "G03": 1.0131400513434018e-06,
+    "G07": 1.2320675939213364,
+    "G14": 2.1208441379198444,
+    "G21": 0.013848770274251644,
+    "G22": 8.616523730726238e-07,
+    "G28": 1.394661856158215e-06,
+    "G30": 0.00621803034444976
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "checkpoint": null,
+  "configuration": {
+    "iteration_order": "chronological",
+    "learning_rate": 0.01,
+    "local_seed_behavior": "Python, NumPy, and Torch seeded before default Linear initialization",
+    "loss": "sum of per-epoch 3D ENU Euclidean position-error norms",
+    "optimizer": "Adam",
+    "seed": 20260929,
+    "shuffle": false,
+    "training_epochs": 1,
+    "upstream_seed_behavior": "no seed set"
+  },
+  "dataset": {
+    "epoch_count": 405,
+    "feature_cache_sha256": "ae1457a933992f57e850a0abda64c1150f4586640d311b1880f00ed1262b5815",
+    "measurement_count": 8857
+  },
+  "duration_seconds": 2.7167796510038897,
+  "epochs": [
+    {
+      "epoch": 1,
+      "gradient_l2_norm": 104.61940766307202,
+      "loss_divided_by_405_like_released_print": 24.48567693416078,
+      "loss_sum_3d_m": 9916.699158335115,
+      "maximum_weight": 4.435582702289885,
+      "maximum_wls_iterations": 2,
+      "minimum_weight": 4.412049750937213
+    }
+  ],
+  "features": {
+    "all_finite": true,
+    "mean": [
+      29.084904595235407,
+      0.8471899979658503,
+      -1.7873233713548635e-07
+    ],
+    "population_std": [
+      5.89184205821295,
+      0.28798909935383876,
+      4.3018036109624145
+    ]
+  },
+  "final_forward_diagnostics": {
+    "maximum_weight": 4.637526258915875,
+    "maximum_wls_iterations": 2,
+    "minimum_weight": 4.22533842013112
+  },
+  "final_post_update_loss_sum_3d_m": 9840.294627640074,
+  "first_gradient_audit": {
+    "at_least_one_nonzero_gradient": true,
+    "every_trainable_parameter_gradient_finite": true,
+    "every_trainable_parameter_has_gradient": true,
+    "global_l2_norm": 104.61940766307202,
+    "per_parameter": {
+      "seq.1.bias": {
+        "finite": true,
+        "l2_norm": 1.2195157806132455,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.1.weight": {
+        "finite": true,
+        "l2_norm": 9.536212809225079,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.3.bias": {
+        "finite": true,
+        "l2_norm": 0.5197368575820172,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.3.weight": {
+        "finite": true,
+        "l2_norm": 51.86151807095673,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.5.bias": {
+        "finite": true,
+        "l2_norm": 0.6597982198199123,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.5.weight": {
+        "finite": true,
+        "l2_norm": 73.30594634310035,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.7.bias": {
+        "finite": true,
+        "l2_norm": 2.3065162066338076,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.7.weight": {
+        "finite": true,
+        "l2_norm": 52.757839069705184,
+        "nonzero": true,
+        "present": true
+      }
+    }
+  },
+  "first_gradient_l2_norm": 104.61940766307202,
+  "first_parameter_max_abs_changes": {
+    "seq.1.bias": 0.009999999850001218,
+    "seq.1.weight": 0.009999999959401568,
+    "seq.3.bias": 0.009999999644205731,
+    "seq.3.weight": 0.009999999966233526,
+    "seq.5.bias": 0.009999999642215783,
+    "seq.5.weight": 0.009999999968825148,
+    "seq.7.bias": 0.00999999995664457,
+    "seq.7.weight": 0.009999999993307016
+  },
+  "initial_loss_sum_3d_m": 9916.699158335115,
+  "mode": "smoke",
+  "reference_commit": "dd5eac669676ba0a922102047e58c2dfc9be9267",
+  "runtime": {
+    "cuda_available": false,
+    "device": "cpu",
+    "numpy": "2.5.1",
+    "pymap3d": "3.2.0",
+    "python": "3.12.3",
+    "torch": "2.14.0+cpu"
+  },
+  "status": "passed"
+}

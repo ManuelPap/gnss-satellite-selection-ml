@@ -1,0 +1,82 @@
+{
+  "historical_sources": {
+    "config/weight/klt3_train.json": {
+      "sha256": "66d205340529731d5ccce75375e391a582628b6f629442aa285f6bb60bca3ff3",
+      "size_bytes": 263
+    },
+    "model.py": {
+      "sha256": "12bab5692b899e07681c5b130aaf69b54334328d3689426db1187b8594e9a2d2",
+      "size_bytes": 3437
+    },
+    "rtk_util.py": {
+      "sha256": "25fa8e26ff5772960e0dd33763950868aaaf1d181ebae25b3b93051e7511692c",
+      "size_bytes": 34189
+    },
+    "weight_network_predict.py": {
+      "sha256": "d7bd7e539f69658e933ab11f2281c188ac2a2ee0cdb938b1616fd75f50e0efb5",
+      "size_bytes": 3266
+    },
+    "weight_network_train.py": {
+      "sha256": "ee7cf1f8d8ded71845a2d97c7f303bfa3f6231c8babb4f78af2447a0f9202cd5",
+      "size_bytes": 4567
+    }
+  },
+  "klt3_configuration": {
+    "end_time": 1623297556,
+    "eph": "data/0610_KLT/sta/hksc161d.21*",
+    "epoch": 500,
+    "gt": "data/0610_KLT/20210610_100.txt",
+    "mode": "train",
+    "model": "model/weight",
+    "obs": [
+      "data/0610_KLT/COM38_210610_025603.obs"
+    ],
+    "start_time": 1623297151
+  },
+  "paper_vs_code": {
+    "architecture": "paper 3-64-128-1; code 3-64-128-64-1",
+    "learning_rate": "paper 0.001; code 0.01",
+    "loss": "paper MSE/half squared error; code 3D Euclidean norm sum",
+    "state": "paper four-state clock-time form; code seven-slot metre-clock form",
+    "weight_range": "paper final sigmoid; code sigmoid*10 clamped [0,10]"
+  },
+  "primary_target": "released dd5eac6 computational implementation",
+  "status": "passed",
+  "tdl_gnss_commit": "dd5eac669676ba0a922102047e58c2dfc9be9267",
+  "training": {
+    "batching": "one accumulated full-dataset update per epoch; read batch=128 is unused",
+    "checkpoint": "<conf.model>/weightnet_3d.pth state_dict",
+    "device": "hard-coded CUDA",
+    "epochs": 500,
+    "executed_loss": "sum of per-epoch 3D ENU Euclidean norms",
+    "ground_truth": "nearest +18-second-aligned row, used in 3D position loss only",
+    "imported_but_unused_loss": "MSELoss(reduction='sum')",
+    "initializer": "per-epoch equal-weight get_ls_pnt_pos result",
+    "iteration_order": "prl.sortobs then chronological split_obs traversal",
+    "learning_rate": 0.01,
+    "model_initialization": "PyTorch Linear default, model constructed float32 then converted to float64",
+    "optimizer": "Adam",
+    "random_seed": null,
+    "shuffle": false,
+    "state": "[x,y,z,b_GPS,b_BDS,b_Galileo,b_GLONASS] with active columns"
+  },
+  "weightnet": {
+    "activation_after_each_linear": "Sigmoid",
+    "architecture": [
+      3,
+      64,
+      128,
+      64,
+      1
+    ],
+    "class": "WeightNet",
+    "features": [
+      "SNR[0]/1000",
+      "elevation radians",
+      "equal-weight OLS residual metres"
+    ],
+    "normalization": "population mean/std over all retained KLT3 feature rows",
+    "output_transformation": "sigmoid output multiplied by 10 then clamped to [0,10]",
+    "source": "model.py"
+  }
+}
