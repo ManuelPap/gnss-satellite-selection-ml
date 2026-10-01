@@ -384,6 +384,225 @@ still needs an explicit observation-model adapter for Sagnac, satellite clock,
 GPS TGD/DCB-corrected observations, the legacy atmosphere behavior, and the
 seven-slot/multi-clock state convention.
 
+## Controlled observation-model equivalence
+
+After validating the paper-era WLS algebra independently with NumPy, a separate
+controlled implementation of the paper-era GPS observation model was created in:
+
+```text
+src/gnss_satellite_selection_ml/paper_observation_model.py
+```
+
+The implementation was compared against the previously frozen KLT1 reference
+trace for the same GPS-only epoch.
+The purpose of this comparison is to verify that the controlled implementation
+reproduces the quantities that appear before the normal-equation solve, namely:
+
+- predicted pseudorange
+- Jacobian H
+- residual vector v
+
+and consequently reproduces the same WLS update.
+The controlled implementation does not call the archived TDL-GNSS
+H_matrix_prl_torch() or wls_solve_torch() functions at runtime. The frozen
+trace is used only as the numerical reference.
+
+### Observation model reproduced
+
+For GPS satellite \(i\), the reference-compatible observation model is:
+
+\[
+\hat{P}_i
+=
+\rho_i
++
+S_i
++
+b_{\mathrm{GPS}}
+-
+c\,\delta t_{s,i}
++
+I_i
++
+T_i
+\]
+
+with residual:
+
+\[
+v_i
+=
+P_{i,\mathrm{corrected}}
+-
+\hat{P}_i .
+\]
+
+For this legacy paper-era Torch path:
+
+\[
+I_i = 0,
+\qquad
+T_i = 0.
+\]
+
+The implementation preserves the historical behavior rather than repairing it.
+The following terms are reproduced explicitly:
+
+- geometric range \(\rho_i\);
+- paper-era Sagnac correction \(S_i\);
+- GPS receiver clock bias \(b_{\mathrm{GPS}}\);
+- satellite clock correction \(-c\,\delta t_{s,i}\);
+- prange()-corrected L1 pseudorange;
+- the historical Jacobian convention;
+- zero ionosphere and troposphere delays for the preserved legacy path;
+- the active GPS state ordering:
+
+```text
+[x, y, z, b_GPS]
+```
+
+within the seven-slot historical state:
+
+```text
+[x, y, z, b_GPS, b_BDS, b_Galileo, b_GLONASS]
+```
+
+### Numerical comparison
+
+The controlled implementation was evaluated against the frozen paper-era trace
+for both WLS iterations.
+Maximum observed discrepancies were:
+
+| Quantity | Maximum absolute discrepancy |
+| --- | ---: |
+| Jacobian H | 0.0 |
+| Predicted observation | 0.0 m |
+| Residual v | 0.0 m |
+| Updated state | 0.0 |
+| H.T @ W @ H | 1.7763568394002505e-15 |
+| State increment delta | 5.115907697472721e-13 |
+
+All differences are within the explicit float64 numerical tolerances used by
+the validation.
+The result is therefore:
+
+```text
+paper observation-model comparison PASSED
+```
+
+This demonstrates that, for the validated real KLT1 GPS-only epoch, the
+controlled implementation reproduces the paper-era forward observation model
+and WLS state update within float64 numerical precision.
+
+### Automated validation
+
+The comparison is implemented in:
+
+```text
+validation/real_klt/compare_observation_model.py
+```
+
+and the observation model is covered by:
+
+```text
+tests/test_paper_observation_model.py
+```
+
+The repository test suite must be run with the project virtual environment:
+
+```bash
+.venv/bin/python -m pytest -q
+```
+
+Validated result:
+
+```text
+20 passed
+```
+
+Bare:
+
+```bash
+pytest -q
+```
+
+may invoke the system Python interpreter instead of the project virtual
+environment. On the validated machine, the system interpreter does not contain
+the existing Torch dependency, so collection fails before the tests execute.
+This is an environment-selection issue, not a failure of the observation-model
+validation.
+
+### What this validation proves
+
+For the selected real KLT1 GPS-only epoch, the following chain is now
+independently reproduced:
+
+```text
+real corrected GNSS observations
+        |
+        v
+satellite positions and clocks
+        |
+        v
+controlled paper-era observation model
+        |
+        +--> predicted observation
+        +--> Jacobian H
+        +--> residual v
+        |
+        v
+H.T @ W @ H
+H.T @ W @ v
+        |
+        v
+WLS state increment
+        |
+        v
+updated receiver state
+```
+
+The validation therefore extends the previous real-data algebra check from:
+
+```text
+H, v, W
+  |
+  v
+WLS algebra
+```
+
+to:
+
+```text
+real GNSS inputs
+  |
+  v
+controlled observation model
+  |
+  v
+H, v, W
+  |
+  v
+WLS algebra
+```
+
+### What this validation does not prove
+
+This result does not yet validate:
+
+- neural-network-generated measurement weights;
+- the paper-era WeightNet training process;
+- end-to-end neural-network gradients on real GNSS data;
+- positioning accuracy across the full KLT1, KLT2, KLT3, or Whampoa datasets;
+- multi-constellation operation with multiple receiver clock states;
+- NLOS classification;
+- hard or exact-\(k\) satellite selection;
+- equivalence of a corrected physical atmosphere model to the preserved
+  paper-era legacy behavior.
+
+The next milestone is to replace the supplied deterministic measurement weights
+with weights generated by the paper-era neural-network architecture on real
+KLT data and validate the resulting end-to-end positioning chain.
+
 ## Cleanup
 
 After retaining any reports needed for review:
