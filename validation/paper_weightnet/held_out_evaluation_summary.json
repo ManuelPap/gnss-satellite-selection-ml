@@ -1,0 +1,87 @@
+{
+  "checkpoint_sha256": "2ccb3f7efc17755499f38a2ccff6205a8a54816f4dbe984a941bf6cc4d26644c",
+  "datasets": {
+    "KLT1": {
+      "configured_strict_interval": [
+        1623296154.0,
+        1623296357.0
+      ],
+      "first_retained_timestamp": 1623296154.005,
+      "last_retained_timestamp": 1623296356.005,
+      "raw_candidate_epochs": 203,
+      "released_code_valid_epochs": 203,
+      "retained_measurements": 4676,
+      "published_epochs": 203,
+      "published_measurements": 4676,
+      "invalid_ols_epochs": 0,
+      "failed_wls_epochs": 0,
+      "tdl_w_mean_2d_m": 2.373042476928525,
+      "paper_tdl_w_mean_2d_m": 2.57,
+      "paper_minus_reproduction_2d_m": 0.19695752307147485,
+      "absolute_relative_difference_2d_percent": 7.66371685103015,
+      "tdl_w_mean_3d_m": 9.511807438614316,
+      "paper_tdl_w_mean_3d_m": 9.92,
+      "paper_minus_reproduction_3d_m": 0.40819256138568427,
+      "absolute_relative_difference_3d_percent": 4.114844368807301,
+      "equal_weight_ols_mean_2d_m": 2.798307552921005,
+      "equal_weight_ols_mean_3d_m": 11.257174950253894,
+      "independent_csv_checker_agreed_at_1e-12": true
+    },
+    "KLT2": {
+      "configured_strict_interval": [
+        1623296917.0,
+        1623297126.0
+      ],
+      "first_retained_timestamp": 1623296917.006,
+      "last_retained_timestamp": 1623297125.006,
+      "raw_candidate_epochs": 209,
+      "released_code_valid_epochs": 209,
+      "retained_measurements": 4914,
+      "published_epochs": 209,
+      "published_measurements": 4914,
+      "invalid_ols_epochs": 0,
+      "failed_wls_epochs": 0,
+      "tdl_w_mean_2d_m": 2.6377164540237663,
+      "paper_tdl_w_mean_2d_m": 2.89,
+      "paper_minus_reproduction_2d_m": 0.2522835459762338,
+      "absolute_relative_difference_2d_percent": 8.72953446284546,
+      "tdl_w_mean_3d_m": 7.110819013582754,
+      "paper_tdl_w_mean_3d_m": 7.75,
+      "paper_minus_reproduction_3d_m": 0.6391809864172462,
+      "absolute_relative_difference_3d_percent": 8.247496598932209,
+      "equal_weight_ols_mean_2d_m": 5.218077032776115,
+      "equal_weight_ols_mean_3d_m": 12.18463896068737,
+      "independent_csv_checker_agreed_at_1e-12": true
+    },
+    "Whampoa": {
+      "configured_strict_interval": [
+        1626238258.0,
+        1626239511.0
+      ],
+      "published_epochs": 1205,
+      "published_measurements": 12926,
+      "status": "not_evaluated_exact_historical_inputs_unavailable",
+      "required_observation": "data/whampoa/20210714.2.whampoa.ublox.f9p.obs",
+      "required_navigation": [
+        "data/whampoa/hksc195e.21*",
+        "data/whampoa/hksc195f.21*"
+      ],
+      "required_ground_truth": "data/whampoa/20210714_2_100hz.txt",
+      "rejected_public_alternate": {
+        "download_archive_sha256": "2ce5ffdc984c6a814faa2c2be6c470289e869457d89f9d7a67eeedef3b171efd",
+        "rinex_name": "UrbanNav-HK-Deep-Urban-1.ublox.f9p.obs",
+        "rinex_sha256": "b357a8b9847d50d8cd10cd9afdc5d80a046c050c7ded1748710ce784d90ce40a",
+        "rinex_time_of_first_obs": "2021-05-21 06:29:06.004 GPS",
+        "rinex_time_of_last_obs": "2021-05-21 06:54:39.005 GPS",
+        "reason": "Different date/run from released 2021-07-14 configuration"
+      },
+      "different_public_run_was_not_substituted": true
+    }
+  },
+  "error_aggregation": {
+    "mean_2d": "mean_i(sqrt(E_i^2 + N_i^2))",
+    "mean_3d": "mean_i(sqrt(E_i^2 + N_i^2 + U_i^2))"
+  },
+  "reference_commit": "dd5eac669676ba0a922102047e58c2dfc9be9267",
+  "status": "partial_exact_whampoa_inputs_missing"
+}
