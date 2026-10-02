@@ -1,0 +1,105 @@
+{
+  "alignment_statistics_seconds": {
+    "expected_maximum_tolerance": 0.0041,
+    "maximum_absolute_mismatch": 0.003999948501586914,
+    "maximum_signed_difference": 0.003999948501586914,
+    "median_absolute_mismatch": 0.003999948501586914,
+    "minimum_signed_difference": 0.003999948501586914,
+    "p95_absolute_mismatch": 0.003999948501586914
+  },
+  "cardinality": {
+    "gnss_epochs_retained_by_strict_time_window": 405,
+    "hybrid_gt_entries_built": 405,
+    "satellite_measurements": 8857,
+    "successful_ols_epochs": 405,
+    "training_epochs_contributing_loss": 405,
+    "unique_consumed_gt_list_indices": 405
+  },
+  "defect_result": {
+    "corrected_target_mode_required": false,
+    "other_hybrid_gt_alignment_defect_found": false,
+    "second_training_experiment_run": false,
+    "standalone_biasnet_duplicate_append_defect_present": false
+  },
+  "reference_commit": "dd5eac669676ba0a922102047e58c2dfc9be9267",
+  "selected_mappings": [
+    {
+      "gnss_epoch_index": 0,
+      "gnss_timestamp_gpst_like": 1623297151.006,
+      "gt_timestamp_after_plus_18_s": 1623297151.01,
+      "hybrid_gt_list_index_consumed": 0,
+      "measurement_rows": 21,
+      "original_gt_timestamp_utc": 1623297133.01,
+      "released_dataframe_gt_row_index": 319801,
+      "time_difference_gt_minus_gnss_s": 0.003999948501586914
+    },
+    {
+      "gnss_epoch_index": 1,
+      "gnss_timestamp_gpst_like": 1623297152.006,
+      "gt_timestamp_after_plus_18_s": 1623297152.01,
+      "hybrid_gt_list_index_consumed": 1,
+      "measurement_rows": 21,
+      "original_gt_timestamp_utc": 1623297134.01,
+      "released_dataframe_gt_row_index": 319901,
+      "time_difference_gt_minus_gnss_s": 0.003999948501586914
+    },
+    {
+      "gnss_epoch_index": 2,
+      "gnss_timestamp_gpst_like": 1623297153.006,
+      "gt_timestamp_after_plus_18_s": 1623297153.01,
+      "hybrid_gt_list_index_consumed": 2,
+      "measurement_rows": 21,
+      "original_gt_timestamp_utc": 1623297135.01,
+      "released_dataframe_gt_row_index": 320001,
+      "time_difference_gt_minus_gnss_s": 0.003999948501586914
+    },
+    {
+      "gnss_epoch_index": 10,
+      "gnss_timestamp_gpst_like": 1623297161.006,
+      "gt_timestamp_after_plus_18_s": 1623297161.01,
+      "hybrid_gt_list_index_consumed": 10,
+      "measurement_rows": 21,
+      "original_gt_timestamp_utc": 1623297143.01,
+      "released_dataframe_gt_row_index": 320801,
+      "time_difference_gt_minus_gnss_s": 0.003999948501586914
+    },
+    {
+      "gnss_epoch_index": 100,
+      "gnss_timestamp_gpst_like": 1623297251.006,
+      "gt_timestamp_after_plus_18_s": 1623297251.01,
+      "hybrid_gt_list_index_consumed": 100,
+      "measurement_rows": 20,
+      "original_gt_timestamp_utc": 1623297233.01,
+      "released_dataframe_gt_row_index": 329801,
+      "time_difference_gt_minus_gnss_s": 0.003999948501586914
+    },
+    {
+      "gnss_epoch_index": 200,
+      "gnss_timestamp_gpst_like": 1623297351.006,
+      "gt_timestamp_after_plus_18_s": 1623297351.01,
+      "hybrid_gt_list_index_consumed": 200,
+      "measurement_rows": 20,
+      "original_gt_timestamp_utc": 1623297333.01,
+      "released_dataframe_gt_row_index": 339801,
+      "time_difference_gt_minus_gnss_s": 0.003999948501586914
+    },
+    {
+      "gnss_epoch_index": 400,
+      "gnss_timestamp_gpst_like": 1623297551.006,
+      "gt_timestamp_after_plus_18_s": 1623297551.01,
+      "hybrid_gt_list_index_consumed": 400,
+      "measurement_rows": 23,
+      "original_gt_timestamp_utc": 1623297533.01,
+      "released_dataframe_gt_row_index": 359801,
+      "time_difference_gt_minus_gnss_s": 0.003999948501586914
+    }
+  ],
+  "source_proof": {
+    "append_site": "lines 58-60 append exactly once inside the retained-time predicate, before the OLS status check",
+    "consumer": "lines 103-109 loop over retained obss and consume gts[i] before applying the same OLS status check",
+    "file": "hybrid_network_train.py",
+    "mapping": "training GNSS epoch i consumes hybrid GT list index i",
+    "second_append_present": false
+  },
+  "status": "passed"
+}

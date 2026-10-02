@@ -1,0 +1,68 @@
+{
+  "bias_sign_convention": "corrected pseudorange = RTKLIB-corrected pseudorange - bias",
+  "bias_units": "metres",
+  "epoch": {
+    "dataset": "KLT1",
+    "satellites": [
+      "G01",
+      "G03",
+      "G07",
+      "G14",
+      "G21",
+      "G22",
+      "G28",
+      "G30",
+      "R09",
+      "E13",
+      "E15",
+      "E21",
+      "E26",
+      "E27",
+      "C07",
+      "C11",
+      "C13"
+    ],
+    "split_epoch_index": 2382,
+    "time_gpst_like": 1623296154.005,
+    "valid_epoch_index": 0
+  },
+  "final_state_maximum_absolute_discrepancy": 0.0,
+  "hybrid_output_source": "deterministic supplied raw two-column values, independent of checkpoint",
+  "iterations": 2,
+  "maximum_absolute_discrepancies": {
+    "H": 0.0,
+    "W": 0.0,
+    "corrected_pseudorange": 0.0,
+    "delta_state": 0.0,
+    "effective_residual": 0.0,
+    "normal_HTWH": 0.0,
+    "predicted_observation": 0.0,
+    "raw_residual": 0.0,
+    "rhs_HTWv": 0.0,
+    "state_before": 0.0,
+    "updated_state": 0.0
+  },
+  "output_order": [
+    "weight",
+    "bias"
+  ],
+  "preserved_historical_defect": "Torch H path supplies an unpopulated LOS vector to atmosphere/elevation calls, producing zero atmospheric corrections",
+  "raw_column_semantics": {
+    "0": "weight logit",
+    "1": "bias pre-ReLU in metres"
+  },
+  "status": "passed",
+  "trace": {
+    "path": "/home/manuelpap/PhD/gnss-satellite-selection-ml/validation/paper_hybrid/forward_equivalence_trace.npz",
+    "sha256": "135f0b8d30e1ee29dade3790abe19e8eb030935049f3491e888b0beb8c2c5a72"
+  },
+  "transformation_maximum_absolute_discrepancies": {
+    "bias": 0.0,
+    "weight": 0.0
+  },
+  "transformations": {
+    "bias": "ReLU(raw[:,1])",
+    "weight": "sigmoid(raw[:,0]) then clamp [0,1]"
+  },
+  "weight_units": "dimensionless relative WLS coefficient"
+}

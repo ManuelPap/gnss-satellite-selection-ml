@@ -1,0 +1,98 @@
+{
+  "status": "passed",
+  "primary_computational_target": {
+    "repository": "TDL-GNSS",
+    "commit": "dd5eac669676ba0a922102047e58c2dfc9be9267",
+    "files": {
+      "model.py": "12bab5692b899e07681c5b130aaf69b54334328d3689426db1187b8594e9a2d2",
+      "hybrid_network_train.py": "9353ec80dcc1fa3515a7a6a1889ffbbc502c861d4e7cd304234326d9fafc951e",
+      "hybrid_network_predict.py": "06a79ca42eb53099a804e57bdf36f033d33e393c114113d0e7331dc304d7a2c6",
+      "rtk_util.py": "25fa8e26ff5772960e0dd33763950868aaaf1d181ebae25b3b93051e7511692c",
+      "config/hybrid_share/klt3_train.json": "7a800f27d0c22c8da06c90c6806f5cb8e65cdb557dc126c2ebde6fd0385b32a7",
+      "config/hybrid_share/klt1_predict.json": "4aec309017abca518b3691f1a0dd7ea48b76ecfc8b4676b2c275b82baa1e4b4d"
+    }
+  },
+  "pyrtklib_hypothesis": {
+    "commit": "916d3cc8eb202718a16097cea4a5729bd6b27ac5",
+    "tag": "0.2.6",
+    "publication_version_uncertain": true
+  },
+  "scripts": {
+    "training": "hybrid_network_train.py",
+    "inference": "hybrid_network_predict.py",
+    "network_class": "HybridShareNet"
+  },
+  "architecture": {
+    "shared_layers": [
+      "frozen StandardizeLayer(3)",
+      "Linear(3,64)",
+      "ReLU",
+      "Linear(64,128)",
+      "ReLU",
+      "Linear(128,64)",
+      "ReLU",
+      "Linear(64,2)"
+    ],
+    "separate_pretrained_networks": false,
+    "raw_column_0": "weight logit",
+    "raw_column_1": "bias pre-ReLU in metres",
+    "returned_tuple_order": ["weight", "bias"],
+    "weight_transform": "sigmoid(raw[:,0]) then clamp [0,1]",
+    "weight_range": "implemented bound [0,1]; mathematical sigmoid range (0,1), with endpoint rounding possible in finite precision",
+    "bias_transform": "ReLU(raw[:,1])",
+    "bias_range": "[0,+infinity)",
+    "bias_clipped": "only the lower ReLU bound at zero; no upper clipping"
+  },
+  "features": {
+    "order": ["C/N0", "elevation", "equal-weight OLS residual"],
+    "units": ["SNR[0]/1000 dB-Hz-like", "radian", "metre"],
+    "identical_to_validated_klt3_preprocessing": true,
+    "ground_truth_used_in_features": false,
+    "mean_float64": [29.084904595235407, 0.8471899979658503, -1.7873233713548635e-07],
+    "population_std_float64": [5.89184205821295, 0.28798909935383876, 4.3018036109624145],
+    "source_to_model_conversion": "NumPy float64 statistics -> torch.float32 -> net.double()"
+  },
+  "training": {
+    "dataset": "KLT3 only",
+    "strict_interval": [1623297151, 1623297556],
+    "released_epochs": 405,
+    "measurements": 8857,
+    "gt_entries": 405,
+    "gt_mapping": "GNSS epoch i -> GT list index i",
+    "gt_alignment_defect_found": false,
+    "optimizer": "Adam",
+    "learning_rate": 0.01,
+    "epochs": 100,
+    "batching": "full dataset accumulated before one optimizer update; batch=128 is read but unused",
+    "shuffle": false,
+    "loss": "sum of per-epoch unsquared 3D ENU Euclidean norms",
+    "imported_mse_used": false,
+    "initialization": "PyTorch default Linear initialization from scratch",
+    "upstream_seed": null,
+    "local_seed": 20260929,
+    "checkpoint_filename": "hybrid_share_3d.pth"
+  },
+  "solver": {
+    "initial_state": "equal-weight OLS state",
+    "state": "[x,y,z,b_GPS,b_BDS,b_Galileo,b_GLONASS] with present clocks active",
+    "bias_sign": "P_corrected = P_RTKLIB_corrected - b",
+    "weight_matrix": "diag(w)",
+    "maximum_iterations": 10,
+    "tolerance": 0.0001,
+    "normal_solve": "explicit inverse as released",
+    "preserved_defect": "unpopulated LOS vector in archived Torch elevation/atmosphere path makes atmosphere corrections zero"
+  },
+  "logging": {
+    "console": "loss sum divided by len(obss)=405",
+    "saved_csv_and_plot": "raw loss sum",
+    "final_paths": ["result/hybrid_share/klt3_train/loss_100.csv", "result/hybrid_share/klt3_train/loss_100.png"],
+    "intermediate_k_eq_100_block_runs_for_100_epochs": false,
+    "figure_2_combiner_in_release": false
+  },
+  "released_checkpoint_note": {
+    "tracked_model/hybrid_share/hybrid_share.pth_sha256": "0bc1a4d2a6e214c3f92d8595f2ea65364873c57c0234f89cc6546be83594161e",
+    "used_by_training": false,
+    "used_by_active_inference_line": false,
+    "reason": "the only load line for this file is commented; active inference expects configured hybrid_share_3d.pth"
+  }
+}

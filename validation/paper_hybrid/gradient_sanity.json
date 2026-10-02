@@ -1,0 +1,134 @@
+{
+  "all_outputs_finite": true,
+  "all_wls_states_finite": true,
+  "bias_output_gradient_l2_norm": 1.8513146656492856,
+  "bias_path_shared_parameter_gradient_l2_norm": 2.393064527790362,
+  "controlled_relu_activation": {
+    "applied_to_full_training": false,
+    "final_bias_parameter_offset_m_for_gradient_audit_only": 1.0,
+    "raw_bias_preactivation_max_before_offset": -0.058272250002548674,
+    "raw_bias_preactivation_min_before_offset": -0.1295691034637728,
+    "reason": "the training seed puts every bias output in the ReLU dead region on this epoch before training"
+  },
+  "conventional_backward_gradient_audit": {
+    "every_trainable_parameter_gradient_finite": true,
+    "every_trainable_parameter_has_gradient": true,
+    "every_trainable_tensor_gradient_nonzero": true,
+    "global_l2_norm": 7.711872984816413,
+    "per_parameter": {
+      "seq.1.bias": {
+        "finite": true,
+        "l2_norm": 0.29515165313250846,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.1.weight": {
+        "finite": true,
+        "l2_norm": 0.9299151108815806,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.3.bias": {
+        "finite": true,
+        "l2_norm": 0.6264063177742255,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.3.weight": {
+        "finite": true,
+        "l2_norm": 4.622397808399258,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.5.bias": {
+        "finite": true,
+        "l2_norm": 0.9073255041319375,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.5.weight": {
+        "finite": true,
+        "l2_norm": 5.334088804832061,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.7.bias": {
+        "finite": true,
+        "l2_norm": 0.09696631286961743,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.7.weight": {
+        "finite": true,
+        "l2_norm": 2.7344170373211654,
+        "nonzero": true,
+        "present": true
+      }
+    }
+  },
+  "description": "controlled dual-path and finite-difference numerical sanity checks, not formal derivative proofs",
+  "epoch_index": 0,
+  "every_expected_trainable_tensor_changed": true,
+  "finite_difference": [
+    {
+      "absolute_difference": 0.00034069814540052534,
+      "autograd": 0.23990147185252642,
+      "branch": "shared",
+      "index": [
+        24,
+        2
+      ],
+      "parameter": "seq.1.weight",
+      "scaled_relative_error": 0.00034069814540052534,
+      "symmetric_finite_difference": 0.2395607737071259
+    },
+    {
+      "absolute_difference": 6.442925148997247e-05,
+      "autograd": 1.14601056634478,
+      "branch": "weight",
+      "index": [
+        0,
+        17
+      ],
+      "parameter": "seq.7.weight",
+      "scaled_relative_error": 5.622046897479371e-05,
+      "symmetric_finite_difference": 1.14594613709329
+    },
+    {
+      "absolute_difference": 0.00023988044262290842,
+      "autograd": 0.581162561779538,
+      "branch": "bias",
+      "index": [
+        1,
+        7
+      ],
+      "parameter": "seq.7.weight",
+      "scaled_relative_error": 0.00023988044262290842,
+      "symmetric_finite_difference": 0.580922681336915
+    }
+  ],
+  "finite_difference_epsilon": 1e-05,
+  "gradient_additivity": {
+    "maximum_absolute_discrepancy": 2.7755575615628914e-16,
+    "maximum_scaled_discrepancy": 2.7755575615628914e-16,
+    "relationship": "grad_total ~= grad_bias_path + grad_weight_path at identical output values"
+  },
+  "loss_3d_m": 34.75444618502963,
+  "maximum_finite_difference_scaled_relative_error": 0.00034069814540052534,
+  "measurement_rows": 21,
+  "parameter_max_abs_changes_after_one_adam_step": {
+    "seq.1.bias": 0.009999998859650916,
+    "seq.1.weight": 0.009999999566609612,
+    "seq.3.bias": 0.009999999400036274,
+    "seq.3.weight": 0.009999999728692838,
+    "seq.5.bias": 0.00999999975723592,
+    "seq.5.weight": 0.009999999776028619,
+    "seq.7.bias": 0.009999998968714119,
+    "seq.7.weight": 0.009999999891089385
+  },
+  "seed": 20260929,
+  "status": "passed",
+  "total_shared_parameter_gradient_l2_norm": 7.711872984816413,
+  "weight_output_gradient_l2_norm": 20.693800547045505,
+  "weight_path_shared_parameter_gradient_l2_norm": 7.4080888800071145
+}
