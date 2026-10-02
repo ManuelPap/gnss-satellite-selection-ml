@@ -1,0 +1,108 @@
+{
+  "configuration": {
+    "batch_config_effect": "unused; one optimizer step after all epochs-in-dataset",
+    "batch_config_value": 128,
+    "ground_truth_alignment": "released duplicate-append defect: training epoch i uses KLT3 GT row floor(i/2)",
+    "learning_rate": 0.01,
+    "local_seed_behavior": "Python, NumPy, and Torch seeded before default Linear initialization",
+    "loss": "sum of per-epoch 3D ENU Euclidean position-error norms",
+    "optimizer": "Adam",
+    "seed": 20260929,
+    "shuffle": false,
+    "training_epochs": 1,
+    "upstream_seed_behavior": "no seed set"
+  },
+  "dataset": {
+    "epoch_count": 405,
+    "feature_cache_sha256": "ae1457a933992f57e850a0abda64c1150f4586640d311b1880f00ed1262b5815",
+    "feature_mean_float64": [
+      29.084904595235407,
+      0.8471899979658503,
+      -1.7873233713548635e-07
+    ],
+    "feature_population_std_float64": [
+      5.89184205821295,
+      0.28798909935383876,
+      4.3018036109624145
+    ],
+    "manifest_reference": "/home/manuelpap/PhD/gnss-satellite-selection-ml/validation/paper_weightnet/klt3_feature_manifest.json",
+    "manifest_status": "passed",
+    "measurement_count": 8857,
+    "normalization_matches_weightnet_shared_population_exactly": true
+  },
+  "duration_seconds": 0.8248379220021889,
+  "epochs": [
+    {
+      "epoch": 1,
+      "gradient_l2_norm": 357.07977229662566,
+      "loss_divided_by_405_like_released_print": 245.8710875496921,
+      "loss_sum_3d_m": 99577.7904576253,
+      "maximum_bias_m": 1.203926369398964,
+      "maximum_wls_iterations": 2,
+      "minimum_bias_m": -0.27228724677462146
+    }
+  ],
+  "first_gradient_audit": {
+    "every_trainable_parameter_gradient_finite": true,
+    "every_trainable_parameter_has_gradient": true,
+    "every_trainable_tensor_has_nonzero_gradient": true,
+    "global_l2_norm": 357.07977229662566,
+    "per_parameter": {
+      "seq.1.bias": {
+        "finite": true,
+        "l2_norm": 16.17852720203565,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.1.weight": {
+        "finite": true,
+        "l2_norm": 53.57400474309065,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.3.bias": {
+        "finite": true,
+        "l2_norm": 32.52418223231799,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.3.weight": {
+        "finite": true,
+        "l2_norm": 223.45939645521221,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.5.bias": {
+        "finite": true,
+        "l2_norm": 4.527628272299467e-16,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.5.weight": {
+        "finite": true,
+        "l2_norm": 270.8913449388179,
+        "nonzero": true,
+        "present": true
+      }
+    }
+  },
+  "first_parameter_max_abs_changes": {
+    "seq.1.bias": 0.009999999982376606,
+    "seq.1.weight": 0.009999999994949799,
+    "seq.3.bias": 0.009999999991464142,
+    "seq.3.weight": 0.009999999994103642,
+    "seq.5.bias": 4.5276280641326494e-10,
+    "seq.5.weight": 0.009999999998710082
+  },
+  "mode": "one_epoch_full_dataset_smoke",
+  "reference_commit": "dd5eac669676ba0a922102047e58c2dfc9be9267",
+  "runtime": {
+    "cuda_available": false,
+    "device": "cpu",
+    "numpy": "2.5.1",
+    "pymap3d": "3.2.0",
+    "python": "3.12.3",
+    "torch": "2.14.0+cpu"
+  },
+  "status": "passed"
+}

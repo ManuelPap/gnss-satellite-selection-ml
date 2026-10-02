@@ -1,0 +1,50 @@
+{
+  "bias_sign_convention": "corrected pseudorange = RTKLIB-corrected pseudorange - bias",
+  "bias_source": "deterministic supplied vector, independent of checkpoint",
+  "bias_units": "metres",
+  "epoch": {
+    "dataset": "KLT1",
+    "satellites": [
+      "G01",
+      "G03",
+      "G07",
+      "G14",
+      "G21",
+      "G22",
+      "G28",
+      "G30",
+      "R09",
+      "E13",
+      "E15",
+      "E21",
+      "E26",
+      "E27",
+      "C07",
+      "C11",
+      "C13"
+    ],
+    "split_epoch_index": 2382,
+    "time_gpst_like": 1623296154.005,
+    "valid_epoch_index": 0
+  },
+  "final_state_maximum_absolute_discrepancy": 0.0,
+  "iterations": 2,
+  "maximum_absolute_discrepancies": {
+    "H": 0.0,
+    "W": 0.0,
+    "corrected_pseudorange": 0.0,
+    "delta_state": 0.0,
+    "normal_HTWH": 0.0,
+    "predicted_observation": 0.0,
+    "residual_v": 0.0,
+    "rhs_HTWv": 0.0,
+    "updated_state": 0.0
+  },
+  "preserved_historical_defect": "Torch H path gives satazel an allocated but unpopulated LOS vector, making atmospheric corrections zero",
+  "status": "passed",
+  "trace": {
+    "path": "/home/manuelpap/PhD/gnss-satellite-selection-ml/validation/paper_biasnet/forward_equivalence_trace.npz",
+    "sha256": "74f3c366658491b4d5ac5e5837dbcd841da1988659d2709799eeec083cb0467b"
+  },
+  "weighting": "identity W (equal weight)"
+}

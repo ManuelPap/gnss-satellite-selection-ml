@@ -1,0 +1,116 @@
+{
+  "reference_commit": "dd5eac669676ba0a922102047e58c2dfc9be9267",
+  "pyrtklib_hypothesis": {
+    "commit": "916d3cc8eb202718a16097cea4a5729bd6b27ac5",
+    "tag": "0.2.6",
+    "publication_version_uncertain": true
+  },
+  "audited_source_blobs": {
+    "bias_network_train.py": "ae2b7b19f4825c8636cd1e14951ea4e9bc448ff18f29290ba4b7df3fab9fb774",
+    "bias_network_predict.py": "b6fa0c7e082538e56931447c9a50ee9c71e17b8fd7745224094f42b6ae5752a2",
+    "model.py": "12bab5692b899e07681c5b130aaf69b54334328d3689426db1187b8594e9a2d2",
+    "rtk_util.py": "25fa8e26ff5772960e0dd33763950868aaaf1d181ebae25b3b93051e7511692c",
+    "config/bias/klt3_train.json": "8958cba5f4946fa0c34032c0c750a62a3f4053a1d3817a970d243e6510ee6aab",
+    "config/bias/klt1_predict.json": "b7c72be14384eed2a3de9d737aa31f588ba6f7619339a55e2876d7b9a128068e",
+    "config/bias/klt2_predict.json": "a5720353730a0fb87dfdffee3491f759191b11c4ea89f5ebff550d3253e019d0"
+  },
+  "manuscript": {
+    "features": [
+      "C/N0",
+      "elevation",
+      "equal-weight OLS residual"
+    ],
+    "bias_architecture": [
+      3,
+      64,
+      128,
+      1
+    ],
+    "bias_activation_wording": "ReLU is employed throughout the network; the text does not separately resolve an output activation",
+    "bias_operation": "corrected measurement = measurement - predicted bias",
+    "loss": "MSE / half squared error",
+    "epochs": 500,
+    "optimizer": "Adam",
+    "accepted_manuscript_learning_rate": 0.001,
+    "request_reported_learning_rate": 0.0016,
+    "loss_figure_caption": "mean position loss for the bias curve"
+  },
+  "released_implementation": {
+    "training_script": "bias_network_train.py",
+    "prediction_script": "bias_network_predict.py",
+    "instantiated_class": "BiasNetTest",
+    "architecture": [
+      3,
+      64,
+      128,
+      1
+    ],
+    "activations": [
+      "ReLU after 3->64",
+      "ReLU after 64->128",
+      "no activation after 128->1"
+    ],
+    "bias_output_units": "metres, established by direct subtraction from metre-valued pseudorange residuals",
+    "output_scaling_or_clamping": "none",
+    "features": [
+      "SNR[0]/1000",
+      "elevation radians from equal-weight OLS",
+      "equal-weight OLS residual metres"
+    ],
+    "normalization": "NumPy population mean/std over all valid KLT3 feature rows; constructed as float32 tensors then converted to float64 with the model",
+    "normalization_population_identity_with_weightnet": "exact same source loop and population; independently recomputed shared cache values match",
+    "klt3_float64_mean": [
+      29.084904595235407,
+      0.8471899979658503,
+      -1.7873233713548635e-07
+    ],
+    "klt3_float64_population_std": [
+      5.89184205821295,
+      0.28798909935383876,
+      4.3018036109624145
+    ],
+    "training_dataset": "KLT3 strict GPST-like interval (1623297151, 1623297556)",
+    "released_code_cardinality": {
+      "epochs": 405,
+      "measurements": 8857
+    },
+    "published_cardinality": {
+      "epochs": 404,
+      "measurements": 8857
+    },
+    "ground_truth_loading": "skip 30 header rows and 4 footer rows; add 18 seconds; nearest timestamp; DMS to decimal degrees",
+    "ground_truth_training_defect": "bias trainer appends each successful epoch GT twice, so training epoch i reads KLT3 GT row floor(i/2); prediction aligns GT once per epoch",
+    "model_initialization": "PyTorch Linear defaults in float32, then entire model converted to float64",
+    "random_seed": null,
+    "optimizer": "Adam",
+    "learning_rate": 0.01,
+    "epochs": 500,
+    "batch_config_value": 128,
+    "batch_behavior": "unused; loss is accumulated over the full KLT3 sequence and exactly one optimizer step occurs per training epoch",
+    "shuffle": false,
+    "executed_loss": "sum of per-epoch 3D ENU Euclidean position-error norms",
+    "imported_but_unused_loss": "MSELoss(reduction='sum')",
+    "initializer": "per-epoch equal-weight get_ls_pnt_pos state",
+    "bias_sign": "positive b subtracts metres: solve residual is (P - predicted_observation) - b",
+    "bias_path_weighting": "identity W (equal weight)",
+    "wls_maximum_iterations": 10,
+    "wls_stopping_tolerance": "norm(delta) <= 0.0001",
+    "state": "[x,y,z,b_GPS,b_BDS,b_Galileo,b_GLONASS], metre-valued active clock columns",
+    "torch_observation_defect": "H_matrix_prl_torch passes an allocated but unpopulated LOS vector to satazel, yielding zero atmospheric corrections; preserved",
+    "training_checkpoint": "<conf.model>/biasnet_3d.pth state_dict",
+    "prediction_checkpoint": "<conf.model>/biasnet_3d.pth state_dict",
+    "prediction_mode": "net.eval() but no torch.no_grad() in upstream; controlled evaluation adds no_grad without changing values",
+    "prediction_outputs": "one result-path/b/<epoch>.csv with time,sat,bias; gt.csv; TDL_bias_pos.csv; console arithmetic mean 2D and 3D ENU norms",
+    "testing_and_plotting_scripts": "bias_network_predict.py performs TDL-B inference; baseline.py computes goGPS/RTKLIB; plot_result.py consumes saved method trajectories for held-out error/trajectory plots and does not create training-loss curves",
+    "training_plot": "vis_loss stores the raw full-dataset sum; loss.png plots that raw sum; console prints sum/len(obss)",
+    "composite_paper_figure_logic": "not present in dd5eac6; no released script establishes how the manuscript's combined mean-loss figure was assembled"
+  },
+  "tracked_checkpoint_inconsistency": {
+    "tracked_path": "model/bias/biasnet.pth",
+    "sha256": "0c752b6e20f5bb7d0c2bdd0f31d102e3c333017767c161b305630ec849928b9f",
+    "size_bytes": 44058,
+    "content": "state_dict for the different BiasNet class with BatchNorm and output de-standardization",
+    "compatible_with_instantiated_BiasNetTest": false,
+    "expected_biasnet_3d_pth_tracked": false
+  }
+}

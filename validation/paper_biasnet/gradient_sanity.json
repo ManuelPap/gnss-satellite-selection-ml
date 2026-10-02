@@ -1,0 +1,92 @@
+{
+  "description": "gradient sanity check, not a formal proof of all derivatives",
+  "epoch_index": 0,
+  "every_expected_trainable_tensor_changed": true,
+  "finite_difference": [
+    {
+      "absolute_difference": 2.0850369347735764e-07,
+      "autograd": 0.3224486469710977,
+      "bias_row": 0,
+      "scaled_relative_error": 2.0850369347735764e-07,
+      "symmetric_finite_difference": 0.32244843846740423
+    },
+    {
+      "absolute_difference": 2.3259179617873826e-06,
+      "autograd": 0.787621210777075,
+      "bias_row": 10,
+      "scaled_relative_error": 2.3259179617873826e-06,
+      "symmetric_finite_difference": 0.7876235366950368
+    },
+    {
+      "absolute_difference": 4.105999300979546e-07,
+      "autograd": 0.10785680364262702,
+      "bias_row": 20,
+      "scaled_relative_error": 4.105999300979546e-07,
+      "symmetric_finite_difference": 0.10785721424255712
+    }
+  ],
+  "finite_difference_epsilon_m": 0.001,
+  "loss_3d_m": 35.005583783068744,
+  "maximum_scaled_relative_error": 2.3259179617873826e-06,
+  "measurement_rows": 21,
+  "model_gradient_audit": {
+    "every_trainable_parameter_gradient_finite": true,
+    "every_trainable_parameter_has_gradient": true,
+    "every_trainable_tensor_has_nonzero_gradient": true,
+    "global_l2_norm": 5.751678973754654,
+    "per_parameter": {
+      "seq.1.bias": {
+        "finite": true,
+        "l2_norm": 0.255426161175347,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.1.weight": {
+        "finite": true,
+        "l2_norm": 0.7897318357213527,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.3.bias": {
+        "finite": true,
+        "l2_norm": 0.4168566241631006,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.3.weight": {
+        "finite": true,
+        "l2_norm": 3.66905936270371,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.5.bias": {
+        "finite": true,
+        "l2_norm": 5.551115123125783e-17,
+        "nonzero": true,
+        "present": true
+      },
+      "seq.5.weight": {
+        "finite": true,
+        "l2_norm": 4.330949788304452,
+        "nonzero": true,
+        "present": true
+      }
+    }
+  },
+  "parameter_max_abs_changes_after_one_adam_step": {
+    "seq.1.bias": 0.00999999914495131,
+    "seq.1.weight": 0.009999999609192178,
+    "seq.3.bias": 0.009999999282958097,
+    "seq.3.weight": 0.009999999570502655,
+    "seq.5.bias": 5.551115123125783e-11,
+    "seq.5.weight": 0.009999999911879318
+  },
+  "predicted_bias_all_finite": true,
+  "predicted_bias_gradient_all_finite": true,
+  "predicted_bias_gradient_l2_norm": 1.8521160132977819,
+  "predicted_bias_gradient_present": true,
+  "seed": 20260929,
+  "status": "passed",
+  "wls_iterations": 2,
+  "wls_state_all_finite": true
+}
