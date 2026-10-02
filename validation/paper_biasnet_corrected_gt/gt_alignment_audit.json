@@ -1,0 +1,423 @@
+{
+  "alignment_samples": {
+    "first_10": [
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 0,
+        "gnss_timestamp_gpst_like": 1623297151.006,
+        "gt_row_index": 319801,
+        "gt_timestamp_after_plus_18_s": 1623297151.01,
+        "original_gt_timestamp_utc": 1623297133.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 1,
+        "gnss_timestamp_gpst_like": 1623297152.006,
+        "gt_row_index": 319901,
+        "gt_timestamp_after_plus_18_s": 1623297152.01,
+        "original_gt_timestamp_utc": 1623297134.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 2,
+        "gnss_timestamp_gpst_like": 1623297153.006,
+        "gt_row_index": 320001,
+        "gt_timestamp_after_plus_18_s": 1623297153.01,
+        "original_gt_timestamp_utc": 1623297135.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 3,
+        "gnss_timestamp_gpst_like": 1623297154.006,
+        "gt_row_index": 320101,
+        "gt_timestamp_after_plus_18_s": 1623297154.01,
+        "original_gt_timestamp_utc": 1623297136.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 4,
+        "gnss_timestamp_gpst_like": 1623297155.006,
+        "gt_row_index": 320201,
+        "gt_timestamp_after_plus_18_s": 1623297155.01,
+        "original_gt_timestamp_utc": 1623297137.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 5,
+        "gnss_timestamp_gpst_like": 1623297156.006,
+        "gt_row_index": 320301,
+        "gt_timestamp_after_plus_18_s": 1623297156.01,
+        "original_gt_timestamp_utc": 1623297138.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 6,
+        "gnss_timestamp_gpst_like": 1623297157.006,
+        "gt_row_index": 320401,
+        "gt_timestamp_after_plus_18_s": 1623297157.01,
+        "original_gt_timestamp_utc": 1623297139.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 7,
+        "gnss_timestamp_gpst_like": 1623297158.006,
+        "gt_row_index": 320501,
+        "gt_timestamp_after_plus_18_s": 1623297158.01,
+        "original_gt_timestamp_utc": 1623297140.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 8,
+        "gnss_timestamp_gpst_like": 1623297159.006,
+        "gt_row_index": 320601,
+        "gt_timestamp_after_plus_18_s": 1623297159.01,
+        "original_gt_timestamp_utc": 1623297141.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 9,
+        "gnss_timestamp_gpst_like": 1623297160.006,
+        "gt_row_index": 320701,
+        "gt_timestamp_after_plus_18_s": 1623297160.01,
+        "original_gt_timestamp_utc": 1623297142.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      }
+    ],
+    "last_10": [
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 395,
+        "gnss_timestamp_gpst_like": 1623297546.006,
+        "gt_row_index": 359301,
+        "gt_timestamp_after_plus_18_s": 1623297546.01,
+        "original_gt_timestamp_utc": 1623297528.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 396,
+        "gnss_timestamp_gpst_like": 1623297547.006,
+        "gt_row_index": 359401,
+        "gt_timestamp_after_plus_18_s": 1623297547.01,
+        "original_gt_timestamp_utc": 1623297529.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 397,
+        "gnss_timestamp_gpst_like": 1623297548.006,
+        "gt_row_index": 359501,
+        "gt_timestamp_after_plus_18_s": 1623297548.01,
+        "original_gt_timestamp_utc": 1623297530.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 398,
+        "gnss_timestamp_gpst_like": 1623297549.006,
+        "gt_row_index": 359601,
+        "gt_timestamp_after_plus_18_s": 1623297549.01,
+        "original_gt_timestamp_utc": 1623297531.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 399,
+        "gnss_timestamp_gpst_like": 1623297550.006,
+        "gt_row_index": 359701,
+        "gt_timestamp_after_plus_18_s": 1623297550.01,
+        "original_gt_timestamp_utc": 1623297532.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 400,
+        "gnss_timestamp_gpst_like": 1623297551.006,
+        "gt_row_index": 359801,
+        "gt_timestamp_after_plus_18_s": 1623297551.01,
+        "original_gt_timestamp_utc": 1623297533.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 401,
+        "gnss_timestamp_gpst_like": 1623297552.006,
+        "gt_row_index": 359901,
+        "gt_timestamp_after_plus_18_s": 1623297552.01,
+        "original_gt_timestamp_utc": 1623297534.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 402,
+        "gnss_timestamp_gpst_like": 1623297553.006,
+        "gt_row_index": 360001,
+        "gt_timestamp_after_plus_18_s": 1623297553.01,
+        "original_gt_timestamp_utc": 1623297535.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 403,
+        "gnss_timestamp_gpst_like": 1623297554.006,
+        "gt_row_index": 360101,
+        "gt_timestamp_after_plus_18_s": 1623297554.01,
+        "original_gt_timestamp_utc": 1623297536.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 404,
+        "gnss_timestamp_gpst_like": 1623297555.006,
+        "gt_row_index": 360201,
+        "gt_timestamp_after_plus_18_s": 1623297555.01,
+        "original_gt_timestamp_utc": 1623297537.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      }
+    ],
+    "middle_10": [
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 197,
+        "gnss_timestamp_gpst_like": 1623297348.006,
+        "gt_row_index": 339501,
+        "gt_timestamp_after_plus_18_s": 1623297348.01,
+        "original_gt_timestamp_utc": 1623297330.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 198,
+        "gnss_timestamp_gpst_like": 1623297349.006,
+        "gt_row_index": 339601,
+        "gt_timestamp_after_plus_18_s": 1623297349.01,
+        "original_gt_timestamp_utc": 1623297331.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 199,
+        "gnss_timestamp_gpst_like": 1623297350.006,
+        "gt_row_index": 339701,
+        "gt_timestamp_after_plus_18_s": 1623297350.01,
+        "original_gt_timestamp_utc": 1623297332.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 200,
+        "gnss_timestamp_gpst_like": 1623297351.006,
+        "gt_row_index": 339801,
+        "gt_timestamp_after_plus_18_s": 1623297351.01,
+        "original_gt_timestamp_utc": 1623297333.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 201,
+        "gnss_timestamp_gpst_like": 1623297352.006,
+        "gt_row_index": 339901,
+        "gt_timestamp_after_plus_18_s": 1623297352.01,
+        "original_gt_timestamp_utc": 1623297334.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 202,
+        "gnss_timestamp_gpst_like": 1623297353.006,
+        "gt_row_index": 340001,
+        "gt_timestamp_after_plus_18_s": 1623297353.01,
+        "original_gt_timestamp_utc": 1623297335.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 203,
+        "gnss_timestamp_gpst_like": 1623297354.006,
+        "gt_row_index": 340101,
+        "gt_timestamp_after_plus_18_s": 1623297354.01,
+        "original_gt_timestamp_utc": 1623297336.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 204,
+        "gnss_timestamp_gpst_like": 1623297355.006,
+        "gt_row_index": 340201,
+        "gt_timestamp_after_plus_18_s": 1623297355.01,
+        "original_gt_timestamp_utc": 1623297337.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 205,
+        "gnss_timestamp_gpst_like": 1623297356.006,
+        "gt_row_index": 340301,
+        "gt_timestamp_after_plus_18_s": 1623297356.01,
+        "original_gt_timestamp_utc": 1623297338.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      },
+      {
+        "absolute_time_difference_after_alignment_s": 0.003999948501586914,
+        "gnss_epoch_index": 206,
+        "gnss_timestamp_gpst_like": 1623297357.006,
+        "gt_row_index": 340401,
+        "gt_timestamp_after_plus_18_s": 1623297357.01,
+        "original_gt_timestamp_utc": 1623297339.01,
+        "time_difference_after_alignment_s": 0.003999948501586914
+      }
+    ]
+  },
+  "corrected_alignment_statistics_seconds": {
+    "expected_maximum_tolerance": 0.0041,
+    "maximum_absolute_mismatch": 0.003999948501586914,
+    "median_absolute_mismatch": 0.003999948501586914,
+    "p95_absolute_mismatch": 0.003999948501586914
+  },
+  "correction_contract": {
+    "corrected_target_indices_first_12": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "final_epoch_index": 404,
+    "final_target_source_epoch_index": 404,
+    "leap_second_treatment": "+18 s applied to original GT UTC timestamp",
+    "nearest_match_tie_behavior": "first row, matching NumPy/Pandas argmin",
+    "one_target_per_epoch": true,
+    "training_epoch_count": 405,
+    "training_gt_target_count": 405,
+    "unique_target_index_count": 405
+  },
+  "experiment": "Corrected-GT BiasNet controlled experiment",
+  "historical_alignment_statistics_seconds": {
+    "maximum_absolute_mismatch": 201.9960000514984,
+    "median_absolute_mismatch": 100.99600005149841,
+    "p95_absolute_mismatch": 191.9960000514984
+  },
+  "offset_growth_comparison": {
+    "corrected_absolute_offset_slope_per_epoch": -1.4710323848752763e-21,
+    "corrected_error_grows_with_epoch_index": false,
+    "corrected_first_absolute_offset_s": 0.003999948501586914,
+    "corrected_last_absolute_offset_s": 0.003999948501586914,
+    "historical_absolute_offset_slope_per_epoch": 0.499999708086225,
+    "historical_first_absolute_offset_s": 0.003999948501586914,
+    "historical_last_absolute_offset_s": 201.9960000514984
+  },
+  "released_defect_proof": {
+    "consumer": "lines 101-107: loop i over obss and select gt_row = gts[i]",
+    "first_append": "lines 57-58: nearest gt_row; gts.append(...) before OLS status check",
+    "function": "module-level preprocessing and training loops",
+    "historical_gt_list_length": 810,
+    "historical_training_target_source_epoch_indices_first_12": [
+      0,
+      0,
+      1,
+      1,
+      2,
+      2,
+      3,
+      3,
+      4,
+      4,
+      5,
+      5
+    ],
+    "mapping": "GNSS epoch i -> matched GT for source epoch floor(i/2)",
+    "second_append": "lines 74-76: nearest gt_row; gts.append(...) after successful OLS solve",
+    "source_file": "bias_network_train.py at dd5eac669676ba0a922102047e58c2dfc9be9267",
+    "successful_retained_epochs": 405,
+    "temporal_misalignment_explanation": "the GNSS time advances one second per epoch while the consumed duplicated target advances only every two epochs, so lag grows by about 0.5 s/epoch"
+  },
+  "selected_ab_comparison": [
+    {
+      "corrected_source_epoch_index": 0,
+      "corrected_target_timestamp_after_plus_18_s": 1623297151.01,
+      "corrected_temporal_offset_s": 0.003999948501586914,
+      "gnss_epoch_index": 0,
+      "gnss_timestamp_gpst_like": 1623297151.006,
+      "historical_source_epoch_index": 0,
+      "historical_target_timestamp_after_plus_18_s": 1623297151.01,
+      "historical_temporal_offset_s": 0.003999948501586914
+    },
+    {
+      "corrected_source_epoch_index": 1,
+      "corrected_target_timestamp_after_plus_18_s": 1623297152.01,
+      "corrected_temporal_offset_s": 0.003999948501586914,
+      "gnss_epoch_index": 1,
+      "gnss_timestamp_gpst_like": 1623297152.006,
+      "historical_source_epoch_index": 0,
+      "historical_target_timestamp_after_plus_18_s": 1623297151.01,
+      "historical_temporal_offset_s": -0.9960000514984131
+    },
+    {
+      "corrected_source_epoch_index": 2,
+      "corrected_target_timestamp_after_plus_18_s": 1623297153.01,
+      "corrected_temporal_offset_s": 0.003999948501586914,
+      "gnss_epoch_index": 2,
+      "gnss_timestamp_gpst_like": 1623297153.006,
+      "historical_source_epoch_index": 1,
+      "historical_target_timestamp_after_plus_18_s": 1623297152.01,
+      "historical_temporal_offset_s": -0.9960000514984131
+    },
+    {
+      "corrected_source_epoch_index": 10,
+      "corrected_target_timestamp_after_plus_18_s": 1623297161.01,
+      "corrected_temporal_offset_s": 0.003999948501586914,
+      "gnss_epoch_index": 10,
+      "gnss_timestamp_gpst_like": 1623297161.006,
+      "historical_source_epoch_index": 5,
+      "historical_target_timestamp_after_plus_18_s": 1623297156.01,
+      "historical_temporal_offset_s": -4.996000051498413
+    },
+    {
+      "corrected_source_epoch_index": 100,
+      "corrected_target_timestamp_after_plus_18_s": 1623297251.01,
+      "corrected_temporal_offset_s": 0.003999948501586914,
+      "gnss_epoch_index": 100,
+      "gnss_timestamp_gpst_like": 1623297251.006,
+      "historical_source_epoch_index": 50,
+      "historical_target_timestamp_after_plus_18_s": 1623297201.01,
+      "historical_temporal_offset_s": -49.99600005149841
+    },
+    {
+      "corrected_source_epoch_index": 200,
+      "corrected_target_timestamp_after_plus_18_s": 1623297351.01,
+      "corrected_temporal_offset_s": 0.003999948501586914,
+      "gnss_epoch_index": 200,
+      "gnss_timestamp_gpst_like": 1623297351.006,
+      "historical_source_epoch_index": 100,
+      "historical_target_timestamp_after_plus_18_s": 1623297251.01,
+      "historical_temporal_offset_s": -99.99600005149841
+    },
+    {
+      "corrected_source_epoch_index": 400,
+      "corrected_target_timestamp_after_plus_18_s": 1623297551.01,
+      "corrected_temporal_offset_s": 0.003999948501586914,
+      "gnss_epoch_index": 400,
+      "gnss_timestamp_gpst_like": 1623297551.006,
+      "historical_source_epoch_index": 200,
+      "historical_target_timestamp_after_plus_18_s": 1623297351.01,
+      "historical_temporal_offset_s": -199.9960000514984
+    }
+  ],
+  "status": "passed"
+}

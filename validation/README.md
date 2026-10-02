@@ -7,7 +7,10 @@ The later real-data validations are documented separately:
   real-data gradients, NN-generated KLT1 weights, and WLS comparison;
 - `paper_biasnet/README.md`: released standalone BiasNet (TDL-B), metre-valued
   pseudorange correction, training, forward/gradient checks, and held-out KLT
-  evaluation.
+  evaluation;
+- `paper_biasnet_corrected_gt/README.md`: controlled follow-up changing only
+  the demonstrated duplicated-GT training-target mapping to one-to-one temporal
+  alignment.
 
 This milestone validates a small, independent mathematical implementation of
 GNSS weighted least squares (WLS). It uses no real observations, RTKLIB solve,

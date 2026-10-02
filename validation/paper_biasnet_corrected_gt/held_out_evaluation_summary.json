@@ -1,0 +1,501 @@
+{
+  "checkpoint_sha256": "2f7bcbc65f8cfd6eaae649f36043b510cd6fae9ce026446fc66396968bc8b43c",
+  "datasets": {
+    "KLT1": {
+      "bias_outputs": {
+        "all_finite": true,
+        "clipping_applied": false,
+        "largest_absolute_outputs": [
+          {
+            "dataset_epoch_index": 101,
+            "features": [
+              14.0,
+              0.3639779156931865,
+              19.53406809270382
+            ],
+            "gnss_timestamp": 1623296255.005,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 4.540901723922498,
+            "normalized_features": [
+              -2.5603035523864834,
+              -1.6778832845181118,
+              4.540901723922498
+            ],
+            "predicted_bias_m": 31.49526538869025,
+            "satellite": "G19"
+          },
+          {
+            "dataset_epoch_index": 102,
+            "features": [
+              15.0,
+              0.3640278255937763,
+              19.0461987555027
+            ],
+            "gnss_timestamp": 1623296256.005,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 4.427491324629074,
+            "normalized_features": [
+              -2.3905773413073783,
+              -1.6777099484845308,
+              4.427491324629074
+            ],
+            "predicted_bias_m": 31.380583993326265,
+            "satellite": "G19"
+          },
+          {
+            "dataset_epoch_index": 100,
+            "features": [
+              15.0,
+              0.3639278781670342,
+              18.37388562038541
+            ],
+            "gnss_timestamp": 1623296254.005,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 4.271205299721563,
+            "normalized_features": [
+              -2.3905773413073783,
+              -1.6780570344884895,
+              4.271205299721563
+            ],
+            "predicted_bias_m": 30.299910525793795,
+            "satellite": "G19"
+          },
+          {
+            "dataset_epoch_index": 99,
+            "features": [
+              17.0,
+              0.3638777613530941,
+              16.772366918623447
+            ],
+            "gnss_timestamp": 1623296253.005,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 3.898915259533285,
+            "normalized_features": [
+              -2.0511249191491676,
+              -1.6782309914272655,
+              3.898915259533285
+            ],
+            "predicted_bias_m": 29.0400395171177,
+            "satellite": "G19"
+          },
+          {
+            "dataset_epoch_index": 98,
+            "features": [
+              18.0,
+              0.36382755510487524,
+              14.273084446787834
+            ],
+            "gnss_timestamp": 1623296252.005,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 3.317930380683386,
+            "normalized_features": [
+              -1.8813987080700623,
+              -1.678405362302838,
+              3.317930380683386
+            ],
+            "predicted_bias_m": 24.972320591687353,
+            "satellite": "G19"
+          },
+          {
+            "dataset_epoch_index": 75,
+            "features": [
+              18.0,
+              0.36267176505544213,
+              14.05387656390667
+            ],
+            "gnss_timestamp": 1623296229.005,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 3.2669732044331337,
+            "normalized_features": [
+              -1.8813987080700623,
+              -1.6824186865143842,
+              3.2669732044331337
+            ],
+            "predicted_bias_m": 24.540705882854855,
+            "satellite": "G19"
+          },
+          {
+            "dataset_epoch_index": 97,
+            "features": [
+              19.0,
+              0.3637775540277625,
+              13.598831921815872
+            ],
+            "gnss_timestamp": 1623296251.005,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 3.161193213087979,
+            "normalized_features": [
+              -1.711672496990957,
+              -1.6785790087890164,
+              3.161193213087979
+            ],
+            "predicted_bias_m": 24.45187311594707,
+            "satellite": "G19"
+          },
+          {
+            "dataset_epoch_index": 60,
+            "features": [
+              18.0,
+              0.6213818564592919,
+              34.233592823147774
+            ],
+            "gnss_timestamp": 1623296214.005,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 7.957962854089246,
+            "normalized_features": [
+              -1.8813987080700623,
+              -0.7840857031301176,
+              7.957962854089246
+            ],
+            "predicted_bias_m": 24.082516069007333,
+            "satellite": "G28"
+          },
+          {
+            "dataset_epoch_index": 17,
+            "features": [
+              10.0,
+              0.151891495221698,
+              15.450967766344547
+            ],
+            "gnss_timestamp": 1623296171.005,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 3.5917418469348097,
+            "normalized_features": [
+              -3.239208396702905,
+              -2.414322275253275,
+              3.5917418469348097
+            ],
+            "predicted_bias_m": 23.929622872554184,
+            "satellite": "G08"
+          },
+          {
+            "dataset_epoch_index": 20,
+            "features": [
+              13.0,
+              0.1517241841685537,
+              14.006179627031088
+            ],
+            "gnss_timestamp": 1623296174.005,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 3.255885513822577,
+            "normalized_features": [
+              -2.7300297634655886,
+              -2.4149032355473192,
+              3.255885513822577
+            ],
+            "predicted_bias_m": 23.672950746928127,
+            "satellite": "G08"
+          }
+        ],
+        "maximum_m": 31.49526538869025,
+        "mean_m": -1.9705129120495641,
+        "median_m": -1.9874619633847888,
+        "minimum_m": -19.058682853433723,
+        "p5_m": -9.002593564582638,
+        "p95_m": 6.840329178967696,
+        "population_std_m": 4.80802339627527
+      },
+      "cardinality": {
+        "first_retained_timestamp": 1623296154.005,
+        "invalid_ols_epochs": [],
+        "last_retained_timestamp": 1623296356.005,
+        "published_epochs": 203,
+        "published_satellite_measurements": 4676,
+        "raw_candidate_epochs_in_strict_interval": 203,
+        "released_code_valid_evaluation_epochs": 203,
+        "retained_satellite_measurements": 4676
+      },
+      "corrected": {
+        "mean_2d_error_m": 2.1032017669130765,
+        "mean_3d_error_m": 5.592354339468327
+      },
+      "corrected_minus_defective_2d": {
+        "difference_m": -99.93209823308693,
+        "relative_difference_percent": -97.93875083729546
+      },
+      "corrected_minus_defective_3d": {
+        "difference_m": -179.15104566053168,
+        "relative_difference_percent": -96.9729071027878
+      },
+      "corrected_minus_paper_2d": {
+        "difference_m": -0.13679823308692374,
+        "relative_difference_percent": -6.10706397709481
+      },
+      "corrected_minus_paper_3d": {
+        "difference_m": 0.2923543394683268,
+        "relative_difference_percent": 5.516119612609939
+      },
+      "historical_defective": {
+        "mean_2d_error_m": 102.0353,
+        "mean_3d_error_m": 184.7434
+      },
+      "independent_csv_checker": {
+        "agreed_with_evaluator_summary": true,
+        "mean_2d_error_m": 2.1032017669130765,
+        "mean_3d_error_m": 5.592354339468328,
+        "ols_mean_2d_error_m": 2.798307552921005,
+        "ols_mean_3d_error_m": 11.257174950253898,
+        "rows": 203,
+        "tolerance": 1e-12
+      },
+      "paper": {
+        "mean_2d_error_m": 2.24,
+        "mean_3d_error_m": 5.3
+      },
+      "wls_failures": []
+    },
+    "KLT2": {
+      "bias_outputs": {
+        "all_finite": true,
+        "clipping_applied": false,
+        "largest_absolute_outputs": [
+          {
+            "dataset_epoch_index": 48,
+            "features": [
+              13.0,
+              0.3558025686982732,
+              31.992345701903105
+            ],
+            "gnss_timestamp": 1623296965.006,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 7.43696110893188,
+            "normalized_features": [
+              -2.7300297634655886,
+              -1.7062709665455247,
+              7.43696110893188
+            ],
+            "predicted_bias_m": 44.21725318639253,
+            "satellite": "G21"
+          },
+          {
+            "dataset_epoch_index": 49,
+            "features": [
+              13.0,
+              0.35569984663627874,
+              31.23863335326314
+            ],
+            "gnss_timestamp": 1623296966.006,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 7.2617528073743625,
+            "normalized_features": [
+              -2.7300297634655886,
+              -1.7066276765800046,
+              7.2617528073743625
+            ],
+            "predicted_bias_m": 43.666324982689375,
+            "satellite": "G21"
+          },
+          {
+            "dataset_epoch_index": 50,
+            "features": [
+              12.0,
+              0.355596856606827,
+              30.512229453772306
+            ],
+            "gnss_timestamp": 1623296967.006,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 7.092892427057751,
+            "normalized_features": [
+              -2.899755974544694,
+              -1.7069852144880777,
+              7.092892427057751
+            ],
+            "predicted_bias_m": 43.308872025691784,
+            "satellite": "G21"
+          },
+          {
+            "dataset_epoch_index": 51,
+            "features": [
+              11.0,
+              0.3554940159572669,
+              29.450508385896683
+            ],
+            "gnss_timestamp": 1623296968.006,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 6.846083901325548,
+            "normalized_features": [
+              -3.0694821856237993,
+              -1.7073423384593542,
+              6.846083901325548
+            ],
+            "predicted_bias_m": 42.31994365015107,
+            "satellite": "G21"
+          },
+          {
+            "dataset_epoch_index": 53,
+            "features": [
+              12.0,
+              0.35528825338095243,
+              29.032427698373795
+            ],
+            "gnss_timestamp": 1623296970.006,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 6.748896460073858,
+            "normalized_features": [
+              -2.899755974544694,
+              -1.7080567933703055,
+              6.748896460073858
+            ],
+            "predicted_bias_m": 41.96470836984013,
+            "satellite": "G21"
+          },
+          {
+            "dataset_epoch_index": 52,
+            "features": [
+              12.0,
+              0.355391150045595,
+              28.96150490269065
+            ],
+            "gnss_timestamp": 1623296969.006,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 6.73240968886328,
+            "normalized_features": [
+              -2.899755974544694,
+              -1.7076995659148297,
+              6.73240968886328
+            ],
+            "predicted_bias_m": 41.89636369437905,
+            "satellite": "G21"
+          },
+          {
+            "dataset_epoch_index": 46,
+            "features": [
+              12.0,
+              0.356007623344955,
+              28.933878023177385
+            ],
+            "gnss_timestamp": 1623296963.006,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 6.725987722581706,
+            "normalized_features": [
+              -2.899755974544694,
+              -1.7055588917711537,
+              6.725987722581706
+            ],
+            "predicted_bias_m": 41.842516347493316,
+            "satellite": "G21"
+          },
+          {
+            "dataset_epoch_index": 54,
+            "features": [
+              12.0,
+              0.3551853676244524,
+              28.847002036869526
+            ],
+            "gnss_timestamp": 1623296971.006,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 6.705792491969092,
+            "normalized_features": [
+              -2.899755974544694,
+              -1.7084141243099802,
+              6.705792491969092
+            ],
+            "predicted_bias_m": 41.80358870643696,
+            "satellite": "G21"
+          },
+          {
+            "dataset_epoch_index": 55,
+            "features": [
+              14.0,
+              0.35508252227339665,
+              28.384774286299944
+            ],
+            "gnss_timestamp": 1623296972.006,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 6.5983429401411104,
+            "normalized_features": [
+              -2.5603035523864834,
+              -1.7087712482812567,
+              6.5983429401411104
+            ],
+            "predicted_bias_m": 41.151506663326984,
+            "satellite": "G21"
+          },
+          {
+            "dataset_epoch_index": 70,
+            "features": [
+              8.0,
+              0.37257777158997435,
+              29.618348073214293
+            ],
+            "gnss_timestamp": 1623296987.006,
+            "has_feature_beyond_3_population_std": true,
+            "maximum_absolute_feature_z_score": 6.8850998737719245,
+            "normalized_features": [
+              -3.578660818861115,
+              -1.6480214700737665,
+              6.8850998737719245
+            ],
+            "predicted_bias_m": 41.11846630785331,
+            "satellite": "G06"
+          }
+        ],
+        "maximum_m": 44.21725318639253,
+        "mean_m": -1.6742811630994598,
+        "median_m": -1.7248867744541765,
+        "minimum_m": -20.034990251237023,
+        "p5_m": -10.853541363734314,
+        "p95_m": 8.21433671844271,
+        "population_std_m": 6.329458511949462
+      },
+      "cardinality": {
+        "first_retained_timestamp": 1623296917.006,
+        "invalid_ols_epochs": [],
+        "last_retained_timestamp": 1623297125.006,
+        "published_epochs": 209,
+        "published_satellite_measurements": 4914,
+        "raw_candidate_epochs_in_strict_interval": 209,
+        "released_code_valid_evaluation_epochs": 209,
+        "retained_satellite_measurements": 4914
+      },
+      "corrected": {
+        "mean_2d_error_m": 2.4328026959228537,
+        "mean_3d_error_m": 5.787925331381205
+      },
+      "corrected_minus_defective_2d": {
+        "difference_m": -90.36329730407714,
+        "relative_difference_percent": -97.37833519304921
+      },
+      "corrected_minus_defective_3d": {
+        "difference_m": -160.94237466861878,
+        "relative_difference_percent": -96.52857019307154
+      },
+      "corrected_minus_paper_2d": {
+        "difference_m": 0.08280269592285361,
+        "relative_difference_percent": 3.5235189754405787
+      },
+      "corrected_minus_paper_3d": {
+        "difference_m": -0.102074668618795,
+        "relative_difference_percent": -1.7330164451408319
+      },
+      "historical_defective": {
+        "mean_2d_error_m": 92.7961,
+        "mean_3d_error_m": 166.7303
+      },
+      "independent_csv_checker": {
+        "agreed_with_evaluator_summary": true,
+        "mean_2d_error_m": 2.432802695922854,
+        "mean_3d_error_m": 5.787925331381204,
+        "ols_mean_2d_error_m": 5.218077032776115,
+        "ols_mean_3d_error_m": 12.184638960687368,
+        "rows": 209,
+        "tolerance": 1e-12
+      },
+      "paper": {
+        "mean_2d_error_m": 2.35,
+        "mean_3d_error_m": 5.89
+      },
+      "wls_failures": []
+    }
+  },
+  "experiment": "Corrected-GT BiasNet controlled experiment",
+  "held_out_data_used_for_training": false,
+  "held_out_datasets": [
+    "KLT1",
+    "KLT2"
+  ],
+  "status": "passed",
+  "training_datasets": [
+    "KLT3"
+  ]
+}

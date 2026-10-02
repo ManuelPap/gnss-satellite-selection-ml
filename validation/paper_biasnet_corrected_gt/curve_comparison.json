@@ -1,0 +1,18 @@
+{
+  "corrected_one_to_one": {
+    "epoch_1_loss_m": 24.375135626546765,
+    "epoch_500_loss_m": 2.747394801318496,
+    "minimum_loss_epoch": 500,
+    "minimum_loss_m": 2.747394801318496
+  },
+  "curve_definition": "sum of 405 per-epoch 3D ENU Euclidean norms divided by 405",
+  "historical_defective": {
+    "epoch_1_loss_m": 245.8710875496921,
+    "epoch_500_loss_m": 165.9937795828507,
+    "minimum_loss_epoch": 498,
+    "minimum_loss_m": 165.617236071611
+  },
+  "paper_figure_2_qualitative_reference": "published TDL-B curve is approximately 10 m initially and 2 m late; not digitized and not used for fitting",
+  "plot": "/home/manuelpap/PhD/gnss-satellite-selection-ml/results/paper_biasnet_corrected_gt/training_loss_ab.png",
+  "status": "passed"
+}
