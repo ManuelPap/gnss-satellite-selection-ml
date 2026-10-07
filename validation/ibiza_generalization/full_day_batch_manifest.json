@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "status": "runner_ready_not_executed",
+  "experiment": "frozen_tdl_ibiza_full_day_external_generalization",
+  "source_dataset": {
+    "path": "../external_data/ibiza_2025_01_01/derived/ibiza_preprocessed.npz",
+    "sha256": "edb0189e9eadf3266d75984e3041a90306dd44b3ebecc0101eb188f933dc88c5",
+    "features": [
+      "SNR[0]/1000",
+      "elevation_rad",
+      "OLS_residual_m"
+    ],
+    "normalization_policy": "No Ibiza statistics are computed; each checkpoint applies its embedded KLT3 StandardizeLayer through strict load_state_dict.",
+    "rinex_preprocessing_policy": "Reuse this exact frozen NPZ; do not preprocess RINEX during the batch run."
+  },
+  "checkpoint_inventory": {
+    "manifest_path": "validation/ibiza_generalization/frozen_checkpoint_manifest.json",
+    "manifest_sha256": "e40aa6190e9670b3f5a0ff3a33990827201f98f41302d857eb3ec4f6676f2ba4",
+    "architecture_seed_order": {
+      "TDL-B": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      "TDL-W": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      "TDL-BW": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    },
+    "checkpoint_count": 30,
+    "load_policy": "Verify SHA-256 over the exact bytes before deserialization; strict state_dict loading; eval and inference modes only."
+  },
+  "runtime_versions": {
+    "validated_execution_environment": {
+      "python": "3.12.3",
+      "numpy": "2.5.1",
+      "torch": "2.14.0+cpu",
+      "pymap3d": "3.2.0",
+      "device": "cpu",
+      "model_and_wls_dtype": "torch.float64"
+    },
+    "paper_numerical_provenance": {
+      "tdl_gnss_commit": "dd5eac669676ba0a922102047e58c2dfc9be9267",
+      "pyrtklib_commit": "916d3cc8eb202718a16097cea4a5729bd6b27ac5",
+      "pyrtklib_version": "0.2.6",
+      "persistent_paper_runtime_imported_during_batch": false,
+      "note": "The frozen NPZ already contains paper-era preprocessing products; inference reuses the validated project-side networks and WLS."
+    },
+    "run_manifest_policy": "Record actual Python, NumPy, Torch, pymap3d, OS, machine, device, dtype, and paper-provenance versions at execution time."
+  },
+  "common_epoch_policy": {
+    "selection": "All 2856 accepted Ibiza epochs in accepted-epoch index order 0..2855.",
+    "shared_across_models": true,
+    "satellite_row_policy": "Retain each epoch's contiguous NPZ row interval and original satellite ordering.",
+    "failed_solution_policy": "Write one explicit exception row with known source metadata and nullable solve/output fields; never omit an epoch.",
+    "ground_truth_policy": "Reject ground-truth/reference-coordinate arrays; do not calculate positioning error or accuracy."
+  },
+  "result_layout": {
+    "default_directory": "../external_data/ibiza_2025_01_01/results/frozen_tdl/",
+    "per_model_pattern": "tdl_b_seed_<0-9>.jsonl | tdl_w_seed_<0-9>.jsonl | tdl_bw_seed_<0-9>.jsonl",
+    "per_model_format": "UTF-8 JSON Lines; one canonical key-sorted object per accepted epoch; newline terminated.",
+    "run_manifest": "run_manifest.json",
+    "write_policy": "Write each file through a same-directory temporary file and atomically replace its target; refuse existing targets unless --overwrite is explicit."
+  },
+  "result_schema": {
+    "schema_version": "integer; currently 1",
+    "architecture": "string: TDL-B, TDL-W, or TDL-BW",
+    "seed": "integer 0..9",
+    "checkpoint_sha256": "string",
+    "source_ibiza_npz_sha256": "string; identical required Ibiza hash in every row",
+    "accepted_epoch_index": "integer",
+    "source_split_epoch_index": "integer",
+    "timestamp_gpst_like_s": "float",
+    "row_start": "integer; inclusive NPZ satellite-row offset",
+    "row_stop": "integer; exclusive NPZ satellite-row offset",
+    "satellite_count": "integer; row_stop - row_start",
+    "estimated_ecef_m": "three floats or null on an exception/non-finite state",
+    "estimated_receiver_state": "seven floats or null on an exception/non-finite state",
+    "active_state_dimension": "integer",
+    "rank": "integer or null when unavailable",
+    "condition_number": "finite float or null when unavailable/non-finite",
+    "iteration_count": "integer or null when unavailable",
+    "solution_status": "string: solved, diagnostic_failure, or exception",
+    "convergence_status": "string: converged, maximum_iterations, or not_available",
+    "rank_status": "string: full_rank, rank_deficient, or not_available",
+    "conditioning_status": "string: finite, non_finite, or not_available",
+    "model_output": {
+      "bias_m": "population mean/std/min/max object or null",
+      "weight": "population mean/std/min/max object or null",
+      "weight_fraction_lt_0_01": "float or null; established descriptive GNSS-weight threshold, not a failure criterion",
+      "bias_fraction_eq_0": "float or null; TDL-BW ReLU-head diagnostic",
+      "bias_fraction_gt_0": "float or null; TDL-BW ReLU-head diagnostic"
+    },
+    "error": "null for completed evaluation or {type, message} for an explicitly retained exception"
+  },
+  "scientific_exclusions": [
+    "No RINEX preprocessing",
+    "No training or fine-tuning",
+    "No optimizer",
+    "No backward pass",
+    "No Ibiza normalization computation",
+    "No checkpoint update",
+    "No ground truth or trusted Ibiza coordinate",
+    "No positioning-accuracy metric",
+    "No WLS implementation change"
+  ],
+  "manual_command": ".venv/bin/python -m validation.ibiza_generalization.full_day_batch --dataset ../external_data/ibiza_2025_01_01/derived/ibiza_preprocessed.npz --output-dir ../external_data/ibiza_2025_01_01/results/frozen_tdl --confirm-full-run"
+}

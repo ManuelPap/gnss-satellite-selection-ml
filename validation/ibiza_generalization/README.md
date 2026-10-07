@@ -39,6 +39,46 @@ Run only the intentionally small seed-0 smoke (accepted epochs 0, 1, and 2):
 This command runs three checkpoints total, prints diagnostics without writing
 an accuracy artifact, and makes no positioning-performance claim.
 
+## Full-day frozen batch runner
+
+`full_day_batch.py` is the deterministic export layer for all 30 frozen
+architecture/seed combinations. It loads the verified Ibiza NPZ once and
+shares that same in-memory dataset and chronological accepted-epoch sequence
+with every model. Scientific calculations continue to come exclusively from
+`inference.py`; the runner does not preprocess observations, normalize Ibiza
+features, train, create an optimizer, call backward, change checkpoints, use
+ground truth, or alter WLS.
+
+The tracked `full_day_batch_manifest.json` fixes the dataset and checkpoint-
+manifest hashes, 30-job ordering, runtime provenance, common epoch policy,
+result layout, and exact row schema. Generated files are outside Git under:
+
+```text
+../external_data/ibiza_2025_01_01/results/frozen_tdl/
+```
+
+Each `tdl_<architecture>_seed_<seed>.jsonl` contains exactly one row per
+accepted epoch. A WLS/evaluation exception is retained in place with its epoch
+identity, source metadata, `solution_status="exception"`, error type/message,
+and nullable unavailable fields. The runner never filters the common epoch
+sequence. A deterministic `run_manifest.json` records file hashes, row and
+satellite counts, failure counts, runtime versions, and scientific controls.
+
+The full run requires an explicit safety acknowledgement and is not launched
+by the test suite. Run it manually from the repository root:
+
+```bash
+.venv/bin/python -m validation.ibiza_generalization.full_day_batch \
+  --dataset ../external_data/ibiza_2025_01_01/derived/ibiza_preprocessed.npz \
+  --output-dir ../external_data/ibiza_2025_01_01/results/frozen_tdl \
+  --confirm-full-run
+```
+
+If that exact result set already exists and replacement is intentional, append
+`--overwrite`. A completed run with retained exception epochs exits nonzero
+after writing every job and marks the manifest
+`completed_with_failed_epochs`.
+
 ## Runtime provenance
 
 The compatibility target is:
@@ -137,7 +177,10 @@ are also defined there.
 Run the scientific/unit controls with:
 
 ```bash
-.venv/bin/python -m pytest -q tests/test_ibiza_generalization.py
+.venv/bin/python -m pytest -q \
+  tests/test_ibiza_generalization.py \
+  tests/test_ibiza_frozen_inference.py \
+  tests/test_ibiza_full_day_batch.py
 ```
 
 The controls cover deterministic NPZ bytes and canonical content, structural
