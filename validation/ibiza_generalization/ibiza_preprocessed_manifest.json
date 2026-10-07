@@ -1,0 +1,616 @@
+{
+  "broadcast_ephemeris_coverage": {
+    "historical_galileo_ephemeris_selection": 0,
+    "navigation_constellations": [
+      "C",
+      "E",
+      "G",
+      "I",
+      "J",
+      "R",
+      "S"
+    ],
+    "observed_constellations": [
+      "E",
+      "G",
+      "R"
+    ],
+    "required_constellations_present_in_navigation": true,
+    "signal_or_ephemeris_substitution_performed": false,
+    "unusable_satellite_epoch_rows_by_constellation": {
+      "E": 707,
+      "R": 10
+    }
+  },
+  "dataset": "Ibiza 2025-01-01 external generalization",
+  "epoch_counts": {
+    "accepted": 2856,
+    "raw": 2880,
+    "rejected": 24,
+    "rejected_by_reason": {
+      "ols_max_iterations": 24
+    }
+  },
+  "features": {
+    "columns": [
+      {
+        "index": 0,
+        "name": "C/N0",
+        "unit": "SNR[0]/1000"
+      },
+      {
+        "index": 1,
+        "name": "elevation",
+        "unit": "radian"
+      },
+      {
+        "index": 2,
+        "name": "equal-weight OLS residual",
+        "unit": "metre"
+      }
+    ],
+    "dtype": "float64",
+    "ibiza_normalization_computed": false,
+    "matrix_name": "features",
+    "normalization_policy": "raw features only; each frozen checkpoint applies its frozen KLT3 StandardizeLayer later",
+    "shape": [
+      73204,
+      3
+    ]
+  },
+  "inputs": {
+    "navigation": {
+      "filename": "BRDM00DLR_S_20250010000_01D_MN.rnx",
+      "sha256": "423c488a7f0a4825c2e88d848775726b86f65b37ad6a6a63bc98a26fc8c0e1bb",
+      "size_bytes": 7977006
+    },
+    "observation": {
+      "filename": "IBIZ00ESP_R_20250010000_01D_30S_MO.rnx",
+      "sha256": "18dfcaa247fb69b8260eda1257279411ca2317a244d3c3afd37eb74bfaa8000b",
+      "size_bytes": 9978600
+    }
+  },
+  "npz_schema": {
+    "audit_constellation_code": {
+      "dtype": "uint8",
+      "shape": [
+        74591
+      ]
+    },
+    "audit_exclusion_reason_code": {
+      "dtype": "int16",
+      "shape": [
+        74591
+      ]
+    },
+    "audit_raw_pseudorange_m": {
+      "dtype": "float64",
+      "shape": [
+        74591
+      ]
+    },
+    "audit_raw_snr_units": {
+      "dtype": "float64",
+      "shape": [
+        74591
+      ]
+    },
+    "audit_rtklib_satellite_number": {
+      "dtype": "int64",
+      "shape": [
+        74591
+      ]
+    },
+    "audit_satellite_prn": {
+      "dtype": "int64",
+      "shape": [
+        74591
+      ]
+    },
+    "audit_source_observation_index": {
+      "dtype": "int64",
+      "shape": [
+        74591
+      ]
+    },
+    "audit_source_row_index": {
+      "dtype": "int64",
+      "shape": [
+        74591
+      ]
+    },
+    "audit_source_signal_code": {
+      "dtype": "int64",
+      "shape": [
+        74591
+      ]
+    },
+    "audit_split_epoch_index": {
+      "dtype": "int64",
+      "shape": [
+        74591
+      ]
+    },
+    "audit_status_code": {
+      "dtype": "int8",
+      "shape": [
+        74591
+      ]
+    },
+    "clock_state_index_by_constellation_code": {
+      "dtype": "int64",
+      "shape": [
+        5
+      ]
+    },
+    "cn0_snr0_div_1000": {
+      "dtype": "float64",
+      "shape": [
+        73204
+      ]
+    },
+    "constellation_code": {
+      "dtype": "uint8",
+      "shape": [
+        73204
+      ]
+    },
+    "corrected_pseudorange_m": {
+      "dtype": "float64",
+      "shape": [
+        73204
+      ]
+    },
+    "elevation_rad": {
+      "dtype": "float64",
+      "shape": [
+        73204
+      ]
+    },
+    "epoch_accepted_observation_count": {
+      "dtype": "int64",
+      "shape": [
+        2856
+      ]
+    },
+    "epoch_active_state_count": {
+      "dtype": "int64",
+      "shape": [
+        2856
+      ]
+    },
+    "epoch_active_state_mask": {
+      "dtype": "uint8",
+      "shape": [
+        2856,
+        7
+      ]
+    },
+    "epoch_design_condition_number": {
+      "dtype": "float64",
+      "shape": [
+        2856
+      ]
+    },
+    "epoch_design_rank": {
+      "dtype": "int64",
+      "shape": [
+        2856
+      ]
+    },
+    "epoch_index": {
+      "dtype": "int64",
+      "shape": [
+        73204
+      ]
+    },
+    "epoch_normal_condition_number": {
+      "dtype": "float64",
+      "shape": [
+        2856
+      ]
+    },
+    "epoch_offsets": {
+      "dtype": "int64",
+      "shape": [
+        2857
+      ]
+    },
+    "epoch_ols_converged": {
+      "dtype": "uint8",
+      "shape": [
+        2856
+      ]
+    },
+    "epoch_ols_initial_state": {
+      "dtype": "float64",
+      "shape": [
+        2856,
+        7
+      ]
+    },
+    "epoch_raw_observation_count": {
+      "dtype": "int64",
+      "shape": [
+        2856
+      ]
+    },
+    "epoch_split_index": {
+      "dtype": "int64",
+      "shape": [
+        2856
+      ]
+    },
+    "epoch_time_gpst_like_s": {
+      "dtype": "float64",
+      "shape": [
+        2856
+      ]
+    },
+    "exclusion_reason_code": {
+      "dtype": "int16",
+      "shape": [
+        73204
+      ]
+    },
+    "features": {
+      "dtype": "float64",
+      "shape": [
+        73204,
+        3
+      ]
+    },
+    "ols_residual_m": {
+      "dtype": "float64",
+      "shape": [
+        73204
+      ]
+    },
+    "raw_epoch_accepted_epoch_index": {
+      "dtype": "int64",
+      "shape": [
+        2880
+      ]
+    },
+    "raw_epoch_observation_count": {
+      "dtype": "int64",
+      "shape": [
+        2880
+      ]
+    },
+    "raw_epoch_rejection_reason_code": {
+      "dtype": "int16",
+      "shape": [
+        2880
+      ]
+    },
+    "raw_epoch_status_code": {
+      "dtype": "int8",
+      "shape": [
+        2880
+      ]
+    },
+    "raw_epoch_time_gpst_like_s": {
+      "dtype": "float64",
+      "shape": [
+        2880
+      ]
+    },
+    "raw_pseudorange_m": {
+      "dtype": "float64",
+      "shape": [
+        73204
+      ]
+    },
+    "raw_snr_units": {
+      "dtype": "float64",
+      "shape": [
+        73204
+      ]
+    },
+    "row_epoch_time_gpst_like_s": {
+      "dtype": "float64",
+      "shape": [
+        73204
+      ]
+    },
+    "rtklib_satellite_number": {
+      "dtype": "int64",
+      "shape": [
+        73204
+      ]
+    },
+    "satellite_clock_bias_s": {
+      "dtype": "float64",
+      "shape": [
+        73204
+      ]
+    },
+    "satellite_clock_correction_m": {
+      "dtype": "float64",
+      "shape": [
+        73204
+      ]
+    },
+    "satellite_position_ecef_m": {
+      "dtype": "float64",
+      "shape": [
+        73204,
+        3
+      ]
+    },
+    "satellite_prn": {
+      "dtype": "int64",
+      "shape": [
+        73204
+      ]
+    },
+    "schema_version": {
+      "dtype": "int64",
+      "shape": [
+        1
+      ]
+    },
+    "source_observation_index": {
+      "dtype": "int64",
+      "shape": [
+        73204
+      ]
+    },
+    "source_row_index": {
+      "dtype": "int64",
+      "shape": [
+        73204
+      ]
+    },
+    "source_signal_code": {
+      "dtype": "int64",
+      "shape": [
+        73204
+      ]
+    },
+    "system_clock_index": {
+      "dtype": "int64",
+      "shape": [
+        73204
+      ]
+    },
+    "validity_code": {
+      "dtype": "int8",
+      "shape": [
+        73204
+      ]
+    }
+  },
+  "ols_diagnostics": {
+    "all_accepted_epochs_converged": true,
+    "all_accepted_epochs_full_column_rank": true,
+    "condition_number_definition": "2-norm condition numbers of final H and H.T@H",
+    "maximum_design_condition_number": 6.079860569770843,
+    "maximum_normal_condition_number": 36.96470454785426
+  },
+  "output": {
+    "canonical_content_sha256": "30fcc7b937e91dfcafba65cea5fff9a36000e7c7da39b8191c2c73fe05e7df3b",
+    "filename": "ibiza_preprocessed.npz",
+    "npz_sha256": "edb0189e9eadf3266d75984e3041a90306dd44b3ebecc0101eb188f933dc88c5"
+  },
+  "provenance": {
+    "external_repository_modified": false,
+    "paper_runtime": {
+      "cache_validated": true,
+      "cpu_device_substitution": {
+        "changes_equations": false,
+        "expression": ".to('cuda') -> .to('cpu')",
+        "replacement_count": 11
+      },
+      "mode": "persistent generated cache",
+      "pyrtklib_binary_sha256": "2eb02d1a923f89972aac047c1da327a441c0de92a7a9b99ff3592819191162df",
+      "rtk_util_sha256": "4d905e4334ec0451c89311d44e304ff9fdac426785edf2e9332e75182f1c48c2",
+      "schema_version": 1,
+      "status": "ready"
+    },
+    "preprocessing_implementation": {
+      "repository_head": "e95959af721c64186e87041be9ae68a221cd4345",
+      "working_tree_dirty": true
+    },
+    "pyrtklib_version_commit_hypothesis": {
+      "commit": "916d3cc8eb202718a16097cea4a5729bd6b27ac5",
+      "publication_dependency_proven": false,
+      "version": "0.2.6"
+    },
+    "tdl_gnss_reference_commit": "dd5eac669676ba0a922102047e58c2dfc9be9267"
+  },
+  "rinex": {
+    "first_processed_signal_mapping": {
+      "E": {
+        "model_cn0_value": "SNR[0]/1000",
+        "raw_cn0_observation": "S1C",
+        "raw_pseudorange_observation": "C1C",
+        "rtklib_code_labels_seen_in_accepted_rows": [
+          "1C"
+        ],
+        "rtklib_code_values_seen_in_accepted_rows": [
+          1
+        ],
+        "rtklib_code_values_seen_in_raw_rows": [
+          0,
+          1
+        ],
+        "rtklib_slot": 0,
+        "substitution_performed": false
+      },
+      "G": {
+        "model_cn0_value": "SNR[0]/1000",
+        "raw_cn0_observation": "S1C",
+        "raw_pseudorange_observation": "C1C",
+        "rtklib_code_labels_seen_in_accepted_rows": [
+          "1C"
+        ],
+        "rtklib_code_values_seen_in_accepted_rows": [
+          1
+        ],
+        "rtklib_code_values_seen_in_raw_rows": [
+          0,
+          1
+        ],
+        "rtklib_slot": 0,
+        "substitution_performed": false
+      },
+      "R": {
+        "model_cn0_value": "SNR[0]/1000",
+        "raw_cn0_observation": "S1C",
+        "raw_pseudorange_observation": "C1C",
+        "rtklib_code_labels_seen_in_accepted_rows": [
+          "1C"
+        ],
+        "rtklib_code_values_seen_in_accepted_rows": [
+          1
+        ],
+        "rtklib_code_values_seen_in_raw_rows": [
+          1
+        ],
+        "rtklib_slot": 0,
+        "substitution_performed": false
+      }
+    },
+    "navigation": {
+      "file_type": "NAVIGATION DATA",
+      "first_observation": null,
+      "interval_s": null,
+      "last_observation": null,
+      "observation_types_by_constellation": {},
+      "satellite_system": "M",
+      "signal_strength_unit": null,
+      "time_system": null,
+      "version": "3.04"
+    },
+    "navigation_record_counts_by_constellation": {
+      "C": 1106,
+      "E": 5623,
+      "G": 424,
+      "I": 217,
+      "J": 96,
+      "R": 1221,
+      "S": 8461
+    },
+    "observation": {
+      "file_type": "OBSERVATION DATA",
+      "first_observation": "2025-01-01T00:00:00.0000000",
+      "interval_s": 30.0,
+      "last_observation": "2025-01-01T23:59:30.0000000",
+      "observation_types_by_constellation": {
+        "E": [
+          "C1C",
+          "L1C",
+          "S1C",
+          "C5Q",
+          "L5Q",
+          "S5Q",
+          "C7Q",
+          "L7Q",
+          "S7Q",
+          "C8Q",
+          "L8Q",
+          "S8Q"
+        ],
+        "G": [
+          "C1C",
+          "L1C",
+          "S1C",
+          "C2W",
+          "L2W",
+          "S2W",
+          "C5Q",
+          "L5Q",
+          "S5Q"
+        ],
+        "R": [
+          "C1C",
+          "L1C",
+          "S1C",
+          "C2P",
+          "L2P",
+          "S2P"
+        ]
+      },
+      "satellite_system": "M: MIXED",
+      "signal_strength_unit": "DBHZ",
+      "time_system": "GPS",
+      "version": "3.03"
+    },
+    "pyrtklib_parse_audit": {
+      "first_epoch_time_gpst_like_s": 1735689600.0,
+      "last_epoch_time_gpst_like_s": 1735775970.0,
+      "navigation_parse_succeeded": true,
+      "observation_parse_succeeded": true,
+      "sorted_observation_rows": 74591,
+      "split_epochs": 2880
+    }
+  },
+  "runtime": {
+    "numpy": "2.5.1",
+    "platform": "Linux-7.0.0-34-generic-x86_64-with-glibc2.39",
+    "pyrtklib": "0.2.6",
+    "python": "3.12.3"
+  },
+  "satellite_epoch_observations": {
+    "accepted": 73204,
+    "accepted_by_constellation": {
+      "E": 21799,
+      "G": 28349,
+      "R": 23056
+    },
+    "exclusion_or_status_counts": {
+      "accepted": 73204,
+      "below_horizon": 16,
+      "no_broadcast_ephemeris": 717,
+      "ols_max_iterations": 627,
+      "zero_first_pseudorange": 27
+    },
+    "raw": 74591,
+    "raw_by_constellation": {
+      "E": 22701,
+      "G": 28617,
+      "R": 23273
+    }
+  },
+  "scientific_controls": {
+    "all_architectures_share_one_raw_feature_array": true,
+    "ground_truth_input_exists": false,
+    "ground_truth_used": false,
+    "ibiza_normalization_computed": false,
+    "network_inference_run": false,
+    "network_training_run": false
+  },
+  "state_layout": {
+    "constellation_code": {
+      "1": "G",
+      "2": "R",
+      "3": "E",
+      "4": "C"
+    },
+    "exclusion_reason_code": {
+      "0": "accepted",
+      "1": "no_broadcast_ephemeris",
+      "10": "unknown_ols_failure",
+      "2": "zero_first_pseudorange",
+      "3": "unsupported_constellation",
+      "4": "below_horizon",
+      "5": "insufficient_observations",
+      "6": "ols_max_iterations",
+      "7": "ols_residual_too_large",
+      "8": "rank_deficient",
+      "9": "ols_exception"
+    },
+    "indices": [
+      "x_m",
+      "y_m",
+      "z_m",
+      "GPS_clock_m",
+      "BeiDou_clock_m",
+      "Galileo_clock_m",
+      "GLONASS_clock_m"
+    ]
+  },
+  "status": "passed"
+}

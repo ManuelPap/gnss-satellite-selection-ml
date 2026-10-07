@@ -2,6 +2,10 @@
 
 The later real-data validations are documented separately:
 
+- `ibiza_generalization/README.md`: deterministic external-data RINEX audit
+  and a shared raw-feature cache for later TDL-B, TDL-W, and TDL-BW use; its
+  idempotent runtime bootstrap maintains the persistent generated dependencies
+  under `../external_data/.paper_runtime/`;
 - `real_klt/README.md`: frozen paper-era observation model and WLS on KLT1;
 - `paper_weightnet/README.md`: released WeightNet preprocessing, training,
   real-data gradients, NN-generated KLT1 weights, and WLS comparison;

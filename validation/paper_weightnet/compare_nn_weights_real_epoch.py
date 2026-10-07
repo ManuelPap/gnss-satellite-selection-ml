@@ -16,11 +16,19 @@ import torch
 
 HERE = Path(__file__).resolve().parent
 REPOSITORY_ROOT = HERE.parents[1]
+if str(REPOSITORY_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPOSITORY_ROOT))
 sys.path.insert(0, str(REPOSITORY_ROOT / "src"))
 
 from core import WeightNet, construct_features  # noqa: E402
 from gnss_satellite_selection_ml.paper_observation_model import (  # noqa: E402
     paper_wls_iteration,
+)
+from validation.ibiza_generalization.runtime_cache import (  # noqa: E402
+    DEFAULT_RUNTIME_DIR,
+    import_pyrtklib,
+    load_rtk_util,
+    resolve_runtime,
 )
 
 
@@ -52,7 +60,7 @@ NAVIGATION_SHA256 = {
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--tdl-dir", required=True, type=Path)
+    parser.add_argument("--runtime-dir", type=Path, default=DEFAULT_RUNTIME_DIR)
     parser.add_argument("--observation", required=True, type=Path)
     parser.add_argument("--ephemeris-glob", required=True)
     parser.add_argument(
@@ -121,7 +129,8 @@ def main() -> int:
     observation_path = args.observation.resolve()
     checkpoint_path = args.checkpoint.resolve()
     metrics_path = args.training_metrics.resolve()
-    tdl_dir = args.tdl_dir.resolve()
+    runtime, _runtime_manifest = resolve_runtime(args.runtime_dir)
+    tdl_dir = runtime.tdl_dir
     verify_hash(observation_path, OBSERVATION_SHA256, "KLT rover observation")
     ephemeris_paths = [Path(item).resolve() for item in sorted(glob.glob(args.ephemeris_glob))]
     if {path.name for path in ephemeris_paths} != set(NAVIGATION_SHA256):
@@ -135,12 +144,13 @@ def main() -> int:
     if checkpoint_hash != training_metrics["checkpoint"]["sha256"]:
         raise RuntimeError("checkpoint hash does not match the training record")
 
-    sys.path.insert(0, str(tdl_dir))
-    import pyrtklib as prl
-    import rtk_util as util
+    prl = import_pyrtklib(runtime.pyrtklib_site)
+    util = load_rtk_util(tdl_dir, module_name="paper_weight_comparison_rtk_util")
 
     if ".to('cuda')" in (tdl_dir / "rtk_util.py").read_text():
-        raise RuntimeError("disposable TDL reference still contains CUDA placement")
+        raise RuntimeError(
+            "cached TDL runtime contains CUDA placement; rebuild the paper runtime"
+        )
     obs, nav, _station = util.read_obs(str(observation_path), args.ephemeris_glob)
     prl.sortobs(obs)
     epochs = util.split_obs(obs)

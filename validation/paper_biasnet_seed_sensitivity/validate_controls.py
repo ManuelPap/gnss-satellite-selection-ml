@@ -24,6 +24,9 @@ from validation.paper_biasnet_seed_sensitivity.experiment import (  # noqa: E402
     training_data_identity,
     validate_training_dataset,
 )
+from validation.ibiza_generalization.runtime_cache import (  # noqa: E402
+    DEFAULT_RUNTIME_DIR,
+)
 from validation.paper_biasnet_seed_sensitivity.run_seed import (  # noqa: E402
     prepare_held_out,
     prepared_dataset_identity,
@@ -45,8 +48,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "--ephemeris-glob", action="append", dest="ephemeris_patterns"
     )
     parser.add_argument("--ground-truth", type=Path)
-    parser.add_argument("--tdl-dir", type=Path)
-    parser.add_argument("--pyrtklib-site", type=Path)
+    parser.add_argument("--runtime-dir", type=Path, default=DEFAULT_RUNTIME_DIR)
     parser.add_argument(
         "--output",
         type=Path,

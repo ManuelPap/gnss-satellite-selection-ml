@@ -6,7 +6,6 @@ from __future__ import annotations
 import argparse
 import glob
 import hashlib
-import importlib.metadata
 import inspect
 import json
 import platform
@@ -16,10 +15,21 @@ from pathlib import Path
 
 import numpy as np
 
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+if str(REPOSITORY_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPOSITORY_ROOT))
 
-TDL_COMMIT = "dd5eac669676ba0a922102047e58c2dfc9be9267"
-PYRTKLIB_COMMIT = "916d3cc8eb202718a16097cea4a5729bd6b27ac5"
-PYRTKLIB_VERSION = "0.2.6"
+from validation.ibiza_generalization.runtime_cache import (  # noqa: E402
+    DEFAULT_RUNTIME_DIR,
+    PYRTKLIB_COMMIT,
+    PYRTKLIB_VERSION,
+    TDL_COMMIT,
+    import_pyrtklib,
+    load_rtk_util,
+    resolve_runtime,
+)
+
+
 DATASET_URL = (
     "https://www.dropbox.com/scl/fi/d3urwaquf5ema5j0unmt4/"
     "data.zip?rlkey=tuwpx9pdzqtdvoeoqwhcc5gi8&st=wh5qhg6e&dl=1"
@@ -83,10 +93,10 @@ def parse_args() -> argparse.Namespace:
         )
     )
     parser.add_argument(
-        "--tdl-dir",
-        required=True,
+        "--runtime-dir",
         type=Path,
-        help="Disposable git-archive copy of TDL-GNSS at the pinned commit.",
+        default=DEFAULT_RUNTIME_DIR,
+        help="Persistent generated paper runtime cache.",
     )
     parser.add_argument(
         "--observation",
@@ -256,7 +266,8 @@ def main() -> int:
     args = parse_args()
     observation_path = args.observation.resolve()
     archive_path = args.dataset_archive.resolve()
-    tdl_dir = args.tdl_dir.resolve()
+    runtime, _runtime_manifest = resolve_runtime(args.runtime_dir)
+    tdl_dir = runtime.tdl_dir
     output_dir = args.output_dir.resolve()
 
     archive_record = verify_file(
@@ -281,20 +292,13 @@ def main() -> int:
     source_text = (tdl_dir / "rtk_util.py").read_text()
     if ".to('cuda')" in source_text:
         raise RuntimeError(
-            "disposable TDL copy still targets CUDA; apply the documented CPU-only "
-            "string substitution to that temporary copy"
+            "cached TDL runtime still targets CUDA; rebuild it with "
+            "validation.ibiza_generalization.prepare_runtime"
         )
 
-    sys.path.insert(0, str(tdl_dir))
-    import pyrtklib as prl
+    prl = import_pyrtklib(runtime.pyrtklib_site)
     import torch
-    import rtk_util as util
-
-    installed_version = importlib.metadata.version("pyrtklib")
-    if installed_version != PYRTKLIB_VERSION:
-        raise RuntimeError(
-            f"expected pyrtklib {PYRTKLIB_VERSION}, found {installed_version}"
-        )
+    util = load_rtk_util(tdl_dir, module_name="real_klt_rtk_util")
     if ".to('cpu')" not in inspect.getsource(util.H_matrix_prl_torch):
         raise RuntimeError("archived Torch matrix function lacks the CPU substitution")
 

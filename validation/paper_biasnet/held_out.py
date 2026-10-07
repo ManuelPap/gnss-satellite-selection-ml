@@ -7,18 +7,27 @@ import hashlib
 import json
 from dataclasses import dataclass
 from pathlib import Path
+import sys
 from typing import Sequence
 
 import numpy as np
 import pymap3d as p3d
 import torch
 
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+if str(REPOSITORY_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPOSITORY_ROOT))
+
+from validation.ibiza_generalization.runtime_cache import (  # noqa: E402
+    DEFAULT_RUNTIME_DIR,
+)
+
 try:
     from .core import BiasNet, solve_paper_bias_position
 except ImportError:
     from core import BiasNet, solve_paper_bias_position
 
-from validation.paper_weightnet.held_out import (
+from validation.paper_weightnet.held_out import (  # noqa: E402
     KLT3_FEATURE_MEAN,
     KLT3_FEATURE_POPULATION_STD,
     DatasetSpec,
@@ -424,8 +433,7 @@ def common_input_arguments(parser: object) -> None:
     parser.add_argument("--observation", type=Path)
     parser.add_argument("--ephemeris-glob", action="append", dest="ephemeris_patterns")
     parser.add_argument("--ground-truth", type=Path)
-    parser.add_argument("--tdl-dir", type=Path)
-    parser.add_argument("--pyrtklib-site", type=Path)
+    parser.add_argument("--runtime-dir", type=Path, default=DEFAULT_RUNTIME_DIR)
 
 
 def inputs_from_args(args: object) -> tuple[DatasetSpec, InputPaths]:
@@ -436,8 +444,7 @@ def inputs_from_args(args: object) -> tuple[DatasetSpec, InputPaths]:
         observation=args.observation,
         ephemeris_patterns=args.ephemeris_patterns,
         ground_truth=args.ground_truth,
-        tdl_dir=args.tdl_dir,
-        pyrtklib_site=args.pyrtklib_site,
+        runtime_dir=args.runtime_dir,
     )
 
 

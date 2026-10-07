@@ -32,3 +32,6 @@ validation/paper_weightnet/*.pth
 # Local paper-era BiasNet traces and training products
 validation/paper_biasnet/*.npz
 validation/paper_biasnet/*.pth
+
+# Local Ibiza preprocessing outputs (the tracked JSON manifest is retained)
+validation/ibiza_generalization/*.npz

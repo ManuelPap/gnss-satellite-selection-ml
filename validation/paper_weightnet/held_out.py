@@ -10,8 +10,6 @@ from __future__ import annotations
 import csv
 import glob
 import hashlib
-import importlib
-import importlib.metadata
 import json
 import sys
 from collections import deque
@@ -22,6 +20,20 @@ from typing import Iterable, Sequence
 import numpy as np
 import pymap3d as p3d
 import torch
+
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+if str(REPOSITORY_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPOSITORY_ROOT))
+
+from validation.ibiza_generalization.runtime_cache import (  # noqa: E402
+    DEFAULT_RUNTIME_DIR,
+    PYRTKLIB_COMMIT,
+    PYRTKLIB_VERSION,
+    TDL_COMMIT,
+    import_pyrtklib,
+    load_rtk_util,
+    resolve_runtime,
+)
 
 try:
     from .core import (
@@ -45,9 +57,6 @@ except ImportError:  # Direct execution from validation/paper_weightnet.
     )
 
 
-TDL_COMMIT = "dd5eac669676ba0a922102047e58c2dfc9be9267"
-PYRTKLIB_COMMIT = "916d3cc8eb202718a16097cea4a5729bd6b27ac5"
-PYRTKLIB_VERSION = "0.2.6"
 CHECKPOINT_SHA256 = (
     "2ccb3f7efc17755499f38a2ccff6205a8a54816f4dbe984a941bf6cc4d26644c"
 )
@@ -257,8 +266,7 @@ def resolve_input_paths(
     observation: Path | None = None,
     ephemeris_patterns: Sequence[str] | None = None,
     ground_truth: Path | None = None,
-    tdl_dir: Path | None = None,
-    pyrtklib_site: Path | None = None,
+    runtime_dir: Path = DEFAULT_RUNTIME_DIR,
 ) -> InputPaths:
     """Resolve explicit inputs first, then known local reproduction locations."""
 
@@ -300,23 +308,13 @@ def resolve_input_paths(
                 + rendered
             )
 
-    tdl_path = tdl_dir.resolve() if tdl_dir else _first_existing(
-        (
-            Path("/tmp/gnss-weightnet-repro/tdl-dd5eac6"),
-            Path("/tmp/tdl-gnss-dd5eac6"),
-        ),
-        "disposable TDL-GNSS dd5eac6 source copy",
-    )
-    pyrtklib_path = pyrtklib_site.resolve() if pyrtklib_site else _first_existing(
-        (Path("/tmp/gnss-weightnet-repro/pyrtklib-0.2.6-site"),),
-        "pyrtklib 0.2.6 target directory",
-    )
+    runtime, _runtime_manifest = resolve_runtime(runtime_dir)
     return InputPaths(
         observation=observation_path,
         ephemeris_patterns=eph,
         ground_truth=ground_truth_path,
-        tdl_dir=tdl_path,
-        pyrtklib_site=pyrtklib_path,
+        tdl_dir=runtime.tdl_dir,
+        pyrtklib_site=runtime.pyrtklib_site,
     )
 
 
@@ -333,16 +331,11 @@ def load_historical_modules(inputs: InputPaths) -> tuple[object, object]:
             f"CPU-only CUDA string substitution): {source_hash}"
         )
 
-    sys.dont_write_bytecode = True
-    for path in (inputs.tdl_dir, inputs.pyrtklib_site):
-        rendered = str(path)
-        if rendered not in sys.path:
-            sys.path.insert(0, rendered)
-    prl = importlib.import_module("pyrtklib")
-    util = importlib.import_module("rtk_util")
-    version = importlib.metadata.version("pyrtklib")
-    if version != PYRTKLIB_VERSION:
-        raise RuntimeError(f"expected pyrtklib {PYRTKLIB_VERSION}, found {version}")
+    prl = import_pyrtklib(inputs.pyrtklib_site)
+    util = load_rtk_util(
+        inputs.tdl_dir,
+        module_name="paper_weightnet_rtk_util",
+    )
     return prl, util
 
 
@@ -908,8 +901,7 @@ def common_input_arguments(parser: object) -> None:
         help="Repeat for multiple historical wildcard patterns.",
     )
     parser.add_argument("--ground-truth", type=Path)
-    parser.add_argument("--tdl-dir", type=Path)
-    parser.add_argument("--pyrtklib-site", type=Path)
+    parser.add_argument("--runtime-dir", type=Path, default=DEFAULT_RUNTIME_DIR)
 
 
 def inputs_from_args(args: object) -> tuple[DatasetSpec, InputPaths]:
@@ -920,8 +912,7 @@ def inputs_from_args(args: object) -> tuple[DatasetSpec, InputPaths]:
         observation=args.observation,
         ephemeris_patterns=args.ephemeris_patterns,
         ground_truth=args.ground_truth,
-        tdl_dir=args.tdl_dir,
-        pyrtklib_site=args.pyrtklib_site,
+        runtime_dir=args.runtime_dir,
     )
     return spec, inputs
 

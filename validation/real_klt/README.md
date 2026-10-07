@@ -74,8 +74,9 @@ hash.
 
 ## Manual reproduction
 
-Run these commands from the root of this repository. They use only
-repository-relative reference paths and a configurable temporary directory.
+Run these commands from the root of this repository. Historical KLT data stay
+in a configurable temporary directory, while the pinned compiled runtime is
+kept in the persistent generated cache under `../external_data/.paper_runtime`.
 The project virtual environment must already contain the runtime packages used
 by the repository, notably NumPy and CPU Torch.
 
@@ -86,11 +87,9 @@ REPO_DIR="$PWD"
 WORK_DIR="/tmp/gnss-klt-paper-wls"
 ARCHIVE="$WORK_DIR/data.zip"
 EXTRACT_DIR="$WORK_DIR/extracted"
-TDL_COPY="$WORK_DIR/TDL-GNSS-dd5eac6"
-PYRTKLIB_SRC="$WORK_DIR/pyrtklib-0.2.6-src"
-PYRTKLIB_SITE="$WORK_DIR/pyrtklib-0.2.6-site"
+PAPER_RUNTIME="../external_data/.paper_runtime"
 
-mkdir -p "$WORK_DIR" "$EXTRACT_DIR" "$TDL_COPY" "$PYRTKLIB_SRC" "$PYRTKLIB_SITE"
+mkdir -p "$WORK_DIR" "$EXTRACT_DIR"
 
 curl -L \
   'https://www.dropbox.com/scl/fi/d3urwaquf5ema5j0unmt4/data.zip?rlkey=tuwpx9pdzqtdvoeoqwhcc5gi8&st=wh5qhg6e&dl=1' \
@@ -114,52 +113,19 @@ echo "a5bc8ab35fe0c80f91d0e57517b495be6563385d235835fd6aa063d73bb7072c  $KLT_DIR
 echo "7335032796f9b46176c359e8a39cc3f8496dd1f3fd6003fcfb9a794aafe88dd6  $KLT_DIR/sta/hksc161d.21o" | sha256sum -c -
 ```
 
-### 3. Create disposable source copies at the pinned commits
+### 3. Prepare or verify the persistent pinned runtime
 
 ```bash
-git -C ../external_references/TDL-GNSS \
-  archive --format=tar dd5eac669676ba0a922102047e58c2dfc9be9267 |
-  tar -xf - -C "$TDL_COPY"
-
-git -C ../external_references/pyrtklib \
-  archive --format=tar 916d3cc8eb202718a16097cea4a5729bd6b27ac5 |
-  tar -xf - -C "$PYRTKLIB_SRC"
+.venv/bin/python -m validation.ibiza_generalization.prepare_runtime
 ```
 
-`git archive` is important here: it selects the exact revision without
-checking out, modifying, or otherwise disturbing either external reference
-repository. Those repositories are read-only evidence. The copies under
-`/tmp` are disposable work products.
+The idempotent bootstrap performs the pinned `git archive` operations, builds
+pyrtklib 0.2.6, applies only the audited CPU device substitution to the cached
+TDL copy, and validates artifact hashes and runtime compatibility. It never
+modifies the reference repositories. The cache has its own README and may be
+deleted and rebuilt safely.
 
-### 4. Build pyrtklib 0.2.6 into the temporary tree
-
-```bash
-.venv/bin/python -m pip install \
-  --no-deps \
-  --no-build-isolation \
-  --target "$PYRTKLIB_SITE" \
-  "$PYRTKLIB_SRC"
-
-PYTHONPATH="$PYRTKLIB_SITE" \
-  .venv/bin/python -c \
-  'import importlib.metadata; print(importlib.metadata.version("pyrtklib"))'
-```
-
-The version command must print `0.2.6`. A compiler and the build requirements
-already present in the project environment are needed; no pyrtklib files are
-installed into the repository or global Python environment.
-
-### 5. Apply only the CPU device substitution to the disposable TDL copy
-
-```bash
-sed -i "s/\.to('cuda')/.to('cpu')/g" "$TDL_COPY/rtk_util.py"
-```
-
-This substitution changes device placement only. It does not change equations,
-constants, data flow, convergence logic, or the explicit inverse. Never apply
-it to `../external_references/TDL-GNSS`.
-
-### 6. Generate the trace and validate its algebra
+### 4. Generate the trace and validate its algebra
 
 Start from clean generated outputs:
 
@@ -173,9 +139,8 @@ rm -f \
 Run the paper-era trace:
 
 ```bash
-PYTHONPATH="$PYRTKLIB_SITE:$TDL_COPY" \
-  .venv/bin/python validation/real_klt/reproduce_paper_wls_epoch.py \
-  --tdl-dir "$TDL_COPY" \
+.venv/bin/python validation/real_klt/reproduce_paper_wls_epoch.py \
+  --runtime-dir "$PAPER_RUNTIME" \
   --observation "$KLT_DIR/COM38_210610_025603.obs" \
   --ephemeris-glob "$KLT_DIR/sta/hksc161d.21*" \
   --dataset-archive "$ARCHIVE" \
@@ -616,7 +581,8 @@ rm -f \
 rm -rf /tmp/gnss-klt-paper-wls
 ```
 
-The second command targets only the named disposable directory created above.
+The second command targets only the temporary historical-data directory. It
+does not remove the persistent paper runtime cache.
 
 ## Troubleshooting
 
@@ -630,11 +596,11 @@ script as one argument.
 
 ### pyrtklib fails to build or import
 
-Use the pinned git archive, the project's Python interpreter, and an empty
-`$PYRTKLIB_SITE`. Confirm compiler/build dependencies are available. Delete
-only the temporary source/site directories, recreate them, and repeat steps
-3–4. Check that the version probe prints `0.2.6` and that `PYTHONPATH` puts the
-temporary site before other installations.
+Run `.venv/bin/python -m validation.ibiza_generalization.prepare_runtime`.
+It reuses a valid cache and atomically rebuilds a missing or incompatible one.
+If compilation fails, confirm the local compiler/build dependencies are
+available. The generated runtime README and `runtime_manifest.json` record the
+expected Python/platform signature and artifact hashes.
 
 ### The wrong epoch is selected
 
@@ -662,7 +628,7 @@ replace the solve with a pseudoinverse for this reproduction.
 
 First compare runtime versions in `paper_epoch_manifest.json` and input hashes.
 Then inspect per-iteration discrepancies in `algebra_validation.json`. Confirm
-float64 was retained and the CPU substitution was the only disposable TDL
+float64 was retained and the CPU substitution was the only generated TDL-cache
 edit. Do not change the equations, Sagnac sign, stopping rule, inverse, or
 tolerances merely to force a pass; record a platform-specific discrepancy for
 review.

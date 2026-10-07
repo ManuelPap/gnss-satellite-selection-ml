@@ -267,9 +267,10 @@ git -C /home/manuelpap/PhD/external_references/TDL-GNSS \
 Prepare/verify the scientifically identical shared KLT3 feature cache:
 
 ```bash
-PYTHONPATH=/tmp/gnss-weightnet-repro/pyrtklib-0.2.6-site:src \
-  .venv/bin/python validation/paper_weightnet/prepare_klt3_features.py \
-  --tdl-dir /tmp/gnss-weightnet-repro/tdl-dd5eac6 \
+.venv/bin/python -m validation.ibiza_generalization.prepare_runtime
+
+.venv/bin/python validation/paper_weightnet/prepare_klt3_features.py \
+  --runtime-dir ../external_data/.paper_runtime \
   --observation /tmp/gnss-weightnet-repro/extracted/data/0610_KLT/COM38_210610_025603.obs \
   --ephemeris-glob '/tmp/gnss-weightnet-repro/extracted/data/0610_KLT/sta/hksc161d.21*' \
   --ground-truth /tmp/gnss-weightnet-repro/extracted/data/0610_KLT/20210610_100.txt \

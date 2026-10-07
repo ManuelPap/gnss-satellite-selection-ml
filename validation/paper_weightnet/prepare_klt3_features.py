@@ -6,7 +6,6 @@ from __future__ import annotations
 import argparse
 import glob
 import hashlib
-import importlib.metadata
 import json
 import sys
 from pathlib import Path
@@ -15,10 +14,21 @@ import numpy as np
 
 from core import FEATURE_NAMES, FEATURE_UNITS, SYSTEM_TO_CLOCK_INDEX, construct_features
 
+REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
+if str(REPOSITORY_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPOSITORY_ROOT))
 
-TDL_COMMIT = "dd5eac669676ba0a922102047e58c2dfc9be9267"
-PYRTKLIB_COMMIT = "916d3cc8eb202718a16097cea4a5729bd6b27ac5"
-PYRTKLIB_VERSION = "0.2.6"
+from validation.ibiza_generalization.runtime_cache import (  # noqa: E402
+    DEFAULT_RUNTIME_DIR,
+    PYRTKLIB_COMMIT,
+    PYRTKLIB_VERSION,
+    TDL_COMMIT,
+    import_pyrtklib,
+    load_rtk_util,
+    resolve_runtime,
+)
+
+
 DATASET_URL = (
     "https://www.dropbox.com/scl/fi/d3urwaquf5ema5j0unmt4/"
     "data.zip?rlkey=tuwpx9pdzqtdvoeoqwhcc5gi8&st=wh5qhg6e&dl=1"
@@ -50,7 +60,7 @@ DEFAULT_END_TIME = 1623297556.0
 def parse_args() -> argparse.Namespace:
     here = Path(__file__).resolve().parent
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--tdl-dir", required=True, type=Path)
+    parser.add_argument("--runtime-dir", type=Path, default=DEFAULT_RUNTIME_DIR)
     parser.add_argument("--observation", required=True, type=Path)
     parser.add_argument("--ephemeris-glob", required=True)
     parser.add_argument("--ground-truth", required=True, type=Path)
@@ -140,7 +150,8 @@ def main() -> int:
     args = parse_args()
     observation_path = args.observation.resolve()
     ground_truth_path = args.ground_truth.resolve()
-    tdl_dir = args.tdl_dir.resolve()
+    runtime, _runtime_manifest = resolve_runtime(args.runtime_dir)
+    tdl_dir = runtime.tdl_dir
     output_path = args.output.resolve()
     manifest_path = args.manifest.resolve()
 
@@ -165,18 +176,8 @@ def main() -> int:
         verify(path, EXPECTED_NAVIGATION_HASHES[path.name], f"navigation {path.name}")
         for path in ephemeris_paths
     ]
-    if not (tdl_dir / "rtk_util.py").is_file():
-        raise FileNotFoundError(f"missing rtk_util.py under disposable copy {tdl_dir}")
-
-    sys.path.insert(0, str(tdl_dir))
-    import pyrtklib as prl
-    import rtk_util as util
-
-    installed_version = importlib.metadata.version("pyrtklib")
-    if installed_version != PYRTKLIB_VERSION:
-        raise RuntimeError(
-            f"expected pyrtklib {PYRTKLIB_VERSION}, found {installed_version}"
-        )
+    prl = import_pyrtklib(runtime.pyrtklib_site)
+    util = load_rtk_util(tdl_dir, module_name="paper_klt3_rtk_util")
 
     ground_truth = load_ground_truth_window(
         ground_truth_path, args.start_time, args.end_time

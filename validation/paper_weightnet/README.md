@@ -233,19 +233,25 @@ state equality for the recorded run.
 
 ## Reproduction commands
 
-The external repositories are read-only. Create disposable copies with
-`git archive`, build the pinned pyrtklib hypothesis into a temporary target,
-and replace only `.to('cuda')` with `.to('cpu')` in the disposable TDL copy as
-documented in `../real_klt/README.md`.
+The external repositories are read-only. Prepare or verify the shared,
+persistent generated runtime as documented in `../real_klt/README.md`:
+
+```bash
+.venv/bin/python -m validation.ibiza_generalization.prepare_runtime
+PAPER_RUNTIME="../external_data/.paper_runtime"
+```
+
+The idempotent bootstrap performs the pinned archives, pyrtklib build, CPU
+device substitution, and integrity checks without modifying either reference
+repository.
 
 Prepare KLT3:
 
 ```bash
 .venv/bin/python validation/paper_weightnet/inspect_weightnet_provenance.py
 
-PYTHONPATH="$PYRTKLIB_SITE:$TDL_COPY" .venv/bin/python \
-  validation/paper_weightnet/prepare_klt3_features.py \
-  --tdl-dir "$TDL_COPY" \
+.venv/bin/python validation/paper_weightnet/prepare_klt3_features.py \
+  --runtime-dir "$PAPER_RUNTIME" \
   --observation "$KLT_DIR/COM38_210610_025603.obs" \
   --ephemeris-glob "$KLT_DIR/sta/hksc161d.21*" \
   --ground-truth "$KLT_DIR/20210610_100.txt" \
@@ -264,9 +270,8 @@ Generate the eight KLT1 GPS weights and compare the archived and controlled
 WLS paths:
 
 ```bash
-PYTHONPATH="$PYRTKLIB_SITE:$TDL_COPY" .venv/bin/python \
-  validation/paper_weightnet/compare_nn_weights_real_epoch.py \
-  --tdl-dir "$TDL_COPY" \
+.venv/bin/python validation/paper_weightnet/compare_nn_weights_real_epoch.py \
+  --runtime-dir "$PAPER_RUNTIME" \
   --observation "$KLT_DIR/COM38_210610_025603.obs" \
   --ephemeris-glob "$KLT_DIR/sta/hksc161d.21*"
 ```

@@ -20,6 +20,9 @@ if str(REPOSITORY) not in sys.path:
     sys.path.insert(0, str(REPOSITORY))
 
 from validation.paper_biasnet.check_exported_metrics import aggregate_csv  # noqa: E402
+from validation.ibiza_generalization.runtime_cache import (  # noqa: E402
+    DEFAULT_RUNTIME_DIR,
+)
 from validation.paper_biasnet.held_out import (  # noqa: E402
     DATASET_SPECS,
     evaluate_prepared_dataset,
@@ -73,8 +76,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "--ephemeris-glob", action="append", dest="ephemeris_patterns"
     )
     parser.add_argument("--ground-truth", type=Path)
-    parser.add_argument("--tdl-dir", type=Path)
-    parser.add_argument("--pyrtklib-site", type=Path)
+    parser.add_argument("--runtime-dir", type=Path, default=DEFAULT_RUNTIME_DIR)
     parser.add_argument(
         "--smoke",
         action="store_true",
@@ -154,8 +156,7 @@ def prepare_held_out(args: argparse.Namespace) -> dict[str, object]:
             observation=args.observation,
             ephemeris_patterns=args.ephemeris_patterns,
             ground_truth=args.ground_truth,
-            tdl_dir=args.tdl_dir,
-            pyrtklib_site=args.pyrtklib_site,
+            runtime_dir=args.runtime_dir,
         )
         prepared[dataset_name] = prepare_dataset(spec, inputs)
     return prepared
