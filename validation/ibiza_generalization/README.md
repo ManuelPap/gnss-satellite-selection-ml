@@ -79,6 +79,51 @@ If that exact result set already exists and replacement is intentional, append
 after writing every job and marks the manifest
 `completed_with_failed_epochs`.
 
+## Independent ground-truth evaluation
+
+`ibiz00esp_reference.json` records the explicitly supplied trusted IBIZ00ESP
+coordinate propagated from its published 2020.0 epoch to the 2025-01-01
+evaluation epoch with the EPN solution-2 velocity, together with its
+EUREF/EPN ITRS/IGS20 provenance. The coordinate remains isolated from
+preprocessing and frozen inference; only
+`evaluate_ground_truth.py` consumes it.
+
+The evaluator first verifies the exact 30-file result inventory, every
+result-file SHA-256 against `run_manifest.json`, the 2,856-row count, the
+common accepted-epoch/timestamp sequence, and the absence of failed results.
+It then calculates signed E/N/U, 2D, and 3D error without rerunning a model or
+WLS. The stored `epoch_ols_initial_state[:, :3]` array is evaluated as the
+common validated equal-weight OLS baseline. Across-seed summaries operate on
+the ten seed-level metric values; they never pool epoch errors across seeds.
+
+Generated evaluation products are outside Git under:
+
+```text
+../external_data/ibiza_2025_01_01/results/ground_truth_evaluation/
+```
+
+The directory contains one error JSONL per architecture/seed, the stored OLS
+baseline error JSONL, per-seed metrics, across-seed summaries, paired
+ML-minus-baseline differences, the RINEX approximate-coordinate provenance
+check, and a deterministic evaluation manifest with generated-file hashes.
+Population standard deviations use `ddof=0`; P68, P95, and IQR use NumPy's
+deterministic `method="linear"` quantiles.
+
+Run the completed-result evaluation from the repository root with:
+
+```bash
+.venv/bin/python -m validation.ibiza_generalization.evaluate_ground_truth \
+  --results-dir ../external_data/ibiza_2025_01_01/results/frozen_tdl \
+  --dataset ../external_data/ibiza_2025_01_01/derived/ibiza_preprocessed.npz \
+  --output-dir ../external_data/ibiza_2025_01_01/results/ground_truth_evaluation
+```
+
+This command reads completed inference products and writes only evaluation
+artifacts. It does not invoke inference, preprocessing, normalization,
+training, or WLS. Add `--overwrite` only when replacement of an existing
+evaluation output set is intentional; it never permits replacement of frozen
+inference inputs.
+
 ## Runtime provenance
 
 The compatibility target is:
@@ -180,7 +225,8 @@ Run the scientific/unit controls with:
 .venv/bin/python -m pytest -q \
   tests/test_ibiza_generalization.py \
   tests/test_ibiza_frozen_inference.py \
-  tests/test_ibiza_full_day_batch.py
+  tests/test_ibiza_full_day_batch.py \
+  tests/test_ibiza_ground_truth_evaluation.py
 ```
 
 The controls cover deterministic NPZ bytes and canonical content, structural

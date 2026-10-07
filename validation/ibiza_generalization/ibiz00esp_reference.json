@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "station_id": "IBIZ00ESP",
+  "domes_number": "13454S001",
+  "trusted_reference_ecef_m": {
+    "x": 4967979.25220,
+    "y": 125663.49615,
+    "z": 3984693.03705
+  },
+  "published_reference_ecef_m": {
+    "x": 4967979.3121,
+    "y": 125663.3964,
+    "z": 3984692.9789
+  },
+  "coordinate_reference_frame": {
+    "system": "ITRS",
+    "realization": "IGS20",
+    "parent_frame": "ITRF2020"
+  },
+  "source": {
+    "provider": "EUREF Permanent GNSS Network Central Bureau",
+    "product": "EPN multi-year position and velocity solution EPN_IGS20_C2415",
+    "sinex_identifier": "EUR0OPSSNX_1996001_2026115_00U_SOL.SNX.gz",
+    "coordinate_extract_identifier": "EUR0OPSSNX_1996001_2026115_00U_SOL.SSC",
+    "station_solution_number": 2,
+    "product_url": "https://epncb.oma.be/pub/product/referenceframe/C2415/"
+  },
+  "validity": {
+    "valid_from": "2009-06-24T00:00:00",
+    "valid_to": "2026-04-25T23:59:30",
+    "sinex_start": "09:175:00000",
+    "sinex_end": "26:115:86370"
+  },
+  "coordinate_epoch": {
+    "original_reference_epoch": "2020-01-01T00:00:00",
+    "sinex_reference_epoch": "20:001:00000",
+    "target_evaluation_epoch": "2025-01-01T00:00:00",
+    "propagated_to_epoch": "2025-01-01T00:00:00",
+    "propagation_applied": true,
+    "elapsed_years": 5.0,
+    "velocity_m_per_year": {
+      "vx": -0.01198,
+      "vy": 0.01995,
+      "vz": 0.01163
+    },
+    "propagation_method": "XYZ_2025 = XYZ_2020 + 5.0 * V"
+  },
+  "usage": "Ground truth for post-inference evaluation only. It must never be consumed by preprocessing, model inference, normalization, training, or WLS."
+}
