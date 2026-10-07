@@ -1,16 +1,43 @@
 # Ibiza external-generalization preprocessing
 
-This package creates one deterministic, observation-only Ibiza dataset for
-later TDL-B, TDL-W, and TDL-BW evaluation. It runs the validated paper-era
+This package creates one deterministic, observation-only Ibiza dataset and
+provides common frozen inference for TDL-B, TDL-W, and TDL-BW. Preprocessing
+runs the validated paper-era
 equal-weight OLS preprocessing and stores the raw three-column feature matrix:
 
 ```text
 [SNR[0]/1000, elevation radians, equal-weight OLS residual metres]
 ```
 
-It does not load, train, or evaluate a neural network. It does not compute
-Ibiza normalization and has no ground-truth/reference-coordinate input. Each
-future frozen checkpoint must apply its own frozen KLT3 `StandardizeLayer`.
+Preprocessing does not load, train, or evaluate a neural network. Neither
+preprocessing nor inference computes Ibiza normalization or accepts a
+ground-truth/reference-coordinate input. Frozen inference strictly loads each
+checkpoint's own KLT3 `StandardizeLayer` through `load_state_dict`.
+
+## Frozen checkpoint inventory and inference smoke
+
+`frozen_checkpoint_manifest.json` records the repository-relative path,
+SHA-256, expected state-dict keys, and embedded normalization tensors for all
+30 final seed checkpoints. `checkpoints.py` verifies the complete inventory,
+including exactly seeds 0--9 for each architecture, 30 distinct hashes, and
+bit-identical normalization. Each checkpoint's bytes are hashed before those
+same bytes are deserialized for inference.
+
+The shared `inference.py` path consumes the NPZ's raw `features` rows, applies
+the checkpoint `StandardizeLayer`, runs the released project-side network in
+eval/inference mode, and sends bias, weight, or both into the already validated
+paper-era WLS. No optimizer, backward pass, parameter update, or ground-truth
+data route exists. Every returned epoch includes per-iteration and final normal
+matrix rank/condition diagnostics plus an explicit convergence status.
+
+Run only the intentionally small seed-0 smoke (accepted epochs 0, 1, and 2):
+
+```bash
+.venv/bin/python -m validation.ibiza_generalization.smoke
+```
+
+This command runs three checkpoints total, prints diagnostics without writing
+an accuracy artifact, and makes no positioning-performance claim.
 
 ## Runtime provenance
 
@@ -114,11 +141,13 @@ Run the scientific/unit controls with:
 ```
 
 The controls cover deterministic NPZ bytes and canonical content, structural
-ground-truth independence, identical raw TDL-B/W/BW adapters, feature units,
-rank rejection and OLS diagnostics, row alignment, RINEX first-signal mapping,
-and a KLT1 compatibility smoke test when the disposable KLT environment is
-available. The KLT smoke tolerance is `1e-10` absolute for each raw feature
-and `1e-7 m` absolute for the seven-state OLS initializer.
+ground-truth independence, identical raw TDL-B/W/BW adapters, checkpoint
+inventory/hash enforcement, frozen normalization, inference repeatability and
+immutability, released output semantics, row ordering, feature units, rank and
+condition diagnostics, RINEX first-signal mapping, and a KLT1 compatibility
+smoke test when the disposable KLT environment is available. The KLT smoke
+tolerance is `1e-10` absolute for each raw feature and `1e-7 m` absolute for
+the seven-state OLS initializer.
 
 For a full-data determinism check, run the generation command twice to two
 temporary output/manifest paths and compare both NPZ SHA-256 values. The
