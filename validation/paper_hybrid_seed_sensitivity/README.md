@@ -70,8 +70,9 @@ aggregates; it performs no metric-based ranking or selection.
 
 ## Manual commands
 
-Run these from the repository root after the historical KLT/pyrtklib inputs
-used by the paper reproduction have been prepared.
+Run these from the repository root. The historical KLT data fixtures remain
+separate from the validated paper-era runtime, which defaults to the persistent
+cache at `../external_data/.paper_runtime`.
 
 ### A. One smoke seed
 
@@ -109,4 +110,4 @@ Omit that flag when the output directories are empty. Use `--overwrite` only
 when intentionally replacing an existing generated result. Optional explicit
 historical-input paths are available through
 `--data-root`, `--observation`, `--ephemeris-glob`, `--ground-truth`,
-`--tdl-dir`, and `--pyrtklib-site` on the run scripts.
+and `--runtime-dir` on the run scripts.

@@ -5,8 +5,17 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import sys
 
 import numpy as np
+
+REPOSITORY = Path(__file__).resolve().parents[2]
+if str(REPOSITORY) not in sys.path:
+    sys.path.insert(0, str(REPOSITORY))
+
+from validation.ibiza_generalization.runtime_cache import (  # noqa: E402
+    DEFAULT_RUNTIME_DIR,
+)
 
 from held_out import (
     DATASET_SPECS,
@@ -29,8 +38,7 @@ def main() -> int:
     parser.add_argument("--dataset", choices=("KLT1", "KLT2"), default="KLT1")
     parser.add_argument("--epoch-index", type=int, default=0)
     parser.add_argument("--data-root", type=Path)
-    parser.add_argument("--tdl-dir", type=Path)
-    parser.add_argument("--pyrtklib-site", type=Path)
+    parser.add_argument("--runtime-dir", type=Path, default=DEFAULT_RUNTIME_DIR)
     parser.add_argument(
         "--checkpoint",
         type=Path,
@@ -47,8 +55,7 @@ def main() -> int:
     inputs = resolve_input_paths(
         spec,
         data_root=args.data_root,
-        tdl_dir=args.tdl_dir,
-        pyrtklib_site=args.pyrtklib_site,
+        runtime_dir=args.runtime_dir,
     )
     prepared = prepare_dataset(spec, inputs)
     epoch = prepared.epochs[args.epoch_index]

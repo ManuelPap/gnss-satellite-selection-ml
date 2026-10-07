@@ -280,7 +280,10 @@ attempted because the exact July 2021 dataset is not public.
 
 ## Commands
 
-Run from the repository root with `PYTHONPATH=src:.`.
+Run from the repository root with `PYTHONPATH=src:.`. Commands that need the
+paper-era TDL-GNSS/pyrtklib runtime use the validated persistent cache at
+`../external_data/.paper_runtime` by default; pass `--runtime-dir PATH` to
+select another complete validated cache.
 
 ```bash
 .venv/bin/python validation/paper_hybrid/audit_gt_alignment.py

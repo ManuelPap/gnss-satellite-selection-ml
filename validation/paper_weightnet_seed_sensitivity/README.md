@@ -114,10 +114,11 @@ proof.
 ## Exact manual commands
 
 Run from the repository root.  The default data resolver uses the same audited
-local KLT inputs as the frozen WeightNet evaluation.  The optional explicit
-data/source flags accepted by `run_seed.py`, `run_all_seeds.py`, and
-`validate_controls.py` are `--data-root`, `--observation`,
-`--ephemeris-glob`, `--ground-truth`, `--tdl-dir`, and `--pyrtklib-site`.
+local KLT inputs as the frozen WeightNet evaluation and the validated
+`../external_data/.paper_runtime` cache. The optional explicit flags accepted
+by `run_seed.py`, `run_all_seeds.py`, and `validate_controls.py` are
+`--data-root`, `--observation`, `--ephemeris-glob`, `--ground-truth`, and
+`--runtime-dir`.
 
 ### A. One smoke seed
 

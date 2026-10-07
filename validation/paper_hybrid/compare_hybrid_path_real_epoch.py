@@ -8,10 +8,19 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+import sys
 
 import numpy as np
 import torch
 from torch import nn
+
+REPOSITORY = Path(__file__).resolve().parents[2]
+if str(REPOSITORY) not in sys.path:
+    sys.path.insert(0, str(REPOSITORY))
+
+from validation.ibiza_generalization.runtime_cache import (  # noqa: E402
+    DEFAULT_RUNTIME_DIR,
+)
 
 try:
     from .core import HybridShareNet, solve_paper_hybrid_position
@@ -33,8 +42,7 @@ def parse_args() -> argparse.Namespace:
     here = Path(__file__).resolve().parent
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data-root", type=Path)
-    parser.add_argument("--tdl-dir", type=Path)
-    parser.add_argument("--pyrtklib-site", type=Path)
+    parser.add_argument("--runtime-dir", type=Path, default=DEFAULT_RUNTIME_DIR)
     parser.add_argument("--epoch-index", type=int, default=0)
     parser.add_argument("--output", type=Path, default=here / "forward_equivalence.json")
     parser.add_argument("--trace", type=Path, default=here / "forward_equivalence_trace.npz")
@@ -71,8 +79,7 @@ def main() -> int:
     inputs = resolve_input_paths(
         spec,
         data_root=args.data_root,
-        tdl_dir=args.tdl_dir,
-        pyrtklib_site=args.pyrtklib_site,
+        runtime_dir=args.runtime_dir,
     )
     prepared = prepare_dataset(spec, inputs)
     epoch = prepared.epochs[args.epoch_index]

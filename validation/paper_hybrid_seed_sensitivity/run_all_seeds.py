@@ -12,6 +12,12 @@ from pathlib import Path
 REPOSITORY = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
 PREDEFINED_SEEDS = tuple(range(10))
+if str(REPOSITORY) not in sys.path:
+    sys.path.insert(0, str(REPOSITORY))
+
+from validation.ibiza_generalization.runtime_cache import (  # noqa: E402
+    DEFAULT_RUNTIME_DIR,
+)
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -39,8 +45,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "--ephemeris-glob", action="append", dest="ephemeris_patterns"
     )
     parser.add_argument("--ground-truth", type=Path)
-    parser.add_argument("--tdl-dir", type=Path)
-    parser.add_argument("--pyrtklib-site", type=Path)
+    parser.add_argument("--runtime-dir", type=Path, default=DEFAULT_RUNTIME_DIR)
     parser.add_argument("--overwrite", action="store_true")
     return parser.parse_args(argv)
 
@@ -71,13 +76,13 @@ def command_for_seed(args: argparse.Namespace, seed: int) -> list[str]:
         str(args.checkpoint_dir),
         "--device",
         args.device,
+        "--runtime-dir",
+        str(args.runtime_dir),
     ]
     for option, value in (
         ("--data-root", args.data_root),
         ("--observation", args.observation),
         ("--ground-truth", args.ground_truth),
-        ("--tdl-dir", args.tdl_dir),
-        ("--pyrtklib-site", args.pyrtklib_site),
     ):
         if value is not None:
             command.extend((option, str(value)))
