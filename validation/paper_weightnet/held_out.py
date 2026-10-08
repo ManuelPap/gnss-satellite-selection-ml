@@ -154,22 +154,24 @@ DATASET_SPECS = {
 
 
 @dataclass(frozen=True)
-class InputPaths:
+class FeatureInputPaths:
     observation: Path
     ephemeris_patterns: tuple[str, ...]
-    ground_truth: Path
     tdl_dir: Path
     pyrtklib_site: Path
 
 
 @dataclass(frozen=True)
-class PreparedEpoch:
+class InputPaths(FeatureInputPaths):
+    ground_truth: Path
+
+
+@dataclass(frozen=True)
+class PreparedFeatureEpoch:
     valid_epoch_index: int
     candidate_epoch_index: int
     split_epoch_index: int
     epoch_time: float
-    gt_time: float
-    gt_time_difference_s: float
     satellite_ids: np.ndarray
     satellite_numbers: np.ndarray
     raw_pseudorange_m: np.ndarray
@@ -180,7 +182,28 @@ class PreparedEpoch:
     corrected_pseudorange_m: np.ndarray
     system_clock_indices: np.ndarray
     initial_ols_state: np.ndarray
+
+
+@dataclass(frozen=True)
+class PreparedEpoch(PreparedFeatureEpoch):
+    gt_time: float
+    gt_time_difference_s: float
     ground_truth_geodetic_deg_m: np.ndarray
+
+
+@dataclass(frozen=True)
+class PreparedFeatureDataset:
+    spec: DatasetSpec
+    inputs: FeatureInputPaths
+    raw_split_epoch_count: int
+    candidate_epoch_count: int
+    epochs: tuple[PreparedFeatureEpoch, ...]
+    invalid_epochs: tuple[dict[str, object], ...]
+    input_provenance: dict[str, object]
+
+    @property
+    def measurement_count(self) -> int:
+        return sum(epoch.features.shape[0] for epoch in self.epochs)
 
 
 @dataclass(frozen=True)
@@ -259,35 +282,34 @@ def _first_existing(candidates: Iterable[Path], label: str) -> Path:
     raise FileNotFoundError(f"could not locate {label}; checked:\n  {rendered}")
 
 
-def resolve_input_paths(
+def _input_roots(data_root: Path | None) -> list[Path]:
+    if data_root is not None:
+        roots = [data_root.resolve()]
+        if (roots[0] / "data").is_dir():
+            roots.insert(0, roots[0] / "data")
+        return roots
+    return [
+        Path("/tmp/gnss-weightnet-repro/extracted/data"),
+        Path("/tmp/tdl_gnss_paper_data/data"),
+        repository_root() / "validation/paper_weightnet/data",
+    ]
+
+
+def resolve_feature_input_paths(
     spec: DatasetSpec,
     *,
     data_root: Path | None = None,
     observation: Path | None = None,
     ephemeris_patterns: Sequence[str] | None = None,
-    ground_truth: Path | None = None,
     runtime_dir: Path = DEFAULT_RUNTIME_DIR,
-) -> InputPaths:
-    """Resolve explicit inputs first, then known local reproduction locations."""
+) -> FeatureInputPaths:
+    """Resolve only inputs consumed by historical preprocessing and OLS."""
 
-    if data_root is not None:
-        roots = [data_root.resolve()]
-        if (roots[0] / "data").is_dir():
-            roots.insert(0, roots[0] / "data")
-    else:
-        roots = [
-            Path("/tmp/gnss-weightnet-repro/extracted/data"),
-            Path("/tmp/tdl_gnss_paper_data/data"),
-            repository_root() / "validation/paper_weightnet/data",
-        ]
+    roots = _input_roots(data_root)
 
     observation_path = observation.resolve() if observation else _first_existing(
         (root / spec.observation_relative for root in roots),
         f"{spec.name} historical observation file",
-    )
-    ground_truth_path = ground_truth.resolve() if ground_truth else _first_existing(
-        (root / spec.ground_truth_relative for root in roots),
-        f"{spec.name} historical ground-truth file",
     )
     if ephemeris_patterns:
         eph = tuple(str(item) for item in ephemeris_patterns)
@@ -309,16 +331,47 @@ def resolve_input_paths(
             )
 
     runtime, _runtime_manifest = resolve_runtime(runtime_dir)
-    return InputPaths(
+    return FeatureInputPaths(
         observation=observation_path,
         ephemeris_patterns=eph,
-        ground_truth=ground_truth_path,
         tdl_dir=runtime.tdl_dir,
         pyrtklib_site=runtime.pyrtklib_site,
     )
 
 
-def load_historical_modules(inputs: InputPaths) -> tuple[object, object]:
+def resolve_input_paths(
+    spec: DatasetSpec,
+    *,
+    data_root: Path | None = None,
+    observation: Path | None = None,
+    ephemeris_patterns: Sequence[str] | None = None,
+    ground_truth: Path | None = None,
+    runtime_dir: Path = DEFAULT_RUNTIME_DIR,
+) -> InputPaths:
+    """Resolve historical preprocessing plus later evaluation inputs."""
+
+    feature_inputs = resolve_feature_input_paths(
+        spec,
+        data_root=data_root,
+        observation=observation,
+        ephemeris_patterns=ephemeris_patterns,
+        runtime_dir=runtime_dir,
+    )
+    roots = _input_roots(data_root)
+    ground_truth_path = ground_truth.resolve() if ground_truth else _first_existing(
+        (root / spec.ground_truth_relative for root in roots),
+        f"{spec.name} historical ground-truth file",
+    )
+    return InputPaths(
+        observation=feature_inputs.observation,
+        ephemeris_patterns=feature_inputs.ephemeris_patterns,
+        tdl_dir=feature_inputs.tdl_dir,
+        pyrtklib_site=feature_inputs.pyrtklib_site,
+        ground_truth=ground_truth_path,
+    )
+
+
+def load_historical_modules(inputs: FeatureInputPaths) -> tuple[object, object]:
     """Import the pinned preprocessing dependency without writing to it."""
 
     source = inputs.tdl_dir / "rtk_util.py"
@@ -339,9 +392,10 @@ def load_historical_modules(inputs: InputPaths) -> tuple[object, object]:
     return prl, util
 
 
-def _verify_input_files(spec: DatasetSpec, inputs: InputPaths) -> dict[str, object]:
+def _verify_feature_input_files(
+    spec: DatasetSpec, inputs: FeatureInputPaths
+) -> dict[str, object]:
     observation = file_record(inputs.observation)
-    ground_truth = file_record(inputs.ground_truth)
     navigation_paths = [
         Path(item).resolve()
         for pattern in inputs.ephemeris_patterns
@@ -354,8 +408,6 @@ def _verify_input_files(spec: DatasetSpec, inputs: InputPaths) -> dict[str, obje
     if spec.name.startswith("KLT"):
         if observation["sha256"] != KLT_OBSERVATION_SHA256:
             raise RuntimeError("KLT observation hash does not match the audited archive")
-        if ground_truth["sha256"] != KLT_GROUND_TRUTH_SHA256:
-            raise RuntimeError("KLT ground-truth hash does not match the audited archive")
         actual_navigation = {
             Path(item["path"]).name: item["sha256"] for item in navigation
         }
@@ -365,12 +417,31 @@ def _verify_input_files(spec: DatasetSpec, inputs: InputPaths) -> dict[str, obje
             )
     return {
         "observation": observation,
-        "ground_truth": ground_truth,
         "navigation": navigation,
         "tdl_rtk_util": file_record(inputs.tdl_dir / "rtk_util.py"),
         "pyrtklib_version": PYRTKLIB_VERSION,
         "pyrtklib_hypothesis_commit": PYRTKLIB_COMMIT,
         "pyrtklib_publication_version_uncertain": True,
+    }
+
+
+def _verify_input_files(spec: DatasetSpec, inputs: InputPaths) -> dict[str, object]:
+    feature_provenance = _verify_feature_input_files(spec, inputs)
+    ground_truth = file_record(inputs.ground_truth)
+    if spec.name.startswith("KLT") and ground_truth["sha256"] != KLT_GROUND_TRUTH_SHA256:
+        raise RuntimeError("KLT ground-truth hash does not match the audited archive")
+    return {
+        "observation": feature_provenance["observation"],
+        "ground_truth": ground_truth,
+        "navigation": feature_provenance["navigation"],
+        "tdl_rtk_util": feature_provenance["tdl_rtk_util"],
+        "pyrtklib_version": feature_provenance["pyrtklib_version"],
+        "pyrtklib_hypothesis_commit": feature_provenance[
+            "pyrtklib_hypothesis_commit"
+        ],
+        "pyrtklib_publication_version_uncertain": feature_provenance[
+            "pyrtklib_publication_version_uncertain"
+        ],
     }
 
 
@@ -441,14 +512,13 @@ def _raw_observation_by_satellite(epoch: object) -> dict[int, tuple[float, float
     return result
 
 
-def prepare_dataset(spec: DatasetSpec, inputs: InputPaths) -> PreparedDataset:
-    """Apply the released timestamp and OLS-validity filters without tuning."""
+def prepare_feature_dataset(
+    spec: DatasetSpec, inputs: FeatureInputPaths
+) -> PreparedFeatureDataset:
+    """Stop after released preprocessing, equal-weight OLS, and raw features."""
 
-    provenance = _verify_input_files(spec, inputs)
+    provenance = _verify_feature_input_files(spec, inputs)
     prl, util = load_historical_modules(inputs)
-    ground_truth = load_ground_truth_window(
-        inputs.ground_truth, spec.start_time, spec.end_time
-    )
     ephemeris_arg: str | list[str]
     if len(inputs.ephemeris_patterns) == 1:
         ephemeris_arg = inputs.ephemeris_patterns[0]
@@ -458,14 +528,13 @@ def prepare_dataset(spec: DatasetSpec, inputs: InputPaths) -> PreparedDataset:
     prl.sortobs(obs)
     split_epochs = util.split_obs(obs)
 
-    prepared: list[PreparedEpoch] = []
+    prepared: list[PreparedFeatureEpoch] = []
     invalid: list[dict[str, object]] = []
     candidate_index = 0
     for split_index, epoch in enumerate(split_epochs):
         epoch_time = float(epoch.data[0].time.time + epoch.data[0].time.sec)
         if not (epoch_time > spec.start_time and epoch_time < spec.end_time):
             continue
-        gt = nearest_ground_truth(ground_truth, epoch_time)
         current_candidate_index = candidate_index
         candidate_index += 1
         try:
@@ -535,13 +604,11 @@ def prepare_dataset(spec: DatasetSpec, inputs: InputPaths) -> PreparedDataset:
             dtype=np.float64,
         )
         prepared.append(
-            PreparedEpoch(
+            PreparedFeatureEpoch(
                 valid_epoch_index=len(prepared),
                 candidate_epoch_index=current_candidate_index,
                 split_epoch_index=split_index,
                 epoch_time=epoch_time,
-                gt_time=float(gt[0]),
-                gt_time_difference_s=float(gt[0] - epoch_time),
                 satellite_ids=ids,
                 satellite_numbers=retained_satellites,
                 raw_pseudorange_m=raw[:, 0],
@@ -552,19 +619,67 @@ def prepare_dataset(spec: DatasetSpec, inputs: InputPaths) -> PreparedDataset:
                 corrected_pseudorange_m=corrected,
                 system_clock_indices=clock_indices,
                 initial_ols_state=np.asarray(result["pos"], dtype=np.float64),
-                ground_truth_geodetic_deg_m=gt[1:4],
             )
         )
 
     if not prepared:
         raise RuntimeError(f"{spec.name} produced no valid released-code epochs")
-    return PreparedDataset(
+    return PreparedFeatureDataset(
         spec=spec,
         inputs=inputs,
         raw_split_epoch_count=len(split_epochs),
         candidate_epoch_count=candidate_index,
         epochs=tuple(prepared),
         invalid_epochs=tuple(invalid),
+        input_provenance=provenance,
+    )
+
+
+def prepare_dataset(spec: DatasetSpec, inputs: InputPaths) -> PreparedDataset:
+    """Attach historical ground truth after the unchanged feature stage."""
+
+    provenance = _verify_input_files(spec, inputs)
+    ground_truth = load_ground_truth_window(
+        inputs.ground_truth, spec.start_time, spec.end_time
+    )
+    feature_inputs = FeatureInputPaths(
+        observation=inputs.observation,
+        ephemeris_patterns=inputs.ephemeris_patterns,
+        tdl_dir=inputs.tdl_dir,
+        pyrtklib_site=inputs.pyrtklib_site,
+    )
+    feature_dataset = prepare_feature_dataset(spec, feature_inputs)
+    prepared: list[PreparedEpoch] = []
+    for epoch in feature_dataset.epochs:
+        gt = nearest_ground_truth(ground_truth, epoch.epoch_time)
+        prepared.append(
+            PreparedEpoch(
+                valid_epoch_index=epoch.valid_epoch_index,
+                candidate_epoch_index=epoch.candidate_epoch_index,
+                split_epoch_index=epoch.split_epoch_index,
+                epoch_time=epoch.epoch_time,
+                satellite_ids=epoch.satellite_ids,
+                satellite_numbers=epoch.satellite_numbers,
+                raw_pseudorange_m=epoch.raw_pseudorange_m,
+                raw_snr_units=epoch.raw_snr_units,
+                features=epoch.features,
+                satellite_positions_ecef_m=epoch.satellite_positions_ecef_m,
+                satellite_clock_bias_s=epoch.satellite_clock_bias_s,
+                corrected_pseudorange_m=epoch.corrected_pseudorange_m,
+                system_clock_indices=epoch.system_clock_indices,
+                initial_ols_state=epoch.initial_ols_state,
+                gt_time=float(gt[0]),
+                gt_time_difference_s=float(gt[0] - epoch.epoch_time),
+                ground_truth_geodetic_deg_m=gt[1:4],
+            )
+        )
+    return PreparedDataset(
+        spec=spec,
+        inputs=inputs,
+        raw_split_epoch_count=feature_dataset.raw_split_epoch_count,
+        candidate_epoch_count=feature_dataset.candidate_epoch_count,
+        epochs=tuple(prepared),
+        invalid_epochs=feature_dataset.invalid_epochs,
         input_provenance=provenance,
     )
 
@@ -930,9 +1045,12 @@ __all__ = [
     "SPEED_OF_LIGHT_M_S",
     "DatasetSpec",
     "EpochEvaluation",
+    "FeatureInputPaths",
     "InputPaths",
     "PreparedDataset",
     "PreparedEpoch",
+    "PreparedFeatureDataset",
+    "PreparedFeatureEpoch",
     "cardinality_record",
     "common_input_arguments",
     "evaluate_epoch",
@@ -943,7 +1061,9 @@ __all__ = [
     "load_frozen_weightnet",
     "normalize_with_frozen_klt3",
     "prepare_dataset",
+    "prepare_feature_dataset",
     "repository_root",
+    "resolve_feature_input_paths",
     "resolve_input_paths",
     "sha256",
     "summarize_results",
