@@ -113,10 +113,10 @@ PYTHONPATH=src .venv/bin/python -m validation.current_tdl_reproduction.train \
   --threads 1 all --seeds 0 1 2 3 4 5 6 7 8 9 --epochs 120
 ```
 
-Do not run it until the smoke and review gate have passed. Non-empty seed
-directories are never overwritten.
+The experiment was run only after the smoke and review gate passed. Non-empty
+seed directories are never overwritten.
 
-After all ten runs complete, the exact future freeze-and-evaluation command is:
+After all ten runs completed, the exact freeze-and-evaluation command was:
 
 ```bash
 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 \
@@ -133,3 +133,19 @@ not pooled.
 Yin et al. (Sensors 2026, 26, 5622) values are recorded only as an external
 literature sanity reference in the evaluation manifest. They are not tuning
 targets or evidence of exact reproduction.
+
+## Completed held-out result summary
+
+The scientific interpretation and two-decimal result tables are in
+[`KLT_HELDOUT_RESULTS.md`](KLT_HELDOUT_RESULTS.md). Check that the tracked note
+still agrees with the immutable JSON artifacts using the read-only renderer:
+
+```bash
+PYTHONPATH=src .venv/bin/python \
+  -m validation.current_tdl_reproduction.render_klt_results \
+  --check validation/current_tdl_reproduction/KLT_HELDOUT_RESULTS.md
+```
+
+Without `--check`, the renderer prints the regenerated note to standard output.
+It never loads or modifies a checkpoint, preprocesses data, trains a model, or
+selects a seed.
