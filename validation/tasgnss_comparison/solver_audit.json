@@ -1,0 +1,103 @@
+{
+  "audit_scope": "read-only pre-experiment audit",
+  "classification": "TASGNSS is a later refactor, not the original Hu paper-era implementation.",
+  "compatibility_gate": {
+    "decision": "stop_phase_a",
+    "passed": false,
+    "missing_fixed_arrays": [
+      "current TASGNSS broadcast-ionosphere delay per retained row",
+      "current TASGNSS Saastamoinen-troposphere delay per retained row"
+    ],
+    "reason": "The frozen NPZ contains corrected pseudorange, satellite position/clock, elevation, support, and the seven-state OLS solution, but not the atmospheric arrays TASGNSS freezes at a separate RTKLIB pntpos receiver position. Recomputing them would be new preprocessing, not an exact same input."
+  },
+  "current_tasgnss": {
+    "commit": "fdd7e8ebc0019ad9b7c73f31363de066290d057a",
+    "remote": "https://github.com/PolyU-TASLAB/TASGNSS.git",
+    "status_short": [],
+    "version": "0.1.5",
+    "entry_point": "tasgnss.core.wls_pnt_pos",
+    "observation_model": "tasgnss.core.pseudorange_observe_func",
+    "state": "ECEF x/y/z plus G,C,E,R,J,I,SBAS receiver clocks in metres",
+    "satellite_clock": "-CLIGHT*sdt in predicted pseudorange",
+    "sagnac": "computed once using the RTKLIB pntpos approximate receiver position",
+    "ionosphere": "broadcast IONOOPT_BRDC, computed once using populated geodist LOS",
+    "troposphere": "Saastamoinen TROPOPT_SAAS, computed once using populated geodist LOS",
+    "code_bias": "prange applies DCB and constellation TGD/BGD corrections",
+    "elevation_azimuth": "geodist populates LOS before satazel for atmosphere; a separate ECEF-to-ENU calculation provides stored az/el",
+    "measurement_exclusion": "fewer than four raw rows, absent ephemeris, zero corrected pseudorange, or too few observations for active constellation count",
+    "maximum_iterations": 20,
+    "convergence": "norm(dp) <= 0.001 m; reaching maxiter is failure",
+    "rank_conditioning": "no explicit rank/condition rejection",
+    "numpy_linear_algebra": "numpy.linalg.lstsq(W@H, W@residual, rcond=None)",
+    "torch_linear_algebra": "pinv(W@H)@(W@residual)",
+    "weight_semantics": "custom w forms W=diag(w), so effective precision is w^2; constant positive uniform scaling is solution-invariant",
+    "initial_state": "public wls_pnt_pos starts ECEF position and all receiver clocks at zero",
+    "atmosphere_recomputed_inside_iterations": false,
+    "atmosphere_is_differentiable": false,
+    "avoids_historical_unpopulated_los": true,
+    "accepts_corrected_pseudorange_at_public_solver_entry": false,
+    "paper_corrected_pseudorange_as_raw_input_would_double_apply_code_bias": true
+  },
+  "historical_paper_runtime": {
+    "implementation": "TDL-GNSS rtk_util.py at dd5eac669676ba0a922102047e58c2dfc9be9267",
+    "pyrtklib": "0.2.6 hypothesis/build at 916d3cc8eb202718a16097cea4a5729bd6b27ac5",
+    "paper_ols_atmosphere": "recomputed every iteration from geodist-populated LOS",
+    "neutral_torch_atmosphere": "recomputed calls receive unpopulated LOS and yield the established zero-delay path",
+    "state": "ECEF x/y/z plus G,C,E,R receiver clocks in metres; inactive columns removed",
+    "maximum_iterations": 10,
+    "convergence": "norm(dp) <= 0.0001 m",
+    "linear_algebra": "explicit inverse of H.T@W@H",
+    "weight_semantics": "direct diagonal precision H.T@W@H"
+  },
+  "selected_current_backend": {
+    "selector": "origin (rtklib environment variable is not demo5)",
+    "module": "pyrtklib",
+    "version": "0.2.7",
+    "source_commit": "1c468dbe14074f1b7b3276ce265fe0fa5d6bef8b",
+    "source_remote": "https://github.com/IPNL-POLYU/pyrtklib.git",
+    "source_status_short": [],
+    "binary_sha256": "90f001b216bacd63749b0a66b02e825db9cff2a76e30ca72fc317dd4b6319ade",
+    "build_policy": "built from a disposable source copy outside the read-only reference repository"
+  },
+  "independent_numpy_torch_check": {
+    "epoch_split_index": 0,
+    "maximum_absolute_state_difference": 1.7316370559683492e-09,
+    "tolerance": 1e-07,
+    "passed": true,
+    "neural_model_used": false
+  },
+  "other_reference_repositories": {
+    "TDL-GNSS": {
+      "commit": "a640b2832c90daeb1ce25644a1da91c8edeb13fc",
+      "remote": "https://github.com/ebhrz/TDL-GNSS.git",
+      "status_short": []
+    },
+    "RTKLIB": {
+      "commit": "180043ee24b6d2b168f98b64be15f69d50046b1a",
+      "remote": "https://github.com/tomojitakasu/RTKLIB.git",
+      "pre_existing_status_short": [
+        "D app/consapp/rnx2rtkp/gcc/opts1.conf",
+        "D app/consapp/rnx2rtkp/gcc/opts2.conf",
+        "D app/consapp/rnx2rtkp/gcc/opts3.conf",
+        "D app/consapp/rnx2rtkp/gcc/opts4.conf",
+        "?? app/consapp/rnx2rtkp/gcc/conf/"
+      ]
+    }
+  },
+  "comparison_repository_before_work": {
+    "commit": "8974736c7337d984883eb74355cd6825ad28ff21",
+    "remote": "git@github.com:ManuelPap/gnss-satellite-selection-ml.git",
+    "pre_existing_status_short": [
+      "M tests/test_ibiza_ground_truth_evaluation.py",
+      "M validation/ibiza_generalization/README.md",
+      "?? validation/ibiza_generalization/evaluation_summary.md",
+      "?? validation/ibiza_generalization/render_evaluation_summary.py"
+    ]
+  },
+  "runtime": {
+    "python": "3.12.3",
+    "numpy": "2.5.1",
+    "torch": "2.14.0+cpu"
+  },
+  "frozen_ibiza_npz_sha256": "edb0189e9eadf3266d75984e3041a90306dd44b3ebecc0101eb188f933dc88c5"
+}
