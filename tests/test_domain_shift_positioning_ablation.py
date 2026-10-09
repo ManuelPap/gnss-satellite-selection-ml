@@ -8,10 +8,10 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-import validation.domain_shift.positioning_ablation as ablation
+import validation.tdl_3feature_paper_analysis.positioning_ablation as ablation
 
 
-SOURCE = ablation.REPOSITORY_ROOT / "validation/domain_shift/positioning_ablation.py"
+SOURCE = ablation.REPOSITORY_ROOT / "validation/tdl_3feature_paper_analysis/positioning_ablation.py"
 
 
 @pytest.fixture(scope="module")

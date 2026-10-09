@@ -8,7 +8,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from validation.domain_shift.freeze_klt_features import (
+from validation.tdl_3feature_paper_analysis.freeze_klt_features import (
     DEFAULT_OUTPUT,
     EXPECTED_COUNTS,
     FEATURE_COLUMNS,
@@ -38,7 +38,7 @@ from validation.paper_weightnet.held_out import (
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 GENERATOR_SOURCE = (
-    REPOSITORY_ROOT / "validation/domain_shift/freeze_klt_features.py"
+    REPOSITORY_ROOT / "validation/tdl_3feature_paper_analysis/freeze_klt_features.py"
 )
 MANIFEST = DEFAULT_OUTPUT / "feature_cache_manifest.json"
 

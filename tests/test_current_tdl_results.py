@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from validation.current_tdl_reproduction import render_klt_results as results
+from validation.tdl_9feature_tasgnss_analysis import render_klt_results as results
 
 
 ARTIFACT_ROOT = results.DEFAULT_ARTIFACT_ROOT

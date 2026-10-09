@@ -705,7 +705,7 @@ def _save_figure(figure: object, path: Path) -> None:
         path,
         dpi=150,
         bbox_inches="tight",
-        metadata={"Software": "validation.domain_shift.model_response_probe"},
+        metadata={"Software": "validation.tdl_3feature_paper_analysis.model_response_probe"},
     )
 
 

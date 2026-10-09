@@ -1,5 +1,9 @@
 # Current TDL-GNSS + TASGNSS independent reproduction
 
+This directory contains the current nine-feature `HybridShareSysNet` + TASGNSS
+pipeline: KLT3 training, ten-seed KLT1/KLT2 held-out validation, and the future
+zero-shot Ibiza generalization evaluation.
+
 This harness reproduces the released current-stack execution path at pinned
 TDL-GNSS `a640b283`, TASGNSS `fdd7e8e`, and pyrtklib `1c468db`. It is an
 independent training experiment. The unavailable official
@@ -92,7 +96,7 @@ Run the non-scientific deterministic smoke test:
 
 ```bash
 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 \
-PYTHONPATH=src .venv/bin/python -m validation.current_tdl_reproduction.train \
+PYTHONPATH=src .venv/bin/python -m validation.tdl_9feature_tasgnss_analysis.train \
   --output-root /home/manuelpap/PhD/external_data/current_tdl_reproduction \
   --threads 1 smoke --seed 0 --subset-size 404 --epochs 1
 ```
@@ -108,7 +112,7 @@ The single manual command for the full experiment is:
 
 ```bash
 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 \
-PYTHONPATH=src .venv/bin/python -m validation.current_tdl_reproduction.train \
+PYTHONPATH=src .venv/bin/python -m validation.tdl_9feature_tasgnss_analysis.train \
   --output-root /home/manuelpap/PhD/external_data/current_tdl_reproduction \
   --threads 1 all --seeds 0 1 2 3 4 5 6 7 8 9 --epochs 120
 ```
@@ -120,7 +124,7 @@ After all ten runs completed, the exact freeze-and-evaluation command was:
 
 ```bash
 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 \
-PYTHONPATH=src .venv/bin/python -m validation.current_tdl_reproduction.evaluate_klt \
+PYTHONPATH=src .venv/bin/python -m validation.tdl_9feature_tasgnss_analysis.evaluate_klt \
   --output-root /home/manuelpap/PhD/external_data/current_tdl_reproduction \
   --threads 1
 ```
@@ -142,8 +146,8 @@ still agrees with the immutable JSON artifacts using the read-only renderer:
 
 ```bash
 PYTHONPATH=src .venv/bin/python \
-  -m validation.current_tdl_reproduction.render_klt_results \
-  --check validation/current_tdl_reproduction/KLT_HELDOUT_RESULTS.md
+  -m validation.tdl_9feature_tasgnss_analysis.render_klt_results \
+  --check validation/tdl_9feature_tasgnss_analysis/KLT_HELDOUT_RESULTS.md
 ```
 
 Without `--check`, the renderer prints the regenerated note to standard output.

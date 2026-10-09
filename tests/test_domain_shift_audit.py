@@ -6,7 +6,7 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from validation.domain_shift.audit import (
+from validation.tdl_3feature_paper_analysis.audit import (
     DEFAULT_CHECKPOINT_MANIFEST,
     DEFAULT_IBIZA,
     DEFAULT_IBIZA_MANIFEST,
@@ -30,7 +30,7 @@ from validation.paper_weightnet.core import StandardizeLayer
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
-AUDIT_SOURCE = REPOSITORY_ROOT / "validation/domain_shift/audit.py"
+AUDIT_SOURCE = REPOSITORY_ROOT / "validation/tdl_3feature_paper_analysis/audit.py"
 
 
 def test_frozen_ibiza_and_all_model_artifacts_match_manifests() -> None:

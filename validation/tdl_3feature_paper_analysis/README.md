@@ -1,4 +1,9 @@
-# KLT3 versus Ibiza feature-domain audit
+# Paper-era three-feature TDL-GNSS analysis
+
+This directory contains paper-era TDL-GNSS analyses using the three input
+features `[C/N0/SNR, elevation, residual]`. It covers KLT-to-Ibiza domain-shift
+investigations, historical model-response probes, and positioning ablations.
+It is distinct from the current nine-feature HybridShareSysNet experiment.
 
 This read-only diagnostic compares the exact paper-era KLT3 raw training
 features with the already frozen Ibiza raw feature artifact. It uses only
@@ -16,7 +21,7 @@ Run from the repository root:
 
 ```bash
 MPLCONFIGDIR=/tmp/matplotlib-domain-shift \
-  .venv/bin/python -m validation.domain_shift.audit
+  .venv/bin/python -m validation.tdl_3feature_paper_analysis.audit
 ```
 
 Bulk CSVs and plots are written outside Git to

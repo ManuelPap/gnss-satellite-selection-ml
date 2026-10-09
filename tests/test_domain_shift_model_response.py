@@ -8,7 +8,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from validation.domain_shift.model_response_probe import (
+from validation.tdl_3feature_paper_analysis.model_response_probe import (
     DEFAULT_OUTPUT,
     EXPECTED_ROWS,
     FEATURE_NAMES,
@@ -34,7 +34,7 @@ from validation.ibiza_generalization.checkpoints import (
 )
 
 
-PROBE_SOURCE = REPOSITORY_ROOT / "validation/domain_shift/model_response_probe.py"
+PROBE_SOURCE = REPOSITORY_ROOT / "validation/tdl_3feature_paper_analysis/model_response_probe.py"
 
 
 @pytest.fixture(scope="module")

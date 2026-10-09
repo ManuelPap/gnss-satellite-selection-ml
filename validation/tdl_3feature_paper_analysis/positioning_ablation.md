@@ -50,7 +50,7 @@ Run from the repository root:
 
 ```bash
 MPLCONFIGDIR=/tmp/matplotlib-positioning-ablation \
-  .venv/bin/python -m validation.domain_shift.positioning_ablation
+  .venv/bin/python -m validation.tdl_3feature_paper_analysis.positioning_ablation
 ```
 
 The command refuses to overwrite an existing directory and atomically

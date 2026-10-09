@@ -323,7 +323,12 @@ def _write_csv(path: Path, rows: Sequence[Mapping[str, object]]) -> None:
 
 def _save_figure(figure: object, path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    figure.savefig(path, dpi=160, bbox_inches="tight", metadata={"Software": "domain_shift.audit"})  # type: ignore[attr-defined]
+    figure.savefig(
+        path,
+        dpi=160,
+        bbox_inches="tight",
+        metadata={"Software": "tdl_3feature_paper_analysis.audit"},
+    )  # type: ignore[attr-defined]
 
 
 def make_plots(datasets: Sequence[Dataset], output: Path) -> list[Path]:

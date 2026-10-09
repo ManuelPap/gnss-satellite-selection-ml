@@ -1,4 +1,4 @@
-"""Independent reproduction of the current TDL-GNSS + TASGNSS stack."""
+"""Current nine-feature HybridShareSysNet + TASGNSS experiments."""
 
 from .core import (
     DATASET_SPECS,

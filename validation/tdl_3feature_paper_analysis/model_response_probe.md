@@ -16,7 +16,7 @@ Run from the repository root:
 
 ```bash
 MPLCONFIGDIR=/tmp/matplotlib-model-response \
-  .venv/bin/python -m validation.domain_shift.model_response_probe
+  .venv/bin/python -m validation.tdl_3feature_paper_analysis.model_response_probe
 ```
 
 The command refuses to overwrite an existing output and atomically publishes

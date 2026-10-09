@@ -1,4 +1,9 @@
-# TASGNSS neutral Ibiza comparison
+# TASGNSS Ibiza solver-stack audit
+
+This directory contains the solver-focused Ibiza audit of historical
+differentiable Torch-WLS behavior versus the current TASGNSS stack, including
+neutral TASGNSS analysis. It is not the current neural-network training
+experiment.
 
 This audit preserves a crucial provenance boundary: current TASGNSS at
 `fdd7e8e` is a later refactor, not the original Hu paper-era implementation.
@@ -59,7 +64,7 @@ Run from the comparison repository root:
 
 ```bash
 PYTHONPATH=src:. .venv/bin/python -m \
-  validation.tasgnss_comparison.run_current_stack
+  validation.tasgnss_ibiza_solver_audit.run_current_stack
 ```
 
 Generated artifacts live outside Git under

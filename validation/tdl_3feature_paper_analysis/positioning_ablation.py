@@ -1036,7 +1036,7 @@ def _save_figure(figure: object, path: Path) -> None:
         path,
         dpi=150,
         bbox_inches="tight",
-        metadata={"Software": "validation.domain_shift.positioning_ablation"},
+        metadata={"Software": "validation.tdl_3feature_paper_analysis.positioning_ablation"},
     )
 
 

@@ -8,8 +8,8 @@ import numpy as np
 import pytest
 import torch
 
-from validation.current_tdl_reproduction import core
-from validation.current_tdl_reproduction.evaluate_klt import (
+from validation.tdl_9feature_tasgnss_analysis import core
+from validation.tdl_9feature_tasgnss_analysis.evaluate_klt import (
     _assert_frozen_unchanged,
     across_seed_summary,
 )
@@ -213,8 +213,8 @@ def test_across_seed_summary_requires_all_ten_and_does_not_pool_epochs() -> None
 
 
 def test_training_and_evaluation_code_enforce_dataset_separation_and_pairing() -> None:
-    train_source = (ROOT / "validation/current_tdl_reproduction/train.py").read_text()
-    evaluate_source = (ROOT / "validation/current_tdl_reproduction/evaluate_klt.py").read_text()
+    train_source = (ROOT / "validation/tdl_9feature_tasgnss_analysis/train.py").read_text()
+    evaluate_source = (ROOT / "validation/tdl_9feature_tasgnss_analysis/evaluate_klt.py").read_text()
     assert '"training_datasets": ["KLT3"]' in train_source
     assert '"held_out_datasets": ["KLT1", "KLT2"]' in train_source
     assert 'for dataset in ("KLT1", "KLT2")' in evaluate_source

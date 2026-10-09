@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from validation.tasgnss_comparison.core import (
+from validation.tasgnss_ibiza_solver_audit.core import (
     IBIZA_NPZ_SHA256,
     accuracy_summary,
     enu_errors,
@@ -23,8 +23,8 @@ ROOT = Path(__file__).resolve().parents[1]
 PHD_ROOT = ROOT.parent
 IBIZA_NPZ = PHD_ROOT / "external_data/ibiza_2025_01_01/derived/ibiza_preprocessed.npz"
 REFERENCE = ROOT / "validation/ibiza_generalization/ibiz00esp_reference.json"
-AUDIT = ROOT / "validation/tasgnss_comparison/solver_audit.json"
-RUNNER = ROOT / "validation/tasgnss_comparison/run_current_stack.py"
+AUDIT = ROOT / "validation/tasgnss_ibiza_solver_audit/solver_audit.json"
+RUNNER = ROOT / "validation/tasgnss_ibiza_solver_audit/run_current_stack.py"
 HISTORICAL = PHD_ROOT / "external_data/domain_shift/positioning_ablation/positioning_ablation_epoch_results.npz"
 OUTPUT = PHD_ROOT / "external_data/tasgnss_comparison/ibiza_neutral"
 

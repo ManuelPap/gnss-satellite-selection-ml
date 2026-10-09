@@ -27,7 +27,7 @@ numerics, timestamp filters, constellation handling, row order, and
 Run from the repository root:
 
 ```bash
-PYTHONPATH=src .venv/bin/python -m validation.domain_shift.freeze_klt_features
+PYTHONPATH=src .venv/bin/python -m validation.tdl_3feature_paper_analysis.freeze_klt_features
 ```
 
 The command refuses to overwrite its output directory. It executes the full
