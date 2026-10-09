@@ -153,3 +153,57 @@ PYTHONPATH=src .venv/bin/python \
 Without `--check`, the renderer prints the regenerated note to standard output.
 It never loads or modifies a checkpoint, preprocesses data, trains a model, or
 selects a seed.
+
+## Zero-shot Ibiza evaluation
+
+`evaluate_ibiza.py` implements the next, external-domain phase without
+reopening training. It verifies the authoritative SHA-256 values of all ten
+frozen final checkpoints, loads each checkpoint's embedded KLT3 scaler, keeps
+the model in evaluation mode, and performs no optimizer, training, fine-tuning,
+normalization fitting, or seed selection.
+
+The controlled comparison is frozen `HybridShareSysNet` plus current TASGNSS
+versus the same current TASGNSS solver with identity weights and zero bias.
+Every reported metric uses the exact neutral/learned solved intersection for
+that seed. Two denominators are predeclared:
+
+1. `primary_current_stack`: all 2,880 raw Ibiza epochs, followed only by
+   current preprocessing status, the frozen feature-validity rule, and solver
+   status;
+2. `secondary_historical_common`: the previously frozen 2,856 paper-era
+   accepted epoch IDs, followed by the same current feature and solver rules.
+
+No ground-truth error threshold is permitted. The runner serializes every
+seed's features/input hashes, model outputs, and ECEF positions before it first
+opens the propagated EPN reference. It then computes 2D, 3D, component, paired
+delta, and ten-seed summary metrics. Across-seed statistics aggregate the ten
+per-seed summaries and never pool seed-by-epoch rows.
+
+Run the focused controls, including a real one-epoch deterministic replay:
+
+```bash
+CURRENT_TDL_IBIZA_RUN_INTEGRATION=1 PYTHONPATH=src \
+  .venv/bin/python -m pytest -q tests/test_current_tdl_ibiza.py
+```
+
+An optional non-scientific one-epoch smoke must use a disposable output path:
+
+```bash
+OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 PYTHONPATH=src \
+  .venv/bin/python -m validation.tdl_9feature_tasgnss_analysis.evaluate_ibiza \
+  --threads 1 --smoke-epochs 1 --seed 0 --output-dir /tmp/current-tdl-ibiza-smoke
+```
+
+After human review, the full zero-shot run is launched manually with:
+
+```bash
+OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 PYTHONPATH=src \
+  .venv/bin/python -m validation.tdl_9feature_tasgnss_analysis.evaluate_ibiza \
+  --threads 1
+```
+
+Generated caches, pre-ground-truth positions, and JSON results are written
+outside Git under
+`../external_data/current_tdl_reproduction/ibiza_evaluation/`. The full run
+produces `ibiza_evaluation_manifest.json`, `per_seed_metrics.json`, and
+`across_seed_summary.json`.
