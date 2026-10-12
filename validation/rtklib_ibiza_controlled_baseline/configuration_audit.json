@@ -1,0 +1,71 @@
+{
+  "chosen_configuration": {
+    "excluded_satellites": [],
+    "ionosphere": "broadcast",
+    "pos1_elmask_degrees": 7.0,
+    "pos1_frequency": "L1/single-frequency pseudorange",
+    "pos1_navsys": {
+      "bitmask": 13,
+      "systems": [
+        "GPS",
+        "GLONASS",
+        "Galileo"
+      ]
+    },
+    "pos1_posmode": "single",
+    "satellite_ephemeris": "broadcast",
+    "snr_mask": "off for rover and base; all frequency masks zero",
+    "solution_direction": "forward",
+    "troposphere": "Saastamoinen"
+  },
+  "decision_policy": "The 7 degree elevation mask is a predeclared scientific configuration choice. All other configuration was selected from frozen preprocessing semantics, observed system support, historical configuration, and official RTKLIB source semantics; no Ibiza ground-truth accuracy was used and the mask must not be tuned further using ground truth.",
+  "frozen_current_tasgnss": {
+    "atmosphere": {
+      "ionosphere": "broadcast IONOOPT_BRDC",
+      "troposphere": "Saastamoinen TROPOPT_SAAS"
+    },
+    "constellation_counts_in_preprocessed_artifact": {
+      "E": 21976,
+      "G": 28597,
+      "R": 23263
+    },
+    "constellations": [
+      "G",
+      "R",
+      "E"
+    ],
+    "elevation_mask": "No TASGNSS-level mask",
+    "signal": "first RTKLIB pseudorange slot",
+    "snr_mask": "none",
+    "weighting": "uniform"
+  },
+  "previous_local_rtklib_configuration_observed": {
+    "source_status": "pre-existing local untracked configuration; intentionally deleted before the controlled experiment",
+    "former_path": "external_references/RTKLIB/app/consapp/rnx2rtkp/gcc/conf/single-spp.conf",
+    "settings_observed_before_deletion": {
+      "elmask_degrees": 10,
+      "frequency": 1,
+      "ionosphere": "broadcast",
+      "navsys": 9,
+      "posmode": "single",
+      "sateph": "broadcast",
+      "soltype": "forward",
+      "troposphere": "est-ztd (handled as Saastamoinen by official pntpos.c)"
+    },
+    "current_experiment_input": false,
+    "used_as_final_configuration": false
+  },
+  "material_semantic_mismatches": [
+    "The predeclared 7 degree RTKLIB elevation mask differs from TASGNSS, which has no TASGNSS-level elevation mask and retains observations below 7 degrees.",
+    "RTKLIB applies its conventional elevation/system-dependent stochastic model and chi-square/GDOP validation; neutral TASGNSS uses an identity weight matrix and its own iterative solver acceptance.",
+    "RTKLIB and TASGNSS have different state layouts, iteration paths, code-bias handling details, and initialization/reuse behavior; these are intrinsic solver differences, not tuned away.",
+    "The RTKLIB SPP configuration consumes the first-frequency code according to RTKLIB signal-priority rules; this is technically close to, but not an exact semantic identity with, TASGNSS's first populated pseudorange slot.",
+    "No RTKLIB setting reproduces the TDL feature-validity filter. That filter is used only to declare the frozen 2,849 comparison timestamps after full-interval RTKLIB solving."
+  ],
+  "official_rtklib_semantics_sources": [
+    "src/options.c",
+    "src/rtkcmn.c:prcopt_default",
+    "src/pntpos.c"
+  ],
+  "schema_version": 1
+}
